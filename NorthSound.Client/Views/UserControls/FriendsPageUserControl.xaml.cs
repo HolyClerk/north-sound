@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NorthSoundClient
+namespace NorthSound.Client.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для FriendsPageUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FriendsPageUserControl : UserControl
     {
-        public MainWindow()
+        public FriendsPageUserControl()
         {
             InitializeComponent();
         }

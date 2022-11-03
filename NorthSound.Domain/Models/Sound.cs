@@ -1,0 +1,49 @@
+﻿namespace NorthSound.Domain.Models;
+
+public class Sound
+{
+	public Sound() { }
+
+	public string Name 
+	{ 
+		get; 
+		set; 
+	}
+
+	public string Author
+	{
+		get;
+		set;
+	}
+
+	public string? Description
+	{
+		get;
+		set;
+	}
+
+	public string? RelativePath
+	{
+		get;
+		set;
+	}
+
+	public string? AbsolutePath
+	{
+		get;
+		set;
+	}
+
+	public static Sound[] GetTemplateAudios()
+	{
+		return new Sound[]
+		{
+			new Sound() { Name = "Seven Nation Army", Author = "" },
+			new Sound() { Name = "Sweet Dreams", Author = "Marilyn Manson" },
+			new Sound() { Name = "Закройте", Author = "лампабикт" },
+			new Sound() { Name = "Пачка сигарет", Author = "Виктор Цой - КИНО" },
+			new Sound() { Name = "Пачка сигарет", Author = "Lizer" },
+			new Sound() { Name = "ОЙДА", Author = "Oxxxymiron" },
+        };
+	}
+}

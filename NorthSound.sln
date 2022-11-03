@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthSoundClient", "NorthSoundClient\NorthSoundClient.csproj", "{9F7829F2-EB35-4BF8-A2C8-4F2A805DF124}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthSound.Client", "NorthSound.Client\NorthSound.Client.csproj", "{5BB8D0C4-3E31-483F-B4EF-E41C97A5FDA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthSound.Domain", "NorthSound.Domain\NorthSound.Domain.csproj", "{3FEDFDAF-AE2E-47EC-B77C-461B66444538}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F7829F2-EB35-4BF8-A2C8-4F2A805DF124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F7829F2-EB35-4BF8-A2C8-4F2A805DF124}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F7829F2-EB35-4BF8-A2C8-4F2A805DF124}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F7829F2-EB35-4BF8-A2C8-4F2A805DF124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB8D0C4-3E31-483F-B4EF-E41C97A5FDA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB8D0C4-3E31-483F-B4EF-E41C97A5FDA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB8D0C4-3E31-483F-B4EF-E41C97A5FDA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB8D0C4-3E31-483F-B4EF-E41C97A5FDA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
