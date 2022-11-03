@@ -13,7 +13,8 @@
     Height="450"
     MinWidth="800"
     MinHeight="450"
-    Background="#263147"
+    Background="#FF1A1A1A"
+    WindowStyle="None"
     mc:Ignorable="d">
 
     <Window.DataContext>
@@ -28,18 +29,83 @@
             <Setter Property="Width" Value="20" />
             <Setter Property="Height" Value="20" />
         </Style>
+
+        <Style x:Key="BarIconsStyle" TargetType="fa:ImageAwesome">
+            <Setter Property="Foreground" Value="#FFD7DCDE" />
+            <Setter Property="Width" Value="17" />
+            <Setter Property="Height" Value="17" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="BarTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFD7DCDE" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TabControl Style="{DynamicResource TabDarkStyle}" TabStripPlacement="Left">
+        <Grid Grid.Row="0" Background="#292929">
+            <Grid.InputBindings />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource BarTextStyle}"
+                Text="{Binding Title}" />
+
+            <StackPanel
+                HorizontalAlignment="Right"
+                Background="Transparent"
+                Orientation="Horizontal">
+                <fa:ImageAwesome
+                    Width="15"
+                    Icon="Regular_WindowMinimize"
+                    Style="{StaticResource BarIconsStyle}">
+                    <fa:ImageAwesome.InputBindings>
+                        <MouseBinding Command="{StaticResource MinimizeApplication}" MouseAction="LeftClick" />
+                    </fa:ImageAwesome.InputBindings>
+                </fa:ImageAwesome>
+
+                <fa:ImageAwesome
+                    Height="14"
+                    Icon="Regular_WindowMaximize"
+                    Style="{StaticResource BarIconsStyle}">
+                    <fa:ImageAwesome.InputBindings>
+                        <MouseBinding
+                            Command="{StaticResource SwitchWindowState}"
+                            CommandParameter="min"
+                            MouseAction="LeftClick" />
+                    </fa:ImageAwesome.InputBindings>
+                </fa:ImageAwesome>
+
+                <fa:ImageAwesome
+                    Margin="5,5,10,5"
+                    Foreground="#FFD25E5E"
+                    Icon="Regular_WindowClose"
+                    Style="{StaticResource BarIconsStyle}">
+                    <fa:ImageAwesome.InputBindings>
+                        <MouseBinding Command="{StaticResource CloseApplication}" MouseAction="LeftClick" />
+                    </fa:ImageAwesome.InputBindings>
+                </fa:ImageAwesome>
+            </StackPanel>
+        </Grid>
+
+        <TabControl
+            Grid.Row="1"
+            Style="{DynamicResource TabDarkStyle}"
+            TabStripPlacement="Left">
             <TabItem x:Name="Main" Style="{DynamicResource TabItemDarkStyle}">
                 <TabItem.Header>
                     <StackPanel>
+                        <fa:ImageAwesome
+                            Width="30"
+                            Height="30"
+                            Foreground="#FFCFCD8F"
+                            Icon="Solid_Home" />
                         <TextBlock
                             Margin="10"
                             HorizontalAlignment="Center"
@@ -48,9 +114,6 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <TabItem.Content>
-                    <views:MainUserControl />
-                </TabItem.Content>
             </TabItem>
 
             <TabItem x:Name="Audio" Style="{DynamicResource TabItemDarkStyle}">
@@ -105,18 +168,5 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl>
-
-        <StatusBar
-            Grid.Row="1"
-            VerticalAlignment="Center"
-            Background="#242d3f"
-            Foreground="#e0e0e0">
-            <StatusBarItem>
-                <TextBlock Margin="5" Text="Что-то" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <ProgressBar />
-            </StatusBarItem>
-        </StatusBar>
     </Grid>
 </Window>
