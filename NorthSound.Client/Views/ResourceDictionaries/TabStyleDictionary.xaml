@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="TabDarkStyle" TargetType="TabControl">
-        <Setter Property="Background" Value="#121112" />
+        <Setter Property="Background" Value="#FF21252E" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
@@ -28,7 +28,7 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="#121212" />
+                                <Setter Property="FontWeight" Value="DemiBold" />
                                 <Setter Property="Foreground" Value="#e0e0e0" />
                                 <Setter Property="FontSize" Value="15" />
                             </Trigger>

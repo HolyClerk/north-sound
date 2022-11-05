@@ -65,14 +65,14 @@
             Grid.Column="0"
             Grid.ColumnSpan="2">
             <GroupBox
-                Background="#121212"
+                Background="#292e38"
                 BorderThickness="0"
                 Foreground="#FFE8E8E8">
 
                 <ListBox
                     Name="lstCars"
                     HorizontalContentAlignment="Stretch"
-                    Background="#121212"
+                    Background="#292e38"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8"
                     ItemsSource="{Binding AudioPlaylistItems}"
@@ -83,13 +83,13 @@
                                 <Border
                                     Margin="0,3"
                                     Padding="2"
-                                    BorderBrush="#cf8f8f"
+                                    BorderBrush="#FFC1C1C1"
                                     BorderThickness="0.3"
                                     CornerRadius="2">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
 
                                         <Grid.ColumnDefinitions>
@@ -100,35 +100,35 @@
 
                                         <Border
                                             Grid.RowSpan="2"
-                                            Width="50"
-                                            Height="50"
-                                            Margin="5"
-                                            BorderBrush="#cf8f8f"
+                                            Width="45"
+                                            Height="45"
+                                            Margin="7,5"
+                                            BorderBrush="White"
                                             BorderThickness="0.3"
                                             CornerRadius="1" />
 
                                         <TextBlock
                                             Grid.Row="0"
                                             Grid.Column="1"
-                                            Margin="8,3"
+                                            Margin="3"
                                             VerticalAlignment="Center"
                                             FontWeight="Bold"
-                                            Foreground="#FFD8D8D8"
+                                            Foreground="#FFCCCCCC"
                                             Text="{Binding Path=Name}" />
 
                                         <TextBlock
                                             Grid.Row="1"
                                             Grid.Column="1"
-                                            Margin="8,3"
+                                            Margin="3"
                                             VerticalAlignment="Center"
-                                            Foreground="#FFB1B1B1"
+                                            Foreground="#FF989898"
                                             Text="{Binding Path=Author}" />
 
                                         <fa:ImageAwesome
                                             Grid.RowSpan="2"
                                             Grid.Column="2"
-                                            Width="20"
-                                            Height="20"
+                                            Width="18"
+                                            Height="18"
                                             Margin="15"
                                             Foreground="#FFEFEFEF"
                                             Icon="Solid_Play"
@@ -140,15 +140,6 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <!--<ListBox
-                    Background="#FF0F0F0F"
-                    BorderBrush="#FF292929"
-                    BorderThickness="0"
-                    DisplayMemberPath="GeneratedTitle"
-                    Foreground="#FFCCCCCC"
-                    ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
-                    ItemsSource="{Binding AudioPlaylistItems}"
-                    SelectedItem="{Binding SelectedAudio}" />-->
             </GroupBox>
         </Grid>
     </Grid>
