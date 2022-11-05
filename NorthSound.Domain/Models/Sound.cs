@@ -7,12 +7,12 @@ public class Sound
 	public string GeneratedTitle
 	{
 		get
-        {
+		{
 			var name = string.IsNullOrWhiteSpace(Name) ? "Неизвестно" : Name;
 			var author = string.IsNullOrWhiteSpace(Author) ? "Неизвестно" : Author;
 
 			return $"{name} - {author}";
-        }
+		}
 	}
 
 	public string Name 
