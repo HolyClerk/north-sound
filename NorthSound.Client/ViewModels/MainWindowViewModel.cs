@@ -6,12 +6,7 @@ namespace NorthSound.Client.ViewModels;
 internal class MainWindowViewModel : ViewModelBase
 {
     private string _title = "";
-    private TabItem _selectedTabItem;
-
-    public MainWindowViewModel()
-    {
-        Title = "North Sound - Главная страница";
-    }
+    private TabItem? _selectedTabItem;
 
     public string Title
     {
@@ -19,13 +14,13 @@ internal class MainWindowViewModel : ViewModelBase
         set => Set(ref _title, value);
     }
 
-    public TabItem SelectedTabItem
+    public TabItem? SelectedTabItem
     {
         get => _selectedTabItem;
         set
         {
             Set(ref _selectedTabItem, value);
-            Title = $"North Audio - {value.Name}";
+            Title = $"North Sound - {value.Name}";
         }
     }
 }
