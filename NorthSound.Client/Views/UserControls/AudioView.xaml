@@ -1,12 +1,68 @@
-﻿<UserControl x:Class="NorthSound.Client.Views.UserControls.AudioView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+﻿<UserControl
+    x:Class="NorthSound.Client.Views.UserControls.AudioView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.com/icons/"
+    xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:SoundViewModel />
+    </UserControl.DataContext>
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            x:Name="HeaderAudio"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <TextBlock
+                Margin="15"
+                VerticalAlignment="Top"
+                FontSize="16"
+                Foreground="#FFD2D2D2"
+                Text="{Binding}"
+                TextAlignment="Center" />
+
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <fa:ImageAwesome
+                    Foreground="#FFEFEFEF"
+                    Icon="Regular_PlayCircle"
+                    Style="{DynamicResource PlayStyle}" />
+            </StackPanel>
+            <StackPanel
+                Margin="0,0,0,25"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal">
+                <Slider Width="300" Style="{DynamicResource SliderPlayStyle}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid
+            x:Name="AudioList"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

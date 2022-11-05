@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Views/ResourceDictionaries/TabStyleDictionary.xaml" />
+                <ResourceDictionary Source="Views/ResourceDictionaries/AudioPageDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <com:CloseApplication x:Key="CloseApplication" />
