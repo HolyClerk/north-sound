@@ -15,4 +15,23 @@
     </Style>
 
     <Style x:Key="SliderPlayStyle" TargetType="Slider" />
+
+    <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter
+                            x:Name="ContentSite"
+                            Margin="20,15,15,15"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            ContentSource="Header" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+
 </ResourceDictionary>
