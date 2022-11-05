@@ -45,23 +45,28 @@ public class Sound
 		set;
 	}
 
-	public static Sound[] GetTemplateAudios()
-	{
-		return new Sound[]
-		{
-			new Sound() { Name = "Seven Nation Army", Author = "" },
-			new Sound() { Name = "Sweet Dreams", Author = "Marilyn Manson" },
-			new Sound() { Name = "Закройте", Author = "лампабикт" },
-			new Sound() { Name = "Пачка сигарет", Author = "Виктор Цой - КИНО" },
-			new Sound() { Name = "Пачка сигарет", Author = "Lizer" },
-			new Sound() { Name = "ОЙДА", Author = "Oxxxymiron" },
-        };
-	}
-
     public bool IsAnyPropsContains(string filter)
     {
         return
             Name.ToLower().Contains(filter.ToLower()) ||
             Author.ToLower().Contains(filter.ToLower());
     }
+
+    public static Sound[] GetTemplateAudios()
+    {
+        return new Sound[]
+        {
+            new Sound() { Name = "Seven Nation Army", Author = "" },
+            new Sound() { Name = "Sweet Dreams", Author = "Marilyn Manson" },
+            new Sound() { Name = "Закройте", Author = "лампабикт" },
+            new Sound() { Name = "Пачка сигарет", Author = "Виктор Цой - КИНО" },
+            new Sound() { Name = "Пачка сигарет", Author = "Lizer" },
+            new Sound() { Name = "ОЙДА", Author = "Oxxxymiron" },
+        };
+    }
+
+	public override string ToString()
+	{
+		return GeneratedTitle;
+	}
 }

@@ -10,6 +10,7 @@ internal class SoundViewModel : ViewModelBase
     private string? _selectedAudioTitle;
     private string? _filterText;
     private ICollectionView? _audioPlaylistItems;
+    private Sound _selectedAudio;
 
     public SoundViewModel()
     {
@@ -19,22 +20,28 @@ internal class SoundViewModel : ViewModelBase
         AudioPlaylistItems.Filter = FilterAudio;
     }
 
-    public string FilterText
+    public string? FilterText
     {
         get => _filterText;
         set => Set(ref _filterText, value);
     }
 
-    public string SelectedAudioTitle
+    public string? SelectedAudioTitle
     {
-        get { return _selectedAudioTitle; }
+        get => _selectedAudioTitle;
         set => Set(ref _selectedAudioTitle, value);
     }
 
     public ICollectionView AudioPlaylistItems
     {
-        get { return _audioPlaylistItems; }
+        get => _audioPlaylistItems; 
         set => Set(ref _audioPlaylistItems, value);
+    }
+
+    public Sound SelectedAudio
+    {
+        get => _selectedAudio;
+        set => Set(ref _selectedAudio, value);
     }
 
     private bool FilterAudio(object obj)

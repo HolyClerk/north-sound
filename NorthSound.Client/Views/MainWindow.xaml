@@ -127,7 +127,7 @@
                 </TabItem.Header>
 
                 <TabItem.Content>
-                    <views:AudioView />
+                    <views:AudioPage />
                 </TabItem.Content>
             </TabItem>
 
@@ -140,7 +140,7 @@
                 </TabItem.Header>
 
                 <TabItem.Content>
-                    <views:AudioView />
+                    <views:LibrarySoundPage />
                 </TabItem.Content>
             </TabItem>
 
