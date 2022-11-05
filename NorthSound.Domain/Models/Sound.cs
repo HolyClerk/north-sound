@@ -4,6 +4,17 @@ public class Sound
 {
 	public Sound() { }
 
+	public string GeneratedTitle
+	{
+		get
+        {
+			var name = string.IsNullOrWhiteSpace(Name) ? "Неизвестно" : Name;
+			var author = string.IsNullOrWhiteSpace(Author) ? "Неизвестно" : Author;
+
+			return $"{name} - {author}";
+        }
+	}
+
 	public string Name 
 	{ 
 		get; 
@@ -46,4 +57,11 @@ public class Sound
 			new Sound() { Name = "ОЙДА", Author = "Oxxxymiron" },
         };
 	}
+
+    public bool IsAnyPropsContains(string filter)
+    {
+        return
+            Name.ToLower().Contains(filter.ToLower()) ||
+            Author.ToLower().Contains(filter.ToLower());
+    }
 }

@@ -37,7 +37,7 @@
                 VerticalAlignment="Top"
                 FontSize="16"
                 Foreground="#FFD2D2D2"
-                Text="{Binding}"
+                Text="{Binding SelectedAudioTitle}"
                 TextAlignment="Center" />
 
             <StackPanel
@@ -63,6 +63,25 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="0"
-            Grid.ColumnSpan="2" />
+            Grid.ColumnSpan="2">
+            <GroupBox
+                Background="#FF0F0F0F"
+                BorderBrush="#FF292929"
+                BorderThickness="0.3">
+                <GroupBox.Header>
+                    <TextBlock
+                        FontSize="16"
+                        Foreground="#FFD2D2D2"
+                        Text="Мои Аудио" />
+                </GroupBox.Header>
+                <ListBox
+                    Background="#FF0F0F0F"
+                    BorderBrush="#FF292929"
+                    BorderThickness="0"
+                    DisplayMemberPath="GeneratedTitle"
+                    Foreground="#FFCCCCCC"
+                    ItemsSource="{Binding AudioPlaylistItems}" />
+            </GroupBox>
+        </Grid>
     </Grid>
 </UserControl>

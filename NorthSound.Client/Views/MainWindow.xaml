@@ -63,8 +63,8 @@
                 Background="Transparent"
                 Orientation="Horizontal">
                 <fa:ImageAwesome
-                    Width="15"
-                    Icon="Regular_WindowMinimize"
+                    Height="15"
+                    Icon="Solid_WindowMinimize"
                     Style="{StaticResource BarIconsStyle}">
                     <fa:ImageAwesome.InputBindings>
                         <MouseBinding Command="{StaticResource MinimizeApplication}" MouseAction="LeftClick" />
@@ -72,8 +72,8 @@
                 </fa:ImageAwesome>
 
                 <fa:ImageAwesome
-                    Height="14"
-                    Icon="Regular_WindowMaximize"
+                    Height="15"
+                    Icon="Solid_WindowMaximize"
                     Style="{StaticResource BarIconsStyle}">
                     <fa:ImageAwesome.InputBindings>
                         <MouseBinding
@@ -84,9 +84,10 @@
                 </fa:ImageAwesome>
 
                 <fa:ImageAwesome
+                    Height="15"
                     Margin="5,5,10,5"
                     Foreground="#FFD25E5E"
-                    Icon="Regular_WindowClose"
+                    Icon="Solid_WindowClose"
                     Style="{StaticResource BarIconsStyle}">
                     <fa:ImageAwesome.InputBindings>
                         <MouseBinding Command="{StaticResource CloseApplication}" MouseAction="LeftClick" />
