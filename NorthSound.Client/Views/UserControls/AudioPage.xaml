@@ -37,7 +37,7 @@
                 VerticalAlignment="Top"
                 FontSize="16"
                 Foreground="#FFD2D2D2"
-                Text="{Binding SelectedAudioTitle}"
+                Text="{Binding SelectedAudio.GeneratedTitle}"
                 TextAlignment="Center" />
 
             <StackPanel
@@ -81,7 +81,7 @@
                     DisplayMemberPath="GeneratedTitle"
                     Foreground="#FFCCCCCC"
                     ItemsSource="{Binding AudioPlaylistItems}"
-                    SelectedIndex="{Binding SelectedAudio}" />
+                    SelectedItem="{Binding SelectedAudio}" />
             </GroupBox>
         </Grid>
     </Grid>
