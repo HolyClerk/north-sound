@@ -19,8 +19,8 @@
                     <ControlTemplate TargetType="TabItem">
                         <Grid Name="Panel" Background="Transparent">
                             <ContentPresenter
-                                x:Name="ContentSite"
-                                Margin="20,15,15,15"
+                                Name="ContentPanel"
+                                Margin="0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Center"
                                 ContentSource="Header" />
@@ -28,13 +28,12 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="FontWeight" Value="DemiBold" />
+                                <Setter Property="FontSize" Value="14" />
                                 <Setter Property="Foreground" Value="#e0e0e0" />
-                                <Setter Property="FontSize" Value="15" />
                             </Trigger>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="FontSize" Value="15" />
+                                <Setter Property="FontSize" Value="14" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
