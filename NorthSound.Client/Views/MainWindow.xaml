@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
-    Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+    Title="{Binding Title}"
     Width="830"
     Height="530"
     MinWidth="530"
@@ -67,15 +67,17 @@
             BorderThickness="3"
             CornerRadius="0, 0, 11, 11"
             MouseDown="BorderMouseDown">
-            <Grid Margin="3">
+            <Grid Margin="3" VerticalAlignment="Center">
                 <TextBlock
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Style="{StaticResource BarTextStyle}"
                     Text="{Binding Title}" />
 
                 <Grid
                     Margin="2"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="Transparent">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
