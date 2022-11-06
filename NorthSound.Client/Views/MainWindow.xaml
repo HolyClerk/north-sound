@@ -35,9 +35,15 @@
 
         <Style x:Key="BarIconsStyle" TargetType="fa:ImageAwesome">
             <Setter Property="Foreground" Value="#FFD7DCDE" />
-            <Setter Property="Width" Value="17" />
-            <Setter Property="Height" Value="17" />
-            <Setter Property="Margin" Value="5" />
+            <Setter Property="Width" Value="15" />
+            <Setter Property="Height" Value="15" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Width" Value="21" />
+                    <Setter Property="Height" Value="21" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="BarTextStyle" TargetType="TextBlock">
@@ -58,20 +64,27 @@
             Grid.Row="0"
             Background="#FF232323"
             BorderBrush="#FF232323"
-            BorderThickness="4"
-            CornerRadius="0, 0, 11, 11">
-            <Grid>
+            BorderThickness="3"
+            CornerRadius="0, 0, 11, 11"
+            MouseDown="BorderMouseDown">
+            <Grid Margin="3">
                 <TextBlock
                     HorizontalAlignment="Center"
                     Style="{StaticResource BarTextStyle}"
                     Text="{Binding Title}" />
 
-                <StackPanel
+                <Grid
+                    Margin="2"
                     HorizontalAlignment="Right"
-                    Background="Transparent"
-                    Orientation="Horizontal">
+                    Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
                     <fa:ImageAwesome
-                        Height="15"
+                        Grid.Column="0"
                         Icon="Solid_WindowMinimize"
                         Style="{StaticResource BarIconsStyle}">
                         <fa:ImageAwesome.InputBindings>
@@ -80,7 +93,7 @@
                     </fa:ImageAwesome>
 
                     <fa:ImageAwesome
-                        Height="15"
+                        Grid.Column="1"
                         Icon="Solid_WindowMaximize"
                         Style="{StaticResource BarIconsStyle}">
                         <fa:ImageAwesome.InputBindings>
@@ -92,8 +105,7 @@
                     </fa:ImageAwesome>
 
                     <fa:ImageAwesome
-                        Height="15"
-                        Margin="5,5,10,5"
+                        Grid.Column="2"
                         Foreground="#FFD25E5E"
                         Icon="Solid_WindowClose"
                         Style="{StaticResource BarIconsStyle}">
@@ -101,7 +113,7 @@
                             <MouseBinding Command="{StaticResource CloseApplication}" MouseAction="LeftClick" />
                         </fa:ImageAwesome.InputBindings>
                     </fa:ImageAwesome>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Border>
 

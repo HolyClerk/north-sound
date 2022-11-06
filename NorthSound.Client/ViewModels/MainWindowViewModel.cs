@@ -20,7 +20,7 @@ internal class MainWindowViewModel : ViewModelBase
         set
         {
             Set(ref _selectedTabItem, value);
-            Title = $"North Sound - {value.Name}";
+            Title = $"North Sound - {value?.Name}";
         }
     }
 }
