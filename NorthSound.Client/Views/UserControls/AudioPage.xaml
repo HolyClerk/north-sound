@@ -53,6 +53,7 @@
             Padding="5"
             BorderThickness="1"
             CornerRadius="5">
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -111,6 +112,13 @@
             Padding="5"
             BorderThickness="1"
             CornerRadius="5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.25">
+                    <GradientStop Offset="0" Color="#E535264C" />
+                    <GradientStop Offset="1" Color="#FF202020" />
+                </LinearGradientBrush>
+            </Border.Background>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -172,44 +180,24 @@
 
                 <Slider
                     Grid.Row="1"
-                    Width="10"
-                    Margin="0,1,0,0"
-                    HorizontalAlignment="Center"
-                    Maximum="100"
-                    Orientation="Vertical"
                     Style="{DynamicResource SliderSetStyle}"
                     Value="75" />
 
                 <Slider
                     Grid.Row="1"
                     Grid.Column="1"
-                    Width="10"
-                    Margin="0,1,0,0"
-                    HorizontalAlignment="Center"
-                    Maximum="2"
-                    Minimum="0"
-                    Orientation="Vertical"
                     Style="{DynamicResource SliderSetStyle}"
-                    TickFrequency="10"
                     Value="1" />
 
                 <Slider
                     Grid.Row="1"
                     Grid.Column="2"
-                    Width="10"
-                    Margin="0,1,0,0"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical"
                     Style="{DynamicResource SliderSetStyle}"
                     Value="4" />
 
                 <Slider
                     Grid.Row="1"
                     Grid.Column="3"
-                    Width="10"
-                    Margin="0,1,0,0"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical"
                     Style="{DynamicResource SliderSetStyle}"
                     Value="4" />
             </Grid>
@@ -235,7 +223,7 @@
 
                 <TextBox
                     Width="200"
-                    Height="20"
+                    Height="30"
                     Margin="5,0"
                     Padding="8,0,18,0"
                     HorizontalAlignment="Right"
@@ -268,10 +256,20 @@
                         Name="lstCars"
                         Margin="0,7"
                         HorizontalContentAlignment="Stretch"
-                        BorderThickness="0"
+                        BorderBrush="#FFCCC4C4"
+                        BorderThickness="0,0.5"
                         Foreground="#FFE8E8E8"
                         ItemsSource="{Binding AudioPlaylistItems}"
-                        SelectedItem="{Binding SelectedAudio}">
+                        SelectedItem="{Binding SelectedAudio}"
+                        VirtualizingPanel.CacheLength="20"
+                        VirtualizingPanel.IsContainerVirtualizable="True"
+                        VirtualizingPanel.IsVirtualizing="True"
+                        VirtualizingPanel.VirtualizationMode="Recycling">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -332,7 +330,7 @@
                                                 Width="15"
                                                 Height="15"
                                                 Margin="15"
-                                                Foreground="#276bb0"
+                                                Foreground="#FFBA77EC"
                                                 Icon="Solid_Play"
                                                 Style="{DynamicResource PlayStyle}" />
                                         </Grid>

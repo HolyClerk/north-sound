@@ -50,7 +50,7 @@
                         <Ellipse.Fill>
                             <RadialGradientBrush>
                                 <GradientStop Offset="0" Color="#FFA1ABC1" />
-                                <GradientStop Offset="1" Color="#FF7490CE" />
+                                <GradientStop Offset="1" Color="#FF7F74CE" />
                             </RadialGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
@@ -82,6 +82,10 @@
     </ControlTemplate>
 
     <Style x:Key="SliderSetStyle" TargetType="{x:Type Slider}">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="0,3" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />

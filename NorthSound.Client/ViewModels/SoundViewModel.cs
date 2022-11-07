@@ -2,7 +2,6 @@
 using NorthSound.Domain.Models;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Data;
 
 namespace NorthSound.Client.ViewModels;
@@ -15,7 +14,14 @@ internal class SoundViewModel : ViewModelBase
 
     public SoundViewModel()
     {
-        AudioPlaylistItems = CollectionViewSource.GetDefaultView(Sound.GetTemplateAudios());
+        var soundsTemplate = new Sound[100000];
+
+        for (int i = 0; i < soundsTemplate.Length; i++)
+        {
+            soundsTemplate[i] = new Sound() { Author = "FOR TEST", Name = "FOR TEST" };
+        }
+
+        AudioPlaylistItems = CollectionViewSource.GetDefaultView(soundsTemplate);
         BindFilter(FilterAudio);
     }
 

@@ -67,32 +67,19 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <!--<fa:ImageAwesome
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Panel.ZIndex="1"
-            Width="214"
-            Height="117"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Icon="Solid_Wind"
-            Tag="TabIcon">
-            <fa:ImageAwesome.Foreground>
-                <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
-                    <GradientStop Offset="1" Color="#FF74C4F9" />
-                    <GradientStop Offset="0" Color="#FF8298CA" />
-                </RadialGradientBrush>
-            </fa:ImageAwesome.Foreground>
-        </fa:ImageAwesome>-->
-
         <!--  HEADER  -->
         <Border
             Grid.Row="0"
-            Background="{StaticResource HeaderDark}"
             BorderBrush="{StaticResource HeaderDark}"
-            BorderThickness="3"
+            BorderThickness="0"
             CornerRadius="0, 0, 11, 11"
             MouseDown="BorderMouseDown">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#FF232935" />
+                    <GradientStop Offset="1" Color="#FF202020" />
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid Margin="10">
                 <TextBlock
                     Margin="5"
@@ -155,6 +142,7 @@
             SelectedItem="{Binding SelectedTabItem}"
             Style="{DynamicResource TabDarkStyle}"
             TabStripPlacement="Left">
+
             <!--  MAIN  -->
 
             <!--  MY AUDIO  -->

@@ -62,21 +62,15 @@
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
                     <Border
-                        Height="3"
-                        BorderThickness="1"
+                        Height="4"
+                        BorderThickness="0"
                         SnapsToDevicePixels="True">
                         <Border.Background>
-                            <RadialGradientBrush RadiusX="0.6" RadiusY="0.8">
+                            <RadialGradientBrush>
                                 <GradientStop Offset="0" Color="#FF8D8CBF" />
                                 <GradientStop Offset="1" Color="#FF7490CE" />
                             </RadialGradientBrush>
                         </Border.Background>
-                        <Border.BorderBrush>
-                            <RadialGradientBrush RadiusX="0.6" RadiusY="0.8">
-                                <GradientStop Offset="0" Color="#FFA1ABC1" />
-                                <GradientStop Offset="1" Color="#FF7490CE" />
-                            </RadialGradientBrush>
-                        </Border.BorderBrush>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -91,7 +85,7 @@
                 <ControlTemplate TargetType="Thumb">
                     <Ellipse Width="10" Height="10">
                         <Ellipse.Fill>
-                            <RadialGradientBrush RadiusX="0.6" RadiusY="0.8">
+                            <RadialGradientBrush>
                                 <GradientStop Offset="0" Color="#FFA1ABC1" />
                                 <GradientStop Offset="1" Color="#FF7490CE" />
                             </RadialGradientBrush>
