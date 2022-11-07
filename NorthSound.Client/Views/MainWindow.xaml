@@ -11,10 +11,10 @@
     Title="{Binding Title}"
     Width="830"
     Height="650"
-    MinWidth="530"
-    MinHeight="530"
+    MinWidth="800"
+    MinHeight="600"
     AllowsTransparency="True"
-    Background="#FF292E38"
+    Background="{StaticResource TopBackgroundDark}"
     BorderBrush="White"
     FontFamily="Verdana"
     ResizeMode="CanResizeWithGrip"
@@ -32,8 +32,8 @@
             <Setter Property="Foreground">
                 <Setter.Value>
                     <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
-                        <GradientStop Offset="1" Color="#FF9D55EA" />
-                        <GradientStop Offset="0" Color="#FF65EDFF" />
+                        <GradientStop Offset="1" Color="#FF80C0E4" />
+                        <GradientStop Offset="0" Color="#FFBFF2F9" />
                     </RadialGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -67,18 +67,36 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <!--<fa:ImageAwesome
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Panel.ZIndex="1"
+            Width="214"
+            Height="117"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Icon="Solid_Wind"
+            Tag="TabIcon">
+            <fa:ImageAwesome.Foreground>
+                <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
+                    <GradientStop Offset="1" Color="#FF74C4F9" />
+                    <GradientStop Offset="0" Color="#FF8298CA" />
+                </RadialGradientBrush>
+            </fa:ImageAwesome.Foreground>
+        </fa:ImageAwesome>-->
+
         <!--  HEADER  -->
         <Border
             Grid.Row="0"
-            Background="#FF292E38"
-            BorderBrush="#FF292E38"
+            Background="{StaticResource HeaderDark}"
+            BorderBrush="{StaticResource HeaderDark}"
             BorderThickness="3"
             CornerRadius="0, 0, 11, 11"
             MouseDown="BorderMouseDown">
-            <Grid Margin="3" VerticalAlignment="Center">
+            <Grid Margin="10">
                 <TextBlock
+                    Margin="5"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Style="{StaticResource BarTextStyle}"
                     Text="{Binding Title}" />
 
@@ -131,52 +149,23 @@
         <!--  TABS  -->
         <TabControl
             Grid.Row="1"
-            Margin="0,0,10,0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Background="#FF292E38"
+            Background="{DynamicResource TopBackgroundDark}"
             SelectedItem="{Binding SelectedTabItem}"
             Style="{DynamicResource TabDarkStyle}"
             TabStripPlacement="Left">
             <!--  MAIN  -->
-            <TabItem
-                Name="Главная"
-                Height="80"
-                HorizontalContentAlignment="Stretch"
-                Background="#FF292E38"
-                Style="{DynamicResource TabItemDarkStyle}">
-                <TabItem.Header>
-                    <Grid Margin="10,5">
-                        <fa:ImageAwesome
-                            Grid.Row="0"
-                            Width="70"
-                            Height="70"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Icon="Solid_Wind"
-                            Tag="TabIcon">
-                            <fa:ImageAwesome.Foreground>
-                                <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
-                                    <GradientStop Offset="1" Color="#FF74C4F9" />
-                                    <GradientStop Offset="0" Color="#FF8298CA" />
-                                </RadialGradientBrush>
-                            </fa:ImageAwesome.Foreground>
-                        </fa:ImageAwesome>
-                    </Grid>
-                </TabItem.Header>
-
-                <TabItem.Content>
-                    <views:AudioPage />
-                </TabItem.Content>
-            </TabItem>
 
             <!--  MY AUDIO  -->
             <TabItem
                 Name="Музыка"
+                Margin="0"
                 HorizontalContentAlignment="Stretch"
-                Style="{DynamicResource TabItemDarkStyle}">
+                Style="{DynamicResource TabItemDarkStyle}"
+                TabIndex="1">
                 <TabItem.Header>
-                    <Grid Margin="15,5">
+                    <Grid Margin="25,5,0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition />
@@ -188,6 +177,7 @@
                         <TextBlock
                             Grid.Column="1"
                             Margin="15"
+                            VerticalAlignment="Center"
                             Text="Моя музыка" />
                     </Grid>
                 </TabItem.Header>
@@ -202,9 +192,12 @@
             <!--  LIBRARY  -->
             <TabItem Name="Библиотека" Style="{DynamicResource TabItemDarkStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="15,5" Orientation="Horizontal">
+                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_Bookmark" />
-                        <TextBlock Margin="15" Text="Библиотека" />
+                        <TextBlock
+                            Margin="15"
+                            VerticalAlignment="Center"
+                            Text="Библиотека" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -216,9 +209,12 @@
             <!--  FRIENDS  -->
             <TabItem x:Name="Друзья" Style="{DynamicResource TabItemDarkStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="15,5" Orientation="Horizontal">
+                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_AddressBook" />
-                        <TextBlock Margin="15" Text="Друзья" />
+                        <TextBlock
+                            Margin="15"
+                            VerticalAlignment="Center"
+                            Text="Друзья" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -230,9 +226,12 @@
             <!--  MESSAGES  -->
             <TabItem x:Name="Сообщения" Style="{DynamicResource TabItemDarkStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="15,5" Orientation="Horizontal">
+                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_PaperPlane" />
-                        <TextBlock Margin="15" Text="Сообщения" />
+                        <TextBlock
+                            Margin="15"
+                            VerticalAlignment="Center"
+                            Text="Сообщения" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -244,9 +243,12 @@
             <!--  SETTINGS  -->
             <TabItem x:Name="Настройки" Style="{DynamicResource TabItemDarkStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="15,5" Orientation="Horizontal">
+                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_Map" />
-                        <TextBlock Margin="15" Text="Настройки" />
+                        <TextBlock
+                            Margin="15"
+                            VerticalAlignment="Center"
+                            Text="Настройки" />
                     </StackPanel>
                 </TabItem.Header>
 

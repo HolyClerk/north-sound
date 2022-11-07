@@ -22,9 +22,10 @@
                                 Name="ContentPanel"
                                 Margin="0"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Stretch"
                                 ContentSource="Header" />
                         </Grid>
+
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">

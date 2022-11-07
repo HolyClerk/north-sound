@@ -67,7 +67,7 @@
                         SnapsToDevicePixels="True">
                         <Border.Background>
                             <RadialGradientBrush RadiusX="0.6" RadiusY="0.8">
-                                <GradientStop Offset="0" Color="#FFA1ABC1" />
+                                <GradientStop Offset="0" Color="#FF8D8CBF" />
                                 <GradientStop Offset="1" Color="#FF7490CE" />
                             </RadialGradientBrush>
                         </Border.Background>
@@ -102,13 +102,15 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="Slider" TargetType="Slider">
+
+    <ControlTemplate x:Key="SliderHorizontal" TargetType="Slider">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
             <Track x:Name="PART_Track" Grid.Row="1">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource SliderRepeatButton1}" />
@@ -123,7 +125,8 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="SliderPlayStyle" TargetType="Slider">
+
+    <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -131,8 +134,9 @@
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="MinHeight" Value="20" />
                 <Setter Property="MinWidth" Value="50" />
-                <Setter Property="Template" Value="{StaticResource Slider}" />
+                <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

@@ -7,9 +7,9 @@
     xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
-    d:DesignHeight="450"
+    d:DesignHeight="600"
     d:DesignWidth="800"
-    Background="#FF21252E"
+    Background="{StaticResource BackgroundDark}"
     FontFamily="Verdana"
     FontSize="13"
     Foreground="#FF969696"
@@ -19,87 +19,87 @@
         <vm:SoundViewModel />
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" MaxWidth="370" />
         </Grid.ColumnDefinitions>
 
         <Border
             Grid.Row="0"
-            Margin="20,20,10,10"
-            Padding="10"
-            Background="#FF292E38"
-            BorderBrush="#FF292E38"
+            Margin="40,40,20,20"
+            Padding="5"
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
                     <RowDefinition />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Текущее аудио" />
+                <TextBlock
+                    Grid.ColumnSpan="3"
+                    Margin="5"
+                    Foreground="#4CFFFFFF"
+                    Text="Текущее аудио" />
 
-                <StackPanel
-                    Grid.Row="1"
-                    Margin="5,20"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center">
-                    <TextBlock
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="#FFD0D0D0"
-                        Text="{Binding SelectedAudio.Name}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="#FFADACAC"
-                        Text="{Binding SelectedAudio.Author}" />
-                </StackPanel>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="0"
+                            VerticalAlignment="Top"
+                            Foreground="#7FFFFFFF"
+                            Text="{Binding SelectedAudio.Name}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Margin="0"
+                            VerticalAlignment="Bottom"
+                            Foreground="#4CFFFFFF"
+                            Text="{Binding SelectedAudio.Author}" />
+                    </StackPanel>
 
-                <Rectangle
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="100"
-                    Height="100"
-                    MinWidth="70"
-                    MinHeight="70"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    RadiusX="15"
-                    RadiusY="15">
-                    <Rectangle.Fill>
-                        <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
-                            <GradientStop Offset="0" Color="#FFA1ABC1" />
-                            <GradientStop Offset="1" Color="#FF7490CE" />
-                        </RadialGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
+                </Grid>
 
                 <Slider
                     Grid.Row="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="15,0"
+                    Grid.ColumnSpan="3"
+                    Margin="15,5"
                     VerticalAlignment="Bottom"
                     IsSelectionRangeEnabled="True"
                     Maximum="100"
                     Minimum="0"
                     SelectionStart="0"
-                    Style="{StaticResource SliderPlayStyle}"
+                    Style="{StaticResource SliderStyle}"
                     Value="1" />
             </Grid>
         </Border>
@@ -107,29 +107,119 @@
         <Border
             Grid.Row="0"
             Grid.Column="1"
-            Margin="10,20,20,10"
-            Padding="10"
-            Background="#FF292E38"
-            BorderBrush="#FF292E38"
+            Margin="20,40,40,20"
+            Padding="5"
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition />
+                    <RowDefinition Height="80*" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Настройки" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.ColumnSpan="3"
+                    Margin="5,5,5,10"
+                    Foreground="#4CFFFFFF"
+                    Text="Эквалайзер" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Width="48"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Center"
+                    FontSize="9"
+                    Foreground="#FF787F8C"
+                    Text="Громкость" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="43"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Center"
+                    FontSize="9"
+                    Foreground="#FF787F8C"
+                    Text="Скорость" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Width="64"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Center"
+                    FontSize="9"
+                    Foreground="#FF787F8C"
+                    Text="Эквалайзер 1" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Width="64"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Center"
+                    FontSize="9"
+                    Foreground="#FF787F8C"
+                    Text="Эквалайзер 2" />
+
+                <Slider
+                    Grid.Row="1"
+                    Width="10"
+                    Margin="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    Maximum="100"
+                    Orientation="Vertical"
+                    Style="{DynamicResource SliderSetStyle}"
+                    Value="75" />
+
+                <Slider
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="10"
+                    Margin="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    Maximum="2"
+                    Minimum="0"
+                    Orientation="Vertical"
+                    Style="{DynamicResource SliderSetStyle}"
+                    TickFrequency="10"
+                    Value="1" />
+
+                <Slider
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="10"
+                    Margin="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical"
+                    Style="{DynamicResource SliderSetStyle}"
+                    Value="4" />
+
+                <Slider
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="10"
+                    Margin="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical"
+                    Style="{DynamicResource SliderSetStyle}"
+                    Value="4" />
             </Grid>
         </Border>
 
         <Border
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="20,10,20,20"
+            Margin="40,20,40,40"
             Padding="10"
-            Background="#FF292E38"
-            BorderBrush="#FF292E38"
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
@@ -138,16 +228,19 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Список аудиофайлов" />
+                <TextBlock
+                    Margin="5"
+                    Foreground="#4CFFFFFF"
+                    Text="Список аудиофайлов" />
 
                 <TextBox
                     Width="200"
+                    Height="20"
                     Margin="5,0"
                     Padding="8,0,18,0"
                     HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
-                    Background="#FF21252E"
-                    BorderBrush="#FF21252E"
+                    BorderThickness="0.1"
                     Foreground="#FFA5A5A5"
                     SelectionBrush="#FFA5A5A5"
                     Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}">
@@ -162,13 +255,12 @@
                     Height="13"
                     Margin="0,0,12,0"
                     HorizontalAlignment="Right"
-                    Foreground="#FFA5A5A5"
+                    Foreground="Gray"
                     Icon="Solid_Search" />
 
                 <GroupBox
                     Grid.Row="1"
                     HorizontalContentAlignment="Stretch"
-                    Background="#FF292E38"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8">
 
@@ -176,7 +268,6 @@
                         Name="lstCars"
                         Margin="0,7"
                         HorizontalContentAlignment="Stretch"
-                        Background="#FF292E38"
                         BorderThickness="0"
                         Foreground="#FFE8E8E8"
                         ItemsSource="{Binding AudioPlaylistItems}"
@@ -223,7 +314,7 @@
                                                 VerticalAlignment="Bottom"
                                                 FontSize="12"
                                                 FontWeight="Bold"
-                                                Foreground="#FFCCCCCC"
+                                                Foreground="#7CFFFFFF"
                                                 Text="{Binding Path=Name}" />
 
                                             <TextBlock
@@ -232,7 +323,7 @@
                                                 Margin="3,0"
                                                 VerticalAlignment="Top"
                                                 FontSize="11"
-                                                Foreground="#FF989898"
+                                                Foreground="#4CFFFFFF"
                                                 Text="{Binding Path=Author}" />
 
                                             <fa:ImageAwesome
@@ -241,7 +332,7 @@
                                                 Width="15"
                                                 Height="15"
                                                 Margin="15"
-                                                Foreground="#FFA0C4D2"
+                                                Foreground="#276bb0"
                                                 Icon="Solid_Play"
                                                 Style="{DynamicResource PlayStyle}" />
                                         </Grid>
