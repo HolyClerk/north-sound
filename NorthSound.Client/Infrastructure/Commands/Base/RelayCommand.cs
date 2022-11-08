@@ -1,7 +1,6 @@
 ﻿using System;
-using NorthSound.Client.Infrastructure.Commands.Base;
 
-namespace NorthSound.Client.Infrastructure.Commands;
+namespace NorthSound.Client.Infrastructure.Commands.Base;
 
 internal class RelayCommand : CommandBase
 {
