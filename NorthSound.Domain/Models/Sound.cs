@@ -27,12 +27,6 @@ public class Sound
 		set;
 	}
 
-	public string? Description
-	{
-		get;
-		set;
-	}
-
 	public string RelativePath
 	{
 		get;
@@ -45,7 +39,13 @@ public class Sound
 		set;
 	}
 
-	public bool IsAnyPropsContains(string filter)
+    public string? Description
+    {
+        get;
+        set;
+    }
+
+    public bool IsAnyPropsContains(string filter)
 	{
 		return
 			Name.ToLower().Contains(filter.ToLower()) ||

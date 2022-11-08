@@ -92,6 +92,9 @@
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
+                    Width="30"
+                    Height="30"
+                    Margin="5"
                     BorderBrush="{StaticResource TopBackgroundDark}"
                     Command="{Binding PlayCommand}" />
 

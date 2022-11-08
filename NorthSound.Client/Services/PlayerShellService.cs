@@ -38,10 +38,12 @@ internal class PlayerShellService
         set;
     }
 
-    public void Play() => _player.Play();
-
     public void SetBalance(double value)
     {
         _player.Balance = value;
     }
+
+    public void Play() => _player.Play();
+
+    public void Stop() => _player.Stop();
 }

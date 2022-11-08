@@ -10,14 +10,16 @@ namespace NorthSound.Client.ViewModels;
 
 internal class SoundViewModel : ViewModelBase
 {
-    private string _filterText = "";
+    private string _filterText;
     private ICollectionView? _audioPlaylistItems;
+
     private PlayerShellService _playerShell;
     private RelayCommand? _playCommand;
     private Sound? _selectedAudio;
 
     public SoundViewModel()
     {
+        _filterText = "";
         _playerShell = new PlayerShellService();
 
         var soundsTest = new Sound[]
@@ -62,7 +64,14 @@ internal class SoundViewModel : ViewModelBase
         {
             return _playCommand ?? (_playCommand = new RelayCommand(obj =>
             {
-                _playerShell.Play();
+                if (_playerShell.IsPlaying)
+                {
+                    _playerShell.Stop();
+                }
+                else
+                {
+                    _playerShell.Play();
+                }
             }));
         }
     }
@@ -85,4 +94,3 @@ internal class SoundViewModel : ViewModelBase
             || currentAudio.IsAnyPropsContains(FilterText);
     }
 }
-
