@@ -33,7 +33,7 @@ public class Sound
 		set;
 	}
 
-	public string? RelativePath
+	public string RelativePath
 	{
 		get;
 		set;

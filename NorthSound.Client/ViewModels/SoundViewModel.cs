@@ -1,4 +1,6 @@
-﻿using NorthSound.Client.ViewModels.Base;
+﻿using NorthSound.Client.Infrastructure.Commands;
+using NorthSound.Client.Services;
+using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
 using System;
 using System.ComponentModel;
@@ -10,18 +12,21 @@ internal class SoundViewModel : ViewModelBase
 {
     private string _filterText = "";
     private ICollectionView? _audioPlaylistItems;
+    private PlayerShellService _playerShell;
+    private RelayCommand? _playCommand;
     private Sound? _selectedAudio;
 
     public SoundViewModel()
     {
-        var soundsTemplate = new Sound[100000];
+        _playerShell = new PlayerShellService();
 
-        for (int i = 0; i < soundsTemplate.Length; i++)
+        var soundsTest = new Sound[]
         {
-            soundsTemplate[i] = new Sound() { Author = "FOR TEST", Name = "FOR TEST" };
-        }
+            new Sound() { Name = "Закройте", Author = "Лампабикт", RelativePath = @"лампабикт - Закройте.mp3" },
+            new Sound() { Name = "Ветивер", Author = "Wildways feat. polnalyubvi", RelativePath = @"Wildways feat. polnalyubvi - Ветивер (feat. polnalyubvi).mp3" },
+        };
 
-        AudioPlaylistItems = CollectionViewSource.GetDefaultView(soundsTemplate);
+        AudioPlaylistItems = CollectionViewSource.GetDefaultView(soundsTest);
         BindFilter(FilterAudio);
     }
 
@@ -44,17 +49,32 @@ internal class SoundViewModel : ViewModelBase
     public Sound? SelectedAudio
     {
         get => _selectedAudio;
-        set => Set(ref _selectedAudio, value);  
+        set
+        {
+            Set(ref _selectedAudio, value);
+            _playerShell.SelectedAudioSound = value;
+        }
     }
 
-    private void BindFilter(Func<object, bool> filterAudio)
+    public RelayCommand PlayCommand
+    {
+        get
+        {
+            return _playCommand ?? (_playCommand = new RelayCommand(obj =>
+            {
+                _playerShell.Play();
+            }));
+        }
+    }
+
+    private void BindFilter(Predicate<object> filterAudio)
     {
         if (AudioPlaylistItems == null)
         {
             return;
         }
 
-        AudioPlaylistItems.Filter = FilterAudio;
+        AudioPlaylistItems.Filter = filterAudio;
     }
 
     private bool FilterAudio(object obj)

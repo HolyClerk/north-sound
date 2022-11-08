@@ -87,8 +87,13 @@
                             Foreground="#4CFFFFFF"
                             Text="{Binding SelectedAudio.Author}" />
                     </StackPanel>
-
                 </Grid>
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BorderBrush="{StaticResource TopBackgroundDark}"
+                    Command="{Binding PlayCommand}" />
 
                 <Slider
                     Grid.Row="2"
@@ -101,7 +106,7 @@
                     Minimum="0"
                     SelectionStart="0"
                     Style="{StaticResource SliderStyle}"
-                    Value="1" />
+                    Value="0" />
             </Grid>
         </Border>
 
