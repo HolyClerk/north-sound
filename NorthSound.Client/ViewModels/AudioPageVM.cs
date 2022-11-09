@@ -9,15 +9,15 @@ using System.Windows.Data;
 
 namespace NorthSound.Client.ViewModels;
 
-internal class AudioPlayerViewModel : ViewModelBase
+internal class AudioPageVM : ViewModelBase
 {
     private string _filterText = "";
 
     private ICollectionView? _playlistCollection;
 
-    private Song? _selectedSong;
+    SongViewModel _songViewModel;
 
-    public AudioPlayerViewModel()
+    public AudioPageVM()
     {
         var soundsTest = new Song[]
         {
@@ -26,6 +26,7 @@ internal class AudioPlayerViewModel : ViewModelBase
         };
 
         PlaylistCollection = CollectionViewSource.GetDefaultView(soundsTest);
+        @SongViewModel = new SongViewModel();
     }
 
     public string FilterText
@@ -44,10 +45,10 @@ internal class AudioPlayerViewModel : ViewModelBase
         set => Set(ref _playlistCollection, value);
     }
 
-    public Song? SelectedSong
+    public SongViewModel @SongViewModel
     {
-        get => _selectedSong;
-        set => Set(ref _selectedSong, value);
+        get => _songViewModel;
+        set => Set(ref _songViewModel, value);
     }
 
     private void BindFilter()

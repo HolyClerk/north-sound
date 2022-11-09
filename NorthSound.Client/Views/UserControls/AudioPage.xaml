@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <vm:AudioPlayerViewModel />
+        <vm:AudioPageVM />
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -87,13 +87,13 @@
                             Margin="0"
                             VerticalAlignment="Top"
                             Foreground="#7FFFFFFF"
-                            Text="{Binding SelectedSong.Name}" />
+                            Text="{Binding SongViewModel.SelectedSong.Name}" />
                         <TextBlock
                             Grid.Row="1"
                             Margin="0"
                             VerticalAlignment="Bottom"
                             Foreground="#4CFFFFFF"
-                            Text="{Binding SelectedSong.Author}" />
+                            Text="{Binding SongViewModel.SelectedSong.Author}" />
                     </StackPanel>
                 </Grid>
 
@@ -104,7 +104,7 @@
                     Height="30"
                     Margin="5"
                     BorderBrush="{StaticResource TopBackgroundDark}"
-                    Command="{Binding PlayCommand}" />
+                    Command="{Binding SongViewModel.PlayCommand}" />
 
                 <Slider
                     Grid.Row="2"
@@ -277,7 +277,7 @@
                         BorderThickness="0,0.5"
                         Foreground="#FFE8E8E8"
                         ItemsSource="{Binding PlaylistCollection}"
-                        SelectedItem="{Binding SelectedSong}"
+                        SelectedItem="{Binding SongViewModel.SelectedSong}"
                         VirtualizingPanel.CacheLength="20"
                         VirtualizingPanel.IsContainerVirtualizable="True"
                         VirtualizingPanel.IsVirtualizing="True"
