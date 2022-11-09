@@ -62,9 +62,9 @@ internal class SoundViewModel : ViewModelBase
     {
         get
         {
-            return _playCommand ?? (_playCommand = new RelayCommand(
-                    execute => _playerShell.Play(), 
-                    canExecute => SelectedAudio != null));
+            return _playCommand ??= new RelayCommand(
+                    execute => _playerShell.SwapPlayState(), 
+                    canExecute => SelectedAudio != null);
         }
     }
 

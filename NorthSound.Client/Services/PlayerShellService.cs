@@ -1,5 +1,6 @@
 ﻿using NorthSound.Domain.Models;
 using System;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace NorthSound.Client.Services;
@@ -12,10 +13,18 @@ internal class PlayerShellService
 	public PlayerShellService()
 	{
         _player = new MediaPlayer();
-        _player.MediaOpened += (s, e) => IsPlaying = true;
+
+        _player.MediaOpened += (s, e) => IsPlaying = false;
         _player.MediaEnded += (s, e) => IsPlaying = false;
+        _player.MediaFailed += (s, e) => IsPlaying = false;
 
         IsPlaying = false;
+    }
+
+    public bool IsPlaying
+    {
+        get;
+        set;
     }
 
     public Sound? SelectedAudioSound
@@ -32,18 +41,38 @@ internal class PlayerShellService
         }
     }
 
-    public bool IsPlaying
-    {
-        get;
-        set;
-    }
-
     public void SetBalance(double value)
     {
         _player.Balance = value;
     }
 
-    public void Play() => _player.Play();
+    public void Play()
+    {
+        _player.Play();
+        IsPlaying = true;
+    }
 
-    public void Stop() => _player.Stop();
+    public void Pause()
+    {
+        _player.Pause();
+        IsPlaying = false;
+    }
+
+    public void Stop()
+    {
+        _player.Stop();
+        IsPlaying = false;
+    }
+
+    public void SwapPlayState()
+    {
+        if (IsPlaying)
+        {
+            Pause();
+        }
+        else
+        {
+            Play();
+        }
+    }
 }
