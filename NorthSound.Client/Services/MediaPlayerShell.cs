@@ -38,4 +38,14 @@ internal class MediaPlayerShell
         _mediaPlayer.Pause();
         IsPlaying = false;
     }  
+
+    public int GetDuration()
+    {
+        return _mediaPlayer.NaturalDuration.TimeSpan.Seconds;
+    }
+
+    public void SetVolume(double value)
+    {
+        _mediaPlayer.Volume = value;
+    }
 }

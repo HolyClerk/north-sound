@@ -7,7 +7,10 @@ namespace NorthSound.Client.ViewModels;
 
 internal class SongViewModel : ViewModelBase
 {
-    private Song? _selectedSong;
+    private int _duration;
+    private double _volume;
+
+    private Song? _currentSong;
     private MediaPlayerShell _mediaPlayer;
     private RelayCommand? _playCommand;
 
@@ -35,11 +38,31 @@ internal class SongViewModel : ViewModelBase
 
     public Song? SelectedSong
     {
-        get => _selectedSong;
+        get => _currentSong;
         set
         {
-            Set(ref _selectedSong, value);
+            Set(ref _currentSong, value);
             _mediaPlayer.CurrentSong = value;
+        }
+    }
+
+    public double SongVolume
+    {
+        get => _volume;
+        set
+        {
+            Set(ref _volume, value);
+            _mediaPlayer.SetVolume(value);
+        }
+    }
+
+    public int Duration
+    {
+        get => _duration;
+        set
+        {
+            _duration = _mediaPlayer.GetDuration();
+            Set(ref _duration, value);
         }
     }
 }

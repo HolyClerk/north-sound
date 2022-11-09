@@ -73,7 +73,7 @@
                     Margin="0"
                     VerticalAlignment="Center"
                     Foreground="#4CFFFFFF"
-                    Text="f" />
+                    Text="{Binding SongViewModel.Duration}" />
 
                 <TextBlock
                     Grid.ColumnSpan="3"
@@ -198,7 +198,7 @@
                     Grid.Row="1"
                     Maximum="1"
                     Style="{DynamicResource SliderSetStyle}"
-                    Value="{Binding MediaVolume}" />
+                    Value="{Binding SongViewModel.SongVolume, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Slider
                     Grid.Row="1"
