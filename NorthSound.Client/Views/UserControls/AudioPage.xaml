@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <vm:SoundViewModel />
+        <vm:AudioPlayerViewModel />
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -68,6 +68,14 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="0"
+                    VerticalAlignment="Center"
+                    Foreground="#4CFFFFFF"
+                    Text="f" />
+
+                <TextBlock
                     Grid.ColumnSpan="3"
                     Margin="5"
                     Foreground="#4CFFFFFF"
@@ -79,13 +87,13 @@
                             Margin="0"
                             VerticalAlignment="Top"
                             Foreground="#7FFFFFFF"
-                            Text="{Binding SelectedAudio.Name}" />
+                            Text="{Binding SelectedSong.Name}" />
                         <TextBlock
                             Grid.Row="1"
                             Margin="0"
                             VerticalAlignment="Bottom"
                             Foreground="#4CFFFFFF"
-                            Text="{Binding SelectedAudio.Author}" />
+                            Text="{Binding SelectedSong.Author}" />
                     </StackPanel>
                 </Grid>
 
@@ -105,7 +113,7 @@
                     Margin="15,5"
                     VerticalAlignment="Bottom"
                     IsSelectionRangeEnabled="True"
-                    Maximum="100"
+                    Maximum="12"
                     Minimum="0"
                     SelectionStart="0"
                     Style="{StaticResource SliderStyle}"
@@ -188,8 +196,9 @@
 
                 <Slider
                     Grid.Row="1"
+                    Maximum="1"
                     Style="{DynamicResource SliderSetStyle}"
-                    Value="75" />
+                    Value="{Binding MediaVolume}" />
 
                 <Slider
                     Grid.Row="1"
@@ -267,8 +276,8 @@
                         BorderBrush="#FFCCC4C4"
                         BorderThickness="0,0.5"
                         Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding AudioPlaylistItems}"
-                        SelectedItem="{Binding SelectedAudio}"
+                        ItemsSource="{Binding PlaylistCollection}"
+                        SelectedItem="{Binding SelectedSong}"
                         VirtualizingPanel.CacheLength="20"
                         VirtualizingPanel.IsContainerVirtualizable="True"
                         VirtualizingPanel.IsVirtualizing="True"
