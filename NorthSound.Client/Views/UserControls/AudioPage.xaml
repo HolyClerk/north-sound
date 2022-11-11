@@ -73,7 +73,7 @@
                     Margin="0"
                     VerticalAlignment="Center"
                     Foreground="#4CFFFFFF"
-                    Text="{Binding SongViewModel.Duration}" />
+                    Text="" />
 
                 <TextBlock
                     Grid.ColumnSpan="3"
@@ -273,7 +273,7 @@
                         Name="lstCars"
                         Margin="0,7"
                         HorizontalContentAlignment="Stretch"
-                        BorderBrush="#FFCCC4C4"
+                        BorderBrush="#FF8E8E8E"
                         BorderThickness="0,0.5"
                         Foreground="#FFE8E8E8"
                         ItemsSource="{Binding PlaylistCollection}"

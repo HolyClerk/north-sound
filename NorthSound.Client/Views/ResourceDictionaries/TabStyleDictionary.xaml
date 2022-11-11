@@ -3,31 +3,33 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="TabDarkStyle" TargetType="TabControl">
-        <Setter Property="Background" Value="#FF21252E" />
+    <Style x:Key="TabControlStyle" TargetType="TabControl">
+        <Setter Property="Background" Value="#FF1A1A1A" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
-    <Style x:Key="TabItemDarkStyle" TargetType="TabItem">
+    <Style x:Key="TabItemsStyle" TargetType="TabItem">
         <Style.Setters>
             <Setter Property="FontFamily" Value="Verdana" />
             <Setter Property="FontSize" Value="13" />
 
             <Setter Property="Foreground" Value="#b7b7b7" />
 
-            <Setter Property="MinWidth" Value="210" />
+            <Setter Property="MinWidth" Value="65" />
             <Setter Property="MinHeight" Value="65" />
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
                         <Grid Name="Panel" Background="Transparent">
-                            <ContentPresenter
-                                Name="ContentPanel"
-                                Margin="0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                ContentSource="Header" />
+                            <Grid Margin="3">
+                                <ContentPresenter
+                                    Name="ContentPanel"
+                                    Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    ContentSource="Header" />
+                            </Grid>
                         </Grid>
 
 

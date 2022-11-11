@@ -14,7 +14,7 @@
     MinWidth="800"
     MinHeight="600"
     AllowsTransparency="True"
-    Background="{StaticResource TopBackgroundDark}"
+    Background="{StaticResource BackgroundDark}"
     BorderBrush="White"
     FontFamily="Verdana"
     ResizeMode="CanResizeWithGrip"
@@ -29,12 +29,13 @@
         <Style TargetType="fa:ImageAwesome">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="Foreground">
                 <Setter.Value>
-                    <RadialGradientBrush GradientOrigin="0.3,0.3" RadiusX="0.6" RadiusY="0.8">
-                        <GradientStop Offset="1" Color="#FF80C0E4" />
-                        <GradientStop Offset="0" Color="#FFBFF2F9" />
-                    </RadialGradientBrush>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="1" Color="#FFBE68F1" />
+                        <GradientStop Offset="0" Color="#FFB298FF" />
+                    </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
             <Setter Property="Width" Value="20" />
@@ -58,117 +59,100 @@
             <Setter Property="Foreground" Value="#FFD7DCDE" />
             <Setter Property="Margin" Value="5" />
         </Style>
+
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <!--  ХЕДЕР  -->
 
-        <!--  HEADER  -->
-        <Border
-            Grid.Row="0"
-            BorderBrush="{StaticResource HeaderDark}"
-            BorderThickness="0"
-            CornerRadius="0, 0, 11, 11"
-            MouseDown="BorderMouseDown">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0" Color="#FF232935" />
-                    <GradientStop Offset="1" Color="#FF202020" />
-                </LinearGradientBrush>
-            </Border.Background>
-            <Grid Margin="10">
-                <TextBlock
-                    Margin="5"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource BarTextStyle}"
-                    Text="{Binding Title}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
 
-                <Grid
-                    Margin="2"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="Transparent">
+            <Border
+                Grid.Column="1"
+                Margin="5"
+                Background="{StaticResource TopBackgroundDark}"
+                BorderBrush="{StaticResource TopBackgroundDark}"
+                BorderThickness="3"
+                CornerRadius="10">
+                <Grid Grid.Row="0" Margin="15,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <fa:ImageAwesome
-                        Grid.Column="0"
-                        Icon="Solid_WindowMinimize"
-                        Style="{StaticResource BarIconsStyle}">
-                        <fa:ImageAwesome.InputBindings>
-                            <MouseBinding Command="{StaticResource MinimizeApplication}" MouseAction="LeftClick" />
-                        </fa:ImageAwesome.InputBindings>
-                    </fa:ImageAwesome>
-
-                    <fa:ImageAwesome
                         Grid.Column="1"
-                        Icon="Solid_WindowMaximize"
-                        Style="{StaticResource BarIconsStyle}">
-                        <fa:ImageAwesome.InputBindings>
-                            <MouseBinding
-                                Command="{StaticResource SwitchWindowState}"
-                                CommandParameter="min"
-                                MouseAction="LeftClick" />
-                        </fa:ImageAwesome.InputBindings>
+                        Width="17"
+                        VerticalAlignment="Center"
+                        Icon="Regular_WindowMinimize">
+                        <fa:ImageAwesome.Foreground>
+                            <LinearGradientBrush>
+                                <GradientStop Offset="1" Color="#FFC8E8F9" />
+                                <GradientStop Offset="0" Color="#FFFF98E3" />
+                            </LinearGradientBrush>
+                        </fa:ImageAwesome.Foreground>
                     </fa:ImageAwesome>
 
                     <fa:ImageAwesome
                         Grid.Column="2"
-                        Foreground="#FFD25E5E"
-                        Icon="Solid_WindowClose"
-                        Style="{StaticResource BarIconsStyle}">
-                        <fa:ImageAwesome.InputBindings>
-                            <MouseBinding Command="{StaticResource CloseApplication}" MouseAction="LeftClick" />
-                        </fa:ImageAwesome.InputBindings>
+                        Width="17"
+                        Icon="Regular_WindowMaximize">
+                        <fa:ImageAwesome.Foreground>
+                            <LinearGradientBrush>
+                                <GradientStop Offset="1" Color="#FF9268F1" />
+                                <GradientStop Offset="0" Color="#FFFF98E3" />
+                            </LinearGradientBrush>
+                        </fa:ImageAwesome.Foreground>
+                    </fa:ImageAwesome>
+
+                    <fa:ImageAwesome
+                        Grid.Column="3"
+                        Width="17"
+                        Icon="Regular_WindowClose">
+                        <fa:ImageAwesome.Foreground>
+                            <LinearGradientBrush>
+                                <GradientStop Offset="1" Color="#FFF16868" />
+                                <GradientStop Offset="0" Color="#FFFF98E3" />
+                            </LinearGradientBrush>
+                        </fa:ImageAwesome.Foreground>
                     </fa:ImageAwesome>
                 </Grid>
-            </Grid>
-        </Border>
+            </Border>
+        </Grid>
 
-
-        <!--  TABS  -->
+        <!--  ТЕЛО  -->
         <TabControl
             Grid.Row="1"
+            Margin="10,0,0,0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Background="{DynamicResource TopBackgroundDark}"
-            SelectedItem="{Binding SelectedTabItem}"
-            Style="{DynamicResource TabDarkStyle}"
+            BorderBrush="#FF8E8E8E"
+            Style="{StaticResource TabControlStyle}"
             TabStripPlacement="Left">
-
-            <!--  MAIN  -->
-
-            <!--  MY AUDIO  -->
-            <TabItem
-                Name="Музыка"
-                Margin="0"
-                HorizontalContentAlignment="Stretch"
-                Style="{DynamicResource TabItemDarkStyle}"
-                TabIndex="1">
+            <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Grid Margin="25,5,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <fa:ImageAwesome
-                            Grid.Column="0"
-                            Icon="Solid_Music"
-                            Tag="TabIcon" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Margin="15"
-                            VerticalAlignment="Center"
-                            Text="Моя музыка" />
-                    </Grid>
+                    <Border Style="{DynamicResource BorderStyle}">
+                        <Grid Background="{StaticResource TopBackgroundDark}">
+                            <fa:ImageAwesome Icon="Solid_Music" />
+                        </Grid>
+                    </Border>
                 </TabItem.Header>
+
                 <TabItem.Content>
                     <views:AudioPage
                         FontFamily="Verdana"
@@ -177,72 +161,50 @@
                 </TabItem.Content>
             </TabItem>
 
-            <!--  LIBRARY  -->
-            <TabItem Name="Библиотека" Style="{DynamicResource TabItemDarkStyle}">
+            <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_Bookmark" />
-                        <TextBlock
-                            Margin="15"
-                            VerticalAlignment="Center"
-                            Text="Библиотека" />
-                    </StackPanel>
+                    <Border
+                        BorderBrush="{StaticResource TopBackgroundDark}"
+                        BorderThickness="3"
+                        CornerRadius="5">
+                        <Grid Background="{StaticResource TopBackgroundDark}">
+                            <fa:ImageAwesome Icon="Solid_Book" />
+                        </Grid>
+                    </Border>
                 </TabItem.Header>
-
-                <TabItem.Content>
-                    <views:LibrarySoundPage />
-                </TabItem.Content>
             </TabItem>
 
-            <!--  FRIENDS  -->
-            <TabItem x:Name="Друзья" Style="{DynamicResource TabItemDarkStyle}">
+            <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_AddressBook" />
-                        <TextBlock
-                            Margin="15"
-                            VerticalAlignment="Center"
-                            Text="Друзья" />
-                    </StackPanel>
+                    <Border Style="{DynamicResource BorderStyle}">
+                        <Grid Background="{StaticResource TopBackgroundDark}">
+                            <fa:ImageAwesome Icon="Solid_UserFriends" />
+                        </Grid>
+                    </Border>
                 </TabItem.Header>
-
-                <TabItem.Content>
-                    <views:FriendsPageUserControl />
-                </TabItem.Content>
             </TabItem>
 
-            <!--  MESSAGES  -->
-            <TabItem x:Name="Сообщения" Style="{DynamicResource TabItemDarkStyle}">
+            <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_PaperPlane" />
-                        <TextBlock
-                            Margin="15"
-                            VerticalAlignment="Center"
-                            Text="Сообщения" />
-                    </StackPanel>
+                    <Border
+                        BorderBrush="{StaticResource TopBackgroundDark}"
+                        BorderThickness="3"
+                        CornerRadius="5">
+                        <Grid Background="{StaticResource TopBackgroundDark}">
+                            <fa:ImageAwesome Icon="Solid_PaperPlane" />
+                        </Grid>
+                    </Border>
                 </TabItem.Header>
-
-                <TabItem.Content>
-                    <views:MessageView />
-                </TabItem.Content>
             </TabItem>
 
-            <!--  SETTINGS  -->
-            <TabItem x:Name="Настройки" Style="{DynamicResource TabItemDarkStyle}">
+            <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <StackPanel Margin="25,5,0,5" Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_Map" />
-                        <TextBlock
-                            Margin="15"
-                            VerticalAlignment="Center"
-                            Text="Настройки" />
-                    </StackPanel>
+                    <Border Style="{DynamicResource BorderStyle}">
+                        <Grid Background="{StaticResource TopBackgroundDark}">
+                            <fa:ImageAwesome Icon="Solid_Wheelchair" />
+                        </Grid>
+                    </Border>
                 </TabItem.Header>
-
-                <TabItem.Content>
-                    <views:SettingsUserControl />
-                </TabItem.Content>
             </TabItem>
         </TabControl>
     </Grid>
