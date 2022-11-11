@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Views/ResourceDictionaries/TabStyleDictionary.xaml" />
                 <ResourceDictionary Source="Views/ResourceDictionaries/AudioPageDictionary.xaml" />
                 <ResourceDictionary Source="Views/ResourceDictionaries/SliderStylesDictionary.xaml" />
+                <ResourceDictionary Source="Views/ResourceDictionaries/PlayButtonDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <com:CloseApplication x:Key="CloseApplication" />

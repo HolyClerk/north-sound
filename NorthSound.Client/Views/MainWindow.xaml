@@ -99,31 +99,31 @@
                         Grid.Column="1"
                         Width="17"
                         VerticalAlignment="Center"
-                        Icon="Regular_WindowMinimize">
+                        Icon="Solid_WindowMinimize">
                         <fa:ImageAwesome.Foreground>
                             <LinearGradientBrush>
-                                <GradientStop Offset="1" Color="#FFC8E8F9" />
-                                <GradientStop Offset="0" Color="#FFFF98E3" />
+                                <GradientStop Offset="1" Color="#FF68E1F1" />
+                                <GradientStop Offset="0" Color="#FF989EFF" />
                             </LinearGradientBrush>
                         </fa:ImageAwesome.Foreground>
                     </fa:ImageAwesome>
 
                     <fa:ImageAwesome
                         Grid.Column="2"
-                        Width="17"
+                        Width="16"
                         Icon="Regular_WindowMaximize">
                         <fa:ImageAwesome.Foreground>
                             <LinearGradientBrush>
-                                <GradientStop Offset="1" Color="#FF9268F1" />
-                                <GradientStop Offset="0" Color="#FFFF98E3" />
+                                <GradientStop Offset="1" Color="#FF68E1F1" />
+                                <GradientStop Offset="0" Color="#FF989EFF" />
                             </LinearGradientBrush>
                         </fa:ImageAwesome.Foreground>
                     </fa:ImageAwesome>
 
                     <fa:ImageAwesome
                         Grid.Column="3"
-                        Width="17"
-                        Icon="Regular_WindowClose">
+                        Height="14"
+                        Icon="Solid_WindowClose">
                         <fa:ImageAwesome.Foreground>
                             <LinearGradientBrush>
                                 <GradientStop Offset="1" Color="#FFF16868" />
@@ -138,7 +138,7 @@
         <!--  ТЕЛО  -->
         <TabControl
             Grid.Row="1"
-            Margin="10,0,0,0"
+            Margin="5,0,0,0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             BorderBrush="#FF8E8E8E"
@@ -146,11 +146,9 @@
             TabStripPlacement="Left">
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Border Style="{DynamicResource BorderStyle}">
-                        <Grid Background="{StaticResource TopBackgroundDark}">
-                            <fa:ImageAwesome Icon="Solid_Music" />
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <fa:ImageAwesome Icon="Solid_Music" />
+                    </Grid>
                 </TabItem.Header>
 
                 <TabItem.Content>
@@ -163,47 +161,33 @@
 
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Border
-                        BorderBrush="{StaticResource TopBackgroundDark}"
-                        BorderThickness="3"
-                        CornerRadius="5">
-                        <Grid Background="{StaticResource TopBackgroundDark}">
-                            <fa:ImageAwesome Icon="Solid_Book" />
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <fa:ImageAwesome Icon="Solid_Book" />
+                    </Grid>
                 </TabItem.Header>
             </TabItem>
 
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Border Style="{DynamicResource BorderStyle}">
-                        <Grid Background="{StaticResource TopBackgroundDark}">
-                            <fa:ImageAwesome Icon="Solid_UserFriends" />
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <fa:ImageAwesome Icon="Solid_UserFriends" />
+                    </Grid>
                 </TabItem.Header>
             </TabItem>
 
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Border
-                        BorderBrush="{StaticResource TopBackgroundDark}"
-                        BorderThickness="3"
-                        CornerRadius="5">
-                        <Grid Background="{StaticResource TopBackgroundDark}">
-                            <fa:ImageAwesome Icon="Solid_PaperPlane" />
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <fa:ImageAwesome Icon="Solid_PaperPlane" />
+                    </Grid>
                 </TabItem.Header>
             </TabItem>
 
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
-                    <Border Style="{DynamicResource BorderStyle}">
-                        <Grid Background="{StaticResource TopBackgroundDark}">
-                            <fa:ImageAwesome Icon="Solid_Wheelchair" />
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <fa:ImageAwesome Icon="Solid_Wheelchair" />
+                    </Grid>
                 </TabItem.Header>
             </TabItem>
         </TabControl>
