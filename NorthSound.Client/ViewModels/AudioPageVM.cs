@@ -14,6 +14,7 @@ internal class AudioPageVM : ViewModelBase
     private string _filterText = "";
 
     private ICollectionView? _playlistCollection;
+    private ICollectionView? _audioPlaylists;
 
     SongViewModel _songViewModel;
 
@@ -40,6 +41,12 @@ internal class AudioPageVM : ViewModelBase
     }
 
     public ICollectionView? PlaylistCollection
+    {
+        get => _playlistCollection;
+        set => Set(ref _playlistCollection, value);
+    }
+
+    public ICollectionView? AudioPlaylists
     {
         get => _playlistCollection;
         set => Set(ref _playlistCollection, value);

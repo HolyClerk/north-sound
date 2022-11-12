@@ -44,7 +44,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="*" MaxWidth="370" />
+            <ColumnDefinition Width="0.5*" MaxWidth="300" />
         </Grid.ColumnDefinitions>
 
         <Border
@@ -75,12 +75,6 @@
                     VerticalAlignment="Center"
                     Foreground="#4CFFFFFF"
                     Text="" />
-
-                <TextBlock
-                    Grid.ColumnSpan="3"
-                    Margin="5"
-                    Foreground="#4CFFFFFF"
-                    Text="Текущее аудио" />
 
                 <Grid Grid.Row="1" Grid.Column="0">
                     <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
@@ -132,7 +126,7 @@
             BorderThickness="1"
             CornerRadius="5">
 
-            <Grid>
+            <Grid Margin="0,15,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="80*" />
@@ -145,12 +139,6 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.ColumnSpan="3"
-                    Margin="5,5,5,10"
-                    Foreground="#4CFFFFFF"
-                    Text="Эквалайзер" />
 
                 <TextBlock
                     Grid.Row="2"
@@ -219,28 +207,25 @@
 
         <Border
             Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Margin="20,10,20,20"
-            Padding="10"
+            Grid.ColumnSpan="1"
+            Margin="20,10,10,20"
+            Padding="0"
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    Margin="5"
-                    Foreground="#4CFFFFFF"
-                    Text="Список аудиофайлов" />
 
                 <TextBox
-                    Width="200"
+                    Grid.Row="1"
+                    Width="auto"
                     Height="30"
-                    Margin="5,0"
+                    Margin="12,12,12,5"
                     Padding="8,0,18,0"
-                    HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
                     BorderThickness="0.1"
                     Foreground="#FFA5A5A5"
@@ -254,24 +239,25 @@
                 </TextBox>
 
                 <fa:ImageAwesome
+                    Grid.Row="1"
                     Height="13"
-                    Margin="0,0,12,0"
+                    Margin="0,8,20,0"
                     HorizontalAlignment="Right"
                     Foreground="Gray"
                     Icon="Solid_Search" />
 
                 <GroupBox
-                    Grid.Row="1"
+                    Grid.Row="2"
+                    Padding="0,10,0,5"
                     HorizontalContentAlignment="Stretch"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8">
 
                     <ListBox
                         Name="lstCars"
-                        Margin="0,7"
                         HorizontalContentAlignment="Stretch"
-                        BorderBrush="#FF54538E"
-                        BorderThickness="0,1"
+                        BorderBrush="#FF1A1A1A"
+                        BorderThickness="0,0,0,0"
                         Foreground="#FFE8E8E8"
                         ItemsSource="{Binding PlaylistCollection}"
                         SelectedItem="{Binding SongViewModel.SelectedSong}"
@@ -286,15 +272,16 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,3">
+                                <Grid Margin="0,0,0,5">
                                     <Border
+                                        Name="MusicBorder"
                                         Grid.Row="1"
                                         BorderThickness="0"
                                         CornerRadius="13">
                                         <Border.Background>
                                             <LinearGradientBrush>
-                                                <GradientStop Offset="1" Color="#FF5B4196" />
-                                                <GradientStop Offset="0" Color="#FF4D518C" />
+                                                <GradientStop Offset="1" Color="#FF415A96" />
+                                                <GradientStop Offset="0" Color="#FF4D738C" />
                                             </LinearGradientBrush>
                                         </Border.Background>
                                         <Grid>
@@ -317,11 +304,10 @@
                                                 </Border.Background>
                                                 <fa:ImageAwesome
                                                     Name="PlayButtonOcc"
-                                                    Width="13"
-                                                    Height="13"
+                                                    Width="10"
+                                                    Height="10"
                                                     Foreground="#7FFFFFFF"
-                                                    Icon="Solid_Play"
-                                                    Style="{DynamicResource PlayStyle}" />
+                                                    Icon="Solid_Play" />
                                             </Border>
                                             <Grid Grid.Column="1" Margin="10,0">
                                                 <Grid.RowDefinitions>
@@ -354,6 +340,21 @@
                                                     <Storyboard>
                                                         <DoubleAnimation
                                                             AutoReverse="True"
+                                                            Storyboard.TargetName="PlayButtonOcc"
+                                                            Storyboard.TargetProperty="Width"
+                                                            From="10"
+                                                            To="12"
+                                                            Duration="0:0:0.2" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseDown">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            AutoReverse="True"
                                                             Storyboard.TargetName="TitleAudio"
                                                             Storyboard.TargetProperty="FontSize"
                                                             From="12"
@@ -377,6 +378,97 @@
                     </ListBox>
                 </GroupBox>
             </Grid>
+        </Border>
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10,10,20,20"
+            Padding="5"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <Grid>
+                <GroupBox
+                    Grid.Row="2"
+                    Padding="0,10,0,5"
+                    HorizontalContentAlignment="Stretch"
+                    BorderThickness="0"
+                    Foreground="#FFE8E8E8">
+
+                    <ListBox
+                        HorizontalContentAlignment="Stretch"
+                        BorderBrush="#FF1A1A1A"
+                        BorderThickness="0"
+                        Foreground="#FFE8E8E8"
+                        ItemsSource="{Binding PlaylistCollection}"
+                        SelectedItem="{Binding SongViewModel.SelectedSong}"
+                        VirtualizingPanel.CacheLength="20"
+                        VirtualizingPanel.IsContainerVirtualizable="True"
+                        VirtualizingPanel.IsVirtualizing="True"
+                        VirtualizingPanel.VirtualizationMode="Recycling">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            Margin="5,5,0,5"
+                                            CornerRadius="5">
+                                            <Border.Background>
+                                                <LinearGradientBrush>
+                                                    <GradientStop Offset="1" Color="#662B2B2B" />
+                                                    <GradientStop Offset="0" Color="#66333333" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <fa:ImageAwesome
+                                                Name="PlayButtonOcc"
+                                                Width="25"
+                                                Height="320"
+                                                Foreground="#7FFFFFFF"
+                                                Icon="Solid_Music" />
+                                        </Border>
+                                        <Grid Grid.Column="1" Margin="10,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Name="TitleAudio"
+                                                Grid.Row="0"
+                                                VerticalAlignment="Bottom"
+                                                FontSize="12"
+                                                FontWeight="Bold"
+                                                Foreground="#7CFFFFFF"
+                                                Text="Плейлист" />
+
+                                            <TextBlock
+                                                Name="AudioAuthor"
+                                                Grid.Row="1"
+                                                VerticalAlignment="Top"
+                                                FontSize="11"
+                                                Foreground="#4CFFFFFF"
+                                                Text="Автор" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+            </Grid>
+
         </Border>
     </Grid>
 </UserControl>
