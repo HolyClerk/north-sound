@@ -1,10 +1,8 @@
 ﻿using NorthSound.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NorthSound.Client.Services;
 
@@ -54,7 +52,6 @@ internal static class LocalAudioParser
     private static List<Playlist> TryFindPlaylists()
     {
         var playlists = new List<Playlist>();
-        var mediaReader = new MediaReader();
         string[] directories = Directory.GetDirectories(s_playlistsPath);
 
         foreach (var directory in directories)
@@ -70,7 +67,7 @@ internal static class LocalAudioParser
             foreach (var audiofile in audiofilesPath)
             {
                 // Song? songTemp = mediaReader.ConvertMetadataAsync(audiofile).Result;
-                Song songTemp = mediaReader.ConvertTitle(audiofile);
+                Song songTemp = MediaReader.ConvertTitle(audiofile);
                 playlist.SongsCollection.Add(songTemp);
             }
 

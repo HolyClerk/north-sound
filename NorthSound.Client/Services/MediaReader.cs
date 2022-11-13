@@ -8,12 +8,12 @@ using System.Windows;
 
 namespace NorthSound.Client.Services;
 
-class MediaReader
+public static class MediaReader
 {
     /// <summary>
     /// Конвертирует метаданные файла в модель Song
     /// </summary>
-    public async Task<Song?> ConvertMetadataAsync(string songPath)
+    public static async Task<Song?> ConvertMetadataAsync(string songPath)
     {
         var metadataBuffer = new byte[128];
 
@@ -43,9 +43,7 @@ class MediaReader
     /// <summary>
     /// Конвертирует title файла в модель Song
     /// </summary>
-    /// <param name="songPath"></param>
-    /// <returns></returns>
-    public Song ConvertTitle(string songPath)
+    public static Song ConvertTitle(string songPath)
     {
         var songInfo = new FileInfo(songPath);
 
@@ -68,7 +66,8 @@ class MediaReader
             var author = new string(songInfo.Name.TakeWhile(symbol => symbol != '-').ToArray());
             var name = new string(songName.SkipWhile(symbol => symbol != '-').Where(symbol => symbol != '-').ToArray());
 
-            name = name.Remove(name.Length - 4);
+            name = name.Remove(name.Length - 4);    // Удаление расширения из названия
+            name = name.Remove(0, 1);               // Удаление пробела в начале названия
 
             songTemplate.Author = string.IsNullOrWhiteSpace(author) ? songTemplate.Author : author;
             songTemplate.Name = string.IsNullOrWhiteSpace(name) ? songTemplate.Name : name;
