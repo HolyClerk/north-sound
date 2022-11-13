@@ -24,8 +24,8 @@ internal abstract class ViewModelBase : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Обновляет значение свойства и разрешает кольцевые
-    /// изменения свойств.
+    /// Обновляет значение свойства и разрешает проблему 
+    /// кольцевых изменений свойства.
     /// </summary>
     /// <typeparam name="T">Тип меняемого свойства</typeparam>
     /// <param name="field">Ссылка на поле(свойства)</param>

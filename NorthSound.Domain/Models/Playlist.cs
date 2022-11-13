@@ -13,13 +13,13 @@ public class Playlist
 		set; 
 	}
 
-	public string PlaylistName
+	public string Title
 	{
 		get;
 		set;
 	}
 
-	public string PlaylistAuthor
+	public string Subtitle
 	{
 		get;
 		set;

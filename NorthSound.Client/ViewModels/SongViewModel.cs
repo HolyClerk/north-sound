@@ -10,7 +10,7 @@ internal class SongViewModel : ViewModelBase
     private int _duration;
     private double _volume;
 
-    private Song? _currentSong;
+    private Song? _selectedSong;
     private MediaPlayerShell _mediaPlayer;
     private RelayCommand? _playCommand;
 
@@ -38,10 +38,15 @@ internal class SongViewModel : ViewModelBase
 
     public Song? SelectedSong
     {
-        get => _currentSong;
+        get => _selectedSong;
         set
         {
-            Set(ref _currentSong, value);
+            if (value == null)
+            {
+                return;
+            }
+
+            Set(ref _selectedSong, value);
             _mediaPlayer.CurrentSong = value;
             _mediaPlayer.Play();
         }

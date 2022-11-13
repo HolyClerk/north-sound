@@ -23,15 +23,15 @@ internal class PlaylistViewModel : ViewModelBase
             new Playlist()
             {
                 SongsCollection = songs,
-                PlaylistAuthor = "Mine",
-                PlaylistName = "Моя музыка"
+                Subtitle = "Mine",
+                Title = "Моя музыка"
             },
 
             new Playlist()
             {
                 SongsCollection = songs,
-                PlaylistAuthor = "Подборка",
-                PlaylistName = "Рок плейлист"
+                Subtitle = "Подборка",
+                Title = "Рок плейлист"
             },
         };
     }

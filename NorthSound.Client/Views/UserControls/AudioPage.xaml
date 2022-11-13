@@ -394,7 +394,6 @@
                     HorizontalContentAlignment="Stretch"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8">
-
                     <ListBox
                         HorizontalContentAlignment="Stretch"
                         BorderBrush="#FF1A1A1A"
@@ -413,24 +412,49 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,2">
-                                    <Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="AUTO" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Border BorderThickness="3" CornerRadius="5">
+                                            <Border.Background>
+                                                <LinearGradientBrush>
+                                                    <GradientStop Offset="1" Color="#663A4B5B" />
+                                                    <GradientStop Offset="0" Color="#6615191D" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <fa:ImageAwesome
+                                                Width="30"
+                                                Height="30"
+                                                Margin="10"
+                                                Foreground="#7FFFFFFF"
+                                                Icon="Solid_Music" />
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1" Margin="5,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
                                         <TextBlock
-                                            Name="TitleAudio"
-                                            Grid.Row="0"
+                                            Name="PlaylistTitle"
                                             VerticalAlignment="Bottom"
                                             FontSize="12"
                                             FontWeight="Bold"
                                             Foreground="#7CFFFFFF"
-                                            Text="{Binding PlaylistName}" />
+                                            Text="{Binding Title}" />
 
                                         <TextBlock
-                                            Name="AudioAuthor"
+                                            Name="PlaylistSubtitle"
                                             Grid.Row="1"
                                             VerticalAlignment="Top"
                                             FontSize="11"
                                             Foreground="#4CFFFFFF"
-                                            Text="{Binding PlaylistAuthor}" />
+                                            Text="{Binding Subtitle}" />
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
