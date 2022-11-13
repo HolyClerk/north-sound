@@ -15,7 +15,7 @@ internal class PlaylistViewModel : ViewModelBase
         var songs = new List<Song>()
         {
             new Song() { Name = "Закройте", Author = "Лампабикт", Path = new Uri(@"лампабикт - Закройте.mp3", UriKind.Relative) },
-            new Song() { Name = "Ветивер", Author = "Wildways feat. polnalyubvi", Path = new Uri(@"Wildways feat. polnalyubvi - Ветивер (feat. polnalyubvi).mp3", UriKind.Relative) },
+            new Song() { Name = "Ветивер", Author = "Wildways feat. polnalyubvi", Path = new Uri(@"/Playlists/MyMusic/Wildways feat. polnalyubvi - Ветивер (feat. polnalyubvi).mp3", UriKind.Relative) },
         };
 
         PlaylistsCollection = new Playlist[]

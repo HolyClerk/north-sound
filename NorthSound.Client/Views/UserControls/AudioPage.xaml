@@ -55,6 +55,13 @@
             BorderThickness="1"
             CornerRadius="5">
 
+            <Border.Background>
+                <RadialGradientBrush>
+                    <GradientStop Offset="0" Color="#FF2D1842" />
+                    <GradientStop Offset="1" Color="#FF202020" />
+                </RadialGradientBrush>
+            </Border.Background>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -92,15 +99,31 @@
                     </StackPanel>
                 </Grid>
 
-                <Button
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="30"
-                    Height="30"
-                    Margin="5"
-                    BorderBrush="{StaticResource TopBackgroundDark}"
-                    Command="{Binding SongViewModel.PlayCommand}"
-                    Style="{DynamicResource PlayButtonStyle}" />
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Width="30"
+                        Height="30"
+                        Margin="5"
+                        BorderBrush="{StaticResource TopBackgroundDark}"
+                        Command="{Binding SongViewModel.PlayCommand}" />
+
+                    <Button Grid.Column="1" Command="{Binding SongViewModel.PlayCommand}" />
+
+                    <Button
+                        Grid.Column="2"
+                        Width="30"
+                        Height="30"
+                        Margin="5"
+                        BorderBrush="{StaticResource TopBackgroundDark}"
+                        Command="{Binding SongViewModel.PlayCommand}" />
+                </Grid>
 
                 <Slider
                     Grid.Row="2"
