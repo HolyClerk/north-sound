@@ -47,11 +47,11 @@ internal static class LocalAudioParser
 
     public static Playlist[] GetLocalPlaylists()
     {
-        var buffer = TryFindPlaylists().Result;
+        var buffer = TryFindPlaylists();
         return buffer.ToArray();
     }
 
-    private static async Task<List<Playlist>> TryFindPlaylists()
+    private static List<Playlist> TryFindPlaylists()
     {
         var playlists = new List<Playlist>();
         var mediaReader = new MediaReader();
@@ -59,18 +59,18 @@ internal static class LocalAudioParser
 
         foreach (var directory in directories)
         {
-            var playlist = new Playlist();
+            var playlist = new Playlist()
+            {
+                Title = "Temp",
+                Subtitle = "sub",
+            };
+
             string[] audiofilesPath = Directory.GetFiles(directory, "*.mp3");
 
             foreach (var audiofile in audiofilesPath)
             {
-                var songTemp = await mediaReader.ConvertMetadataAsync(audiofile);
-
-                if (songTemp == null)
-                {
-                    songTemp = mediaReader.ConvertTitle(audiofile);
-                }
-
+                // Song? songTemp = mediaReader.ConvertMetadataAsync(audiofile).Result;
+                Song songTemp = mediaReader.ConvertTitle(audiofile);
                 playlist.SongsCollection.Add(songTemp);
             }
 

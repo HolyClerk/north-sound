@@ -14,6 +14,7 @@ internal class PlaylistViewModel : ViewModelBase
         PlaylistsCollection = LocalAudioParser.GetTemplatePlaylists();
 #endif
 
+       PlaylistsCollection = LocalAudioParser.GetLocalPlaylists();
     }
 
     public Playlist[]? PlaylistsCollection
