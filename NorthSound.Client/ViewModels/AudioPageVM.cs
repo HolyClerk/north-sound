@@ -13,21 +13,15 @@ internal class AudioPageVM : ViewModelBase
 {
     private string _filterText = "";
 
-    private ICollectionView? _playlistCollection;
-    private ICollectionView? _audioPlaylists;
+    private ICollectionView? _selectedPlaylist;
 
-    SongViewModel _songViewModel;
+    private SongViewModel _songViewModel;
+    private PlaylistViewModel _playlistViewModel;
 
     public AudioPageVM()
     {
-        var soundsTest = new Song[]
-        {
-            new Song() { Name = "Закройте", Author = "Лампабикт", Path = new Uri(@"лампабикт - Закройте.mp3", UriKind.Relative) },
-            new Song() { Name = "Ветивер", Author = "Wildways feat. polnalyubvi", Path = new Uri(@"Wildways feat. polnalyubvi - Ветивер (feat. polnalyubvi).mp3", UriKind.Relative) },
-        };
-
-        PlaylistCollection = CollectionViewSource.GetDefaultView(soundsTest);
         @SongViewModel = new SongViewModel();
+        @PlaylistViewModel = new PlaylistViewModel();
     }
 
     public string FilterText
@@ -40,16 +34,21 @@ internal class AudioPageVM : ViewModelBase
         }
     }
 
-    public ICollectionView? PlaylistCollection
+    public ICollectionView? SelectedPlaylistCollection
     {
-        get => _playlistCollection;
-        set => Set(ref _playlistCollection, value);
+        get => _selectedPlaylist;
+        set => Set(ref _selectedPlaylist, value);
     }
 
-    public ICollectionView? AudioPlaylists
+    // Это свойство служит интерфейсом-сеттером между выбранным плейлистом из
+    // коллекции(типа Playlist из PlaylistViewModel),
+    // и отображаемой коллекцией SelectedPlaylistCollection.
+    public Playlist? SelectedPlaylist
     {
-        get => _playlistCollection;
-        set => Set(ref _playlistCollection, value);
+        set
+        {
+            SelectedPlaylistCollection = CollectionViewSource.GetDefaultView(value?.SongsCollection);
+        }
     }
 
     public SongViewModel @SongViewModel
@@ -58,14 +57,20 @@ internal class AudioPageVM : ViewModelBase
         set => Set(ref _songViewModel, value);
     }
 
+    public PlaylistViewModel @PlaylistViewModel
+    {
+        get => _playlistViewModel;
+        set => Set(ref _playlistViewModel, value);
+    }
+
     private void BindFilter()
     {
-        if (PlaylistCollection == null)
+        if (SelectedPlaylistCollection == null)
         {
             return;
         }
 
-        PlaylistCollection.Filter = FilterAudio;
+        SelectedPlaylistCollection.Filter = FilterAudio;
     }
 
     private bool FilterAudio(object obj)

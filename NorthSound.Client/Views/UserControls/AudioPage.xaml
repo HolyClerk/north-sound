@@ -259,7 +259,7 @@
                         BorderBrush="#FF1A1A1A"
                         BorderThickness="0,0,0,0"
                         Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding PlaylistCollection}"
+                        ItemsSource="{Binding SelectedPlaylistCollection}"
                         SelectedItem="{Binding SongViewModel.SelectedSong}"
                         VirtualizingPanel.CacheLength="20"
                         VirtualizingPanel.IsContainerVirtualizable="True"
@@ -390,7 +390,7 @@
             <Grid>
                 <GroupBox
                     Grid.Row="2"
-                    Padding="0,10,0,5"
+                    Padding="0,5"
                     HorizontalContentAlignment="Stretch"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8">
@@ -400,8 +400,8 @@
                         BorderBrush="#FF1A1A1A"
                         BorderThickness="0"
                         Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding PlaylistCollection}"
-                        SelectedItem="{Binding SongViewModel.SelectedSong}"
+                        ItemsSource="{Binding PlaylistViewModel.PlaylistsCollection}"
+                        SelectedItem="{Binding SelectedPlaylist}"
                         VirtualizingPanel.CacheLength="20"
                         VirtualizingPanel.IsContainerVirtualizable="True"
                         VirtualizingPanel.IsVirtualizing="True"
@@ -415,52 +415,22 @@
                             <DataTemplate>
                                 <Grid Margin="0,2">
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Name="TitleAudio"
+                                            Grid.Row="0"
+                                            VerticalAlignment="Bottom"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="#7CFFFFFF"
+                                            Text="{Binding PlaylistName}" />
 
-                                        <Border
-                                            Grid.Column="0"
-                                            Width="50"
-                                            Height="50"
-                                            Margin="5,5,0,5"
-                                            CornerRadius="5">
-                                            <Border.Background>
-                                                <LinearGradientBrush>
-                                                    <GradientStop Offset="1" Color="#662B2B2B" />
-                                                    <GradientStop Offset="0" Color="#66333333" />
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                            <fa:ImageAwesome
-                                                Name="PlayButtonOcc"
-                                                Width="25"
-                                                Height="320"
-                                                Foreground="#7FFFFFFF"
-                                                Icon="Solid_Music" />
-                                        </Border>
-                                        <Grid Grid.Column="1" Margin="10,0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock
-                                                Name="TitleAudio"
-                                                Grid.Row="0"
-                                                VerticalAlignment="Bottom"
-                                                FontSize="12"
-                                                FontWeight="Bold"
-                                                Foreground="#7CFFFFFF"
-                                                Text="Плейлист" />
-
-                                            <TextBlock
-                                                Name="AudioAuthor"
-                                                Grid.Row="1"
-                                                VerticalAlignment="Top"
-                                                FontSize="11"
-                                                Foreground="#4CFFFFFF"
-                                                Text="Автор" />
-                                        </Grid>
+                                        <TextBlock
+                                            Name="AudioAuthor"
+                                            Grid.Row="1"
+                                            VerticalAlignment="Top"
+                                            FontSize="11"
+                                            Foreground="#4CFFFFFF"
+                                            Text="{Binding PlaylistAuthor}" />
                                     </Grid>
                                 </Grid>
                             </DataTemplate>

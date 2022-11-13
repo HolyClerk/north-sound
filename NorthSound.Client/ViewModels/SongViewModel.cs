@@ -43,6 +43,7 @@ internal class SongViewModel : ViewModelBase
         {
             Set(ref _currentSong, value);
             _mediaPlayer.CurrentSong = value;
+            _mediaPlayer.Play();
         }
     }
 
