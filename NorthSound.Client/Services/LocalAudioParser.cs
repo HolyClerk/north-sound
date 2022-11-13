@@ -1,9 +1,10 @@
 ﻿using NorthSound.Domain.Models;
-using NorthSound.Domain.Models.Base;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NorthSound.Client.Services;
 
@@ -15,7 +16,6 @@ internal static class LocalAudioParser
     {
         s_playlistsPath = @"C:\Users\Public\Music\NorthSound";
         TryInitFolders(s_playlistsPath + @"\MainPlaylist");
-        GetFindedPlaylists();
     }
 
     // DELETE_LATER
@@ -45,17 +45,22 @@ internal static class LocalAudioParser
         };
     }
 
-    public static async void GetFindedPlaylists()
+    public static Playlist[] GetLocalPlaylists()
     {
-        var mediaReader = new MediaReader();
+        var buffer = TryFindPlaylists().Result;
+        return buffer.ToArray();
+    }
 
+    private static async Task<List<Playlist>> TryFindPlaylists()
+    {
+        var playlists = new List<Playlist>();
+        var mediaReader = new MediaReader();
         string[] directories = Directory.GetDirectories(s_playlistsPath);
 
         foreach (var directory in directories)
         {
+            var playlist = new Playlist();
             string[] audiofilesPath = Directory.GetFiles(directory, "*.mp3");
-
-            Debug.WriteLine(directory + ": ");
 
             foreach (var audiofile in audiofilesPath)
             {
@@ -64,10 +69,15 @@ internal static class LocalAudioParser
                 if (songTemp == null)
                 {
                     songTemp = mediaReader.ConvertTitle(audiofile);
-                    Debug.WriteLine($"{songTemp.Name} - {songTemp.Author}");
                 }
+
+                playlist.SongsCollection.Add(songTemp);
             }
+
+            playlists.Add(playlist);
         }    
+
+        return playlists;
     }
 
     private static void TryInitFolders(string playlistsPath)
