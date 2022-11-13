@@ -18,8 +18,6 @@ internal class AudioPageVM : ViewModelBase
     private SongViewModel _songViewModel;
     private PlaylistViewModel _playlistViewModel;
 
-    private Song _selectedSongBuffer;
-
     public AudioPageVM()
     {
         @SongViewModel = new SongViewModel();

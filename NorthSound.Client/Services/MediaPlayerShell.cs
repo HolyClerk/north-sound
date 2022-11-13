@@ -13,7 +13,6 @@ internal class MediaPlayerShell
         _mediaPlayer = new MediaPlayer();
         _mediaPlayer.MediaEnded += (s, e) => IsPlaying = false;
         _mediaPlayer.MediaFailed += (s, e) => IsPlaying = false;
-        _mediaPlayer.MediaOpened += (s, e) => IsPlaying = false;
     }
 
     public bool IsPlaying 
