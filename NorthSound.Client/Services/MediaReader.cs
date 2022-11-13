@@ -36,6 +36,7 @@ class MediaReader
             Name = Encoding.Default.GetString(metadataBuffer, 3, 30),
             Author = Encoding.Default.GetString(metadataBuffer, 33, 30),
             Description = Encoding.Default.GetString(metadataBuffer, 97, 30),
+            Path = new Uri(songPath, UriKind.Absolute),
         };
     }
 
@@ -52,6 +53,7 @@ class MediaReader
         {
             Author = "None",
             Name = "None",
+            Path = new Uri(songPath, UriKind.Absolute),
         };
 
         if (!songInfo.Exists)
