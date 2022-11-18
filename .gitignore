@@ -3,8 +3,11 @@
 *.user
 *.sln.docstates
 
-# Build results
+# North Sound
 NorthSound.Checks/
+NorthSound.Server/
+
+# Build results
 [Dd]ebug/
 [Rr]elease/
 x64/

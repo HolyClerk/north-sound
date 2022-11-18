@@ -1,31 +1,35 @@
 ﻿using NorthSound.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace NorthSound.Client.Services;
 
-internal static class LocalAudioParser
+internal class LocalParser
 {
-    static readonly string s_playlistsPath;
+    private readonly string _playlistsPath;
 
-    static LocalAudioParser()
+    public LocalParser()
     {
-        s_playlistsPath = @"C:\Users\Public\Music\NorthSound";
-        InitFolders(s_playlistsPath + @"\MainPlaylist");
+        _playlistsPath = @"C:\Users\Public\Music\NorthSound";
+        InitFolders(_playlistsPath);
     }
 
-    public static Playlist[] GetLocalPlaylists()
+    public LocalParser(string playlistsPath)
     {
-        var buffer = TryFindPlaylists();
-        return buffer.ToArray();
+        _playlistsPath = playlistsPath;
+        InitFolders(playlistsPath + @"\MainPlaylist");
     }
 
-    private static List<Playlist> TryFindPlaylists()
+    public Playlist[]? GetLocalPlaylists()
     {
-        var playlists = new List<Playlist>();
-        string[] directories = Directory.GetDirectories(s_playlistsPath);
+        _ = TryFindPlaylists(out var playlists);
+        return playlists.ToArray();
+    }
+
+    private bool TryFindPlaylists(out List<Playlist> playlists)
+    {
+        playlists = new List<Playlist>();
+        string[] directories = Directory.GetDirectories(_playlistsPath);
 
         foreach (var directory in directories)
         {
@@ -49,10 +53,10 @@ internal static class LocalAudioParser
             playlists.Add(playlist);
         }    
 
-        return playlists;
+        return true;
     }
 
-    private static void InitFolders(string playlistsPath)
+    private void InitFolders(string playlistsPath)
     {
         var pathInfo = new DirectoryInfo(playlistsPath);
 

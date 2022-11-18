@@ -1,6 +1,6 @@
 ﻿namespace NorthSound.Client.Services;
 
-internal class GlobalAudioParser
+internal class GlobalParser
 {
 }
 

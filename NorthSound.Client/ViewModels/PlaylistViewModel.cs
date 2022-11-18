@@ -6,11 +6,13 @@ namespace NorthSound.Client.ViewModels;
 
 internal class PlaylistViewModel : ViewModelBase
 {
+    private LocalParser _parserService;
     private Playlist[]? _playlistsCollection;
 
     public PlaylistViewModel()
     {
-       PlaylistsCollection = LocalAudioParser.GetLocalPlaylists();
+        _parserService = new LocalParser(@"C:\Users\Public\Music\NorthSound");
+        PlaylistsCollection = _parserService.GetLocalPlaylists();
     }
 
     public Playlist[]? PlaylistsCollection
