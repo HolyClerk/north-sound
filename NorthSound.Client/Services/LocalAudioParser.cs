@@ -13,34 +13,7 @@ internal static class LocalAudioParser
     static LocalAudioParser()
     {
         s_playlistsPath = @"C:\Users\Public\Music\NorthSound";
-        TryInitFolders(s_playlistsPath + @"\MainPlaylist");
-    }
-
-    // DELETE_LATER
-    public static Playlist[] GetTemplatePlaylists()
-    {
-        var songs = new Song[]
-        {
-            new Song() { Name = "Закройте", Author = "Лампабикт", Path = new Uri($@"{s_playlistsPath}\MainPlaylist\лампабикт - Закройте.mp3", UriKind.Relative) },
-            new Song() { Name = "Ветивер", Author = "Wildways feat. polnalyubvi", Path = new Uri($@"{s_playlistsPath}\MainPlaylist\Wildways feat. polnalyubvi - Ветивер (feat. polnalyubvi).mp3", UriKind.Relative) },
-        };
-
-        return new Playlist[]
-        {
-            new Playlist()
-            {
-                SongsCollection = songs.ToList(),
-                Subtitle = "Mine",
-                Title = "Моя музыка"
-            },
-
-            new Playlist()
-            {
-                SongsCollection = songs.ToList(),
-                Subtitle = "Подборка",
-                Title = "Рок плейлист"
-            },
-        };
+        InitFolders(s_playlistsPath + @"\MainPlaylist");
     }
 
     public static Playlist[] GetLocalPlaylists()
@@ -66,9 +39,11 @@ internal static class LocalAudioParser
 
             foreach (var audiofile in audiofilesPath)
             {
-                // Song? songTemp = mediaReader.ConvertMetadataAsync(audiofile).Result;
-                Song songTemp = MediaReader.ConvertTitle(audiofile);
-                playlist.SongsCollection.Add(songTemp);
+                if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
+                {
+                    Song songTemp = MediaReader.ConvertTitle(songInfo);
+                    playlist.SongsCollection.Add(songTemp);
+                }
             }
 
             playlists.Add(playlist);
@@ -77,7 +52,7 @@ internal static class LocalAudioParser
         return playlists;
     }
 
-    private static void TryInitFolders(string playlistsPath)
+    private static void InitFolders(string playlistsPath)
     {
         var pathInfo = new DirectoryInfo(playlistsPath);
 

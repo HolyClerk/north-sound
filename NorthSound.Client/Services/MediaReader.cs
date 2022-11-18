@@ -43,21 +43,14 @@ public static class MediaReader
     /// <summary>
     /// Конвертирует title файла в модель Song
     /// </summary>
-    public static Song ConvertTitle(string songPath)
+    public static Song ConvertTitle(FileInfo songInfo)
     {
-        var songInfo = new FileInfo(songPath);
-
         var songTemplate = new Song()
         {
             Author = "None",
             Name = "None",
-            Path = new Uri(songPath, UriKind.Absolute),
+            Path = new Uri(songInfo.FullName, UriKind.Absolute),
         };
-
-        if (!songInfo.Exists)
-        {
-            return songTemplate;
-        }
 
         try
         {
@@ -74,10 +67,22 @@ public static class MediaReader
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message);
+            throw;
         }
         
         return songTemplate;
+    }
+
+    public static bool TryFindMediaFile(string songPath, out FileInfo songInfo)
+    {
+        songInfo = new FileInfo(songPath);
+
+        if (songInfo.Exists)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 
