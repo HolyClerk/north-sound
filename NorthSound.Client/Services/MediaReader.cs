@@ -54,16 +54,11 @@ public static class MediaReader
 
         try
         {
-            string songName = songInfo.Name;
+            string formatedName = Regex.Replace(songInfo.Name, @"\.(\w)+", "", RegexOptions.Compiled);
+            string[] splittedName = Regex.Split(formatedName, @" - ", RegexOptions.Compiled);
 
-            var author = new string(songInfo.Name.TakeWhile(symbol => symbol != '-').ToArray());
-            var name = new string(songName.SkipWhile(symbol => symbol != '-').Where(symbol => symbol != '-').ToArray());
-
-            name = name.Remove(name.Length - 4);    // Удаление расширения из названия
-            name = name.Remove(0, 1);               // Удаление пробела в начале названия
-
-            songTemplate.Author = string.IsNullOrWhiteSpace(author) ? songTemplate.Author : author;
-            songTemplate.Name = string.IsNullOrWhiteSpace(name) ? songTemplate.Name : name;
+            songTemplate.Author = splittedName[0];
+            songTemplate.Name = string.Join(' ', splittedName[1..]);
         }
         catch (Exception e)
         {
