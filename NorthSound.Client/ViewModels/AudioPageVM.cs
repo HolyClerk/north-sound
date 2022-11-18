@@ -15,9 +15,6 @@ internal class AudioPageVM : ViewModelBase
 
     private ICollectionView? _selectedPlaylist;
 
-    private SongViewModel _songViewModel;
-    private PlaylistViewModel _playlistViewModel;
-
     public AudioPageVM()
     {
         @SongViewModel = new SongViewModel();
@@ -34,7 +31,7 @@ internal class AudioPageVM : ViewModelBase
         }
     }
 
-    public ICollectionView? SelectedPlaylistCollection
+    public ICollectionView? SelectedCollection
     {
         get => _selectedPlaylist;
         set => Set(ref _selectedPlaylist, value);
@@ -47,30 +44,30 @@ internal class AudioPageVM : ViewModelBase
     {
         set
         {
-            SelectedPlaylistCollection = CollectionViewSource.GetDefaultView(value?.SongsCollection);
+            SelectedCollection = CollectionViewSource.GetDefaultView(value?.SongsCollection);
         }
     }
 
+    #region ViewModels
     public SongViewModel @SongViewModel
     {
-        get => _songViewModel;
-        set => Set(ref _songViewModel, value);
+        get; 
     }
 
     public PlaylistViewModel @PlaylistViewModel
     {
-        get => _playlistViewModel;
-        set => Set(ref _playlistViewModel, value);
+        get; 
     }
+    #endregion
 
     private void BindFilter()
     {
-        if (SelectedPlaylistCollection == null)
+        if (SelectedCollection == null)
         {
             return;
         }
 
-        SelectedPlaylistCollection.Filter = FilterAudio;
+        SelectedCollection.Filter = FilterAudio;
     }
 
     private bool FilterAudio(object obj)

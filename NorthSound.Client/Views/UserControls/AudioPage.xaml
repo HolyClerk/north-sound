@@ -282,7 +282,7 @@
                         BorderBrush="#FF1A1A1A"
                         BorderThickness="0,0,0,0"
                         Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding SelectedPlaylistCollection}"
+                        ItemsSource="{Binding SelectedCollection}"
                         SelectedItem="{Binding SongViewModel.SelectedSong}"
                         VirtualizingPanel.CacheLength="20"
                         VirtualizingPanel.IsContainerVirtualizable="True"
