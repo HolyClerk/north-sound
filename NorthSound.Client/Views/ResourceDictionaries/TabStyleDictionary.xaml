@@ -24,7 +24,7 @@
                             x:Name="Spacer"
                             Width="Auto"
                             Height="Auto"
-                            Padding="5"
+                            Padding="5,5,0,5"
                             BorderBrush="Transparent"
                             BorderThickness="0">
                             <Border

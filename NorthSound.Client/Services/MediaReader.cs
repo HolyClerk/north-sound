@@ -60,11 +60,11 @@ public static class MediaReader
             songTemplate.Author = splittedName[0];
             songTemplate.Name = string.Join(' ', splittedName[1..]);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw;
         }
-        
+
         return songTemplate;
     }
 
