@@ -132,9 +132,9 @@
                     Margin="15,5"
                     VerticalAlignment="Bottom"
                     IsSelectionRangeEnabled="True"
-                    Maximum="{Binding SongViewModel.Duration}"
+                    Maximum="100"
                     Style="{StaticResource SliderStyle}"
-                    Value="{Binding SongViewModel.SongPosition}" />
+                    Value="0" />
             </Grid>
 
         </Border>
