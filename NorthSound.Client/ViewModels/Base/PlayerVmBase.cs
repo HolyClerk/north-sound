@@ -1,4 +1,4 @@
-﻿using NorthSound.Domain.Models;
+﻿using NorthSound.Domain.Models.Base;
 using System.Windows.Media;
 
 namespace NorthSound.Client.ViewModels.Base;
@@ -16,12 +16,12 @@ class PlayerVmBase : ViewModelBase
         MediaPlayer.MediaFailed += (s, e) => IsPlaying = false;
         MediaPlayer.MediaOpened += (s, e) =>
         {
-            SongVolume = MediaPlayer.Volume;
-            PlaySong();
+            AudioVolume = MediaPlayer.Volume;
+            PlayAudio();
         };
     }
 
-    public double SongVolume
+    public double AudioVolume
     {
         get => _volume;
         set
@@ -32,20 +32,20 @@ class PlayerVmBase : ViewModelBase
     }
 
     #region Play & Pause обёртки
-    protected void PlaySong()
+    protected void PlayAudio()
     {
         MediaPlayer.Play();
         IsPlaying = true;
     }
 
-    protected void PlaySong(Song song)
+    protected void PlayAudio(AudioFile audio)
     {
-        MediaPlayer.Open(song.Path);
+        MediaPlayer.Open(audio.Path);
         MediaPlayer.Play();
         IsPlaying = true;
     }
 
-    protected void PauseSong()
+    protected void PauseAudio()
     {
         MediaPlayer.Pause();
         IsPlaying = false;

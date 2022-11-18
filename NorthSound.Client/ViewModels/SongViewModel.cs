@@ -19,11 +19,11 @@ internal class SongViewModel : PlayerVmBase
             {
                 if (!IsPlaying && SelectedSong != null)
                 {
-                    PlaySong();
+                    PlayAudio();
                     return;
                 }
 
-                PauseSong();
+                PauseAudio();
             }, canExecute =>
             {
                 return SelectedSong != null;
@@ -41,7 +41,7 @@ internal class SongViewModel : PlayerVmBase
                 return;
             }
 
-            PlaySong(value);
+            PlayAudio(value);
             Set(ref _selectedSong, value);
         }
     }

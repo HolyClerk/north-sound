@@ -10,12 +10,6 @@ public class Song : AudioFile
         set;
     }
 
-    public Uri Path
-    {
-        get; 
-        set;
-    }
-
     public bool IsAnyPropsContains(string filter)
     {
         return

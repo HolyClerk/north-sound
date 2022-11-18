@@ -13,4 +13,10 @@ public class AudioFile
         get;
         set;
     }
+
+    public Uri Path
+    {
+        get;
+        set;
+    }
 }
