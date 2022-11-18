@@ -3,8 +3,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace NorthSound.Client.Services;
 
@@ -43,7 +43,7 @@ public static class MediaReader
     /// <summary>
     /// Конвертирует title файла в модель Song
     /// </summary>
-    public static Song ConvertTitle(FileInfo songInfo)
+    public static Song ConvertToSong(FileInfo songInfo)
     {
         var songTemplate = new Song()
         {

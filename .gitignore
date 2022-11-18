@@ -4,6 +4,7 @@
 *.sln.docstates
 
 # Build results
+NorthSound.Checks/
 [Dd]ebug/
 [Rr]elease/
 x64/

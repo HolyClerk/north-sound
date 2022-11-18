@@ -41,7 +41,7 @@ internal static class LocalAudioParser
             {
                 if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
                 {
-                    Song songTemp = MediaReader.ConvertTitle(songInfo);
+                    Song songTemp = MediaReader.ConvertToSong(songInfo);
                     playlist.SongsCollection.Add(songTemp);
                 }
             }
