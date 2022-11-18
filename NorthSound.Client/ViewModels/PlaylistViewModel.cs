@@ -13,7 +13,6 @@ internal class PlaylistViewModel : ViewModelBase
 #if DEBUG
         PlaylistsCollection = LocalAudioParser.GetTemplatePlaylists();
 #endif
-
        PlaylistsCollection = LocalAudioParser.GetLocalPlaylists();
     }
 

@@ -2,19 +2,38 @@
 using NorthSound.Client.Services;
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
+using System.Windows.Threading;
+using System;
+using System.Threading.Tasks;
 
 namespace NorthSound.Client.ViewModels;
 
 internal class SongViewModel : ViewModelBase
 {
-    private int _duration;
+    private double _duration;
     private double _volume;
+    private double _songPosition;
 
     private Song? _selectedSong;
     private MediaPlayerShell _mediaPlayer;
     private RelayCommand? _playCommand;
 
-    public SongViewModel() => _mediaPlayer = new MediaPlayerShell();
+    public SongViewModel()
+    {
+        var dispatcherTimer = new DispatcherTimer();
+
+        _mediaPlayer = new MediaPlayerShell();
+        _mediaPlayer.SongStarted += (s, e) =>
+        {
+            Duration = _mediaPlayer.GetDuration();
+            SongVolume = _mediaPlayer.GetVolume();
+        };
+
+        dispatcherTimer.Tick += (s, e) => SongPosition = _mediaPlayer.GetPosition();
+
+        dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 10); // 10ms
+        dispatcherTimer.Start();
+    }
 
     public RelayCommand PlayCommand
     {
@@ -62,13 +81,22 @@ internal class SongViewModel : ViewModelBase
         }
     }
 
-    public int Duration
+    public double Duration
     {
         get => _duration;
         set
         {
-            _duration = _mediaPlayer.GetDuration();
             Set(ref _duration, value);
+        }
+    }
+
+    public double SongPosition
+    {
+        get => _songPosition;
+        set
+        {
+            Set(ref _songPosition, value);
+            _mediaPlayer.SetPosition(value);
         }
     }
 }

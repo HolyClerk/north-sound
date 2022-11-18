@@ -11,9 +11,12 @@ internal class MediaPlayerShell
     public MediaPlayerShell()
     {
         _mediaPlayer = new MediaPlayer();
+        _mediaPlayer.MediaOpened += (s, e) => SongStarted?.Invoke(s, e);
         _mediaPlayer.MediaEnded += (s, e) => IsPlaying = false;
         _mediaPlayer.MediaFailed += (s, e) => IsPlaying = false;
     }
+
+    public EventHandler SongStarted;
 
     public bool IsPlaying 
     { 
@@ -38,13 +41,28 @@ internal class MediaPlayerShell
         IsPlaying = false;
     }  
 
-    public int GetDuration()
+    public double GetDuration()
     {
-        return _mediaPlayer.NaturalDuration.TimeSpan.Seconds;
+        return _mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+    }
+    
+    public void SetPosition(double seconds)
+    {
+        _mediaPlayer.Position = TimeSpan.FromSeconds(seconds);
+    }
+
+    public double GetPosition()
+    {
+        return _mediaPlayer.Position.TotalSeconds;
     }
 
     public void SetVolume(double value)
     {
         _mediaPlayer.Volume = value;
+    }
+
+    public double GetVolume()
+    {
+        return _mediaPlayer.Volume;
     }
 }

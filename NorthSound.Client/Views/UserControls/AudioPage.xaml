@@ -132,11 +132,9 @@
                     Margin="15,5"
                     VerticalAlignment="Bottom"
                     IsSelectionRangeEnabled="True"
-                    Maximum="12"
-                    Minimum="0"
-                    SelectionStart="0"
+                    Maximum="{Binding SongViewModel.Duration}"
                     Style="{StaticResource SliderStyle}"
-                    Value="0" />
+                    Value="{Binding SongViewModel.SongPosition}" />
             </Grid>
 
         </Border>
@@ -206,7 +204,7 @@
                     Grid.Row="1"
                     Maximum="1"
                     Style="{DynamicResource SliderSetStyle}"
-                    Value="{Binding SongViewModel.SongVolume, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding SongViewModel.SongVolume}" />
 
                 <Slider
                     Grid.Row="1"
