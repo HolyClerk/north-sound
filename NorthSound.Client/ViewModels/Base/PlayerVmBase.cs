@@ -5,8 +5,11 @@ namespace NorthSound.Client.ViewModels.Base;
 
 class PlayerVmBase : ViewModelBase
 {
-    protected double _volume;
     protected bool IsPlaying;
+
+    protected double _volume;
+    protected double _speedRatio;
+
     protected MediaPlayer MediaPlayer;
 
     public PlayerVmBase()
@@ -17,6 +20,7 @@ class PlayerVmBase : ViewModelBase
         MediaPlayer.MediaOpened += (s, e) =>
         {
             AudioVolume = MediaPlayer.Volume;
+            SpeedRatio = MediaPlayer.SpeedRatio;
             PlayAudio();
         };
     }
@@ -28,6 +32,18 @@ class PlayerVmBase : ViewModelBase
         {
             MediaPlayer.Volume = value;
             Set(ref _volume, value);
+        }
+    }
+
+    public double SpeedRatio
+    {
+        get => _speedRatio;
+        set
+        {
+            MediaPlayer.Pause();
+            MediaPlayer.SpeedRatio = value;
+            MediaPlayer.Play();
+            Set(ref _speedRatio, value);
         }
     }
 

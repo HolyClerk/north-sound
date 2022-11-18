@@ -204,13 +204,15 @@
                     Grid.Row="1"
                     Maximum="1"
                     Style="{DynamicResource SliderSetStyle}"
-                    Value="{Binding SongViewModel.SongVolume}" />
+                    Value="{Binding SongViewModel.AudioVolume}" />
 
                 <Slider
                     Grid.Row="1"
                     Grid.Column="1"
+                    Interval="1"
+                    Maximum="3"
                     Style="{DynamicResource SliderSetStyle}"
-                    Value="1" />
+                    Value="{Binding SongViewModel.SpeedRatio}" />
 
                 <Slider
                     Grid.Row="1"
