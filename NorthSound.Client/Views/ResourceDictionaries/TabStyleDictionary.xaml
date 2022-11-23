@@ -17,7 +17,7 @@
             <Setter Property="FontFamily" Value="Verdana" />
             <Setter Property="Foreground" Value="#b7b7b7" />
 
-            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="MinWidth" Value="150" />
             <Setter Property="MinHeight" Value="30" />
 
             <Setter Property="Template">
@@ -36,7 +36,10 @@
                                 HorizontalAlignment="Stretch"
                                 Background="{StaticResource BackgroundDark}"
                                 BorderBrush="{StaticResource BackgroundDark}">
-                                <ContentPresenter Name="ContentPanel" Margin="5" ContentSource="Header" />
+                                <ContentPresenter
+                                    Name="ContentPanel"
+                                    Margin="5"
+                                    ContentSource="Header" />
                             </Border>
                         </Border>
 

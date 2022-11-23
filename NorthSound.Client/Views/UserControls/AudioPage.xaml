@@ -34,6 +34,26 @@
             <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
             <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
         </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -93,6 +113,7 @@
                         VirtualizingPanel.IsContainerVirtualizable="True"
                         VirtualizingPanel.IsVirtualizing="True"
                         VirtualizingPanel.VirtualizationMode="Recycling">
+
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -100,7 +121,7 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,5">
+                                <Grid Margin="0,0,0,2">
                                     <Border
                                         Name="MusicBorder"
                                         Grid.Row="1"
@@ -142,7 +163,6 @@
                                                     Grid.Row="0"
                                                     VerticalAlignment="Bottom"
                                                     FontSize="12"
-                                                    FontWeight="Bold"
                                                     Foreground="#7CFFFFFF"
                                                     Text="{Binding Path=Name}" />
 
@@ -202,15 +222,14 @@
                 </GroupBox>
             </Grid>
         </Border>
+
         <Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="10,10,20,20"
-            Padding="5"
             BorderThickness="1"
             CornerRadius="5">
-
             <Grid>
                 <GroupBox
                     Grid.Row="2"
@@ -234,38 +253,42 @@
                                 <VirtualizingStackPanel />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border
                                     Width="auto"
-                                    Height="100"
+                                    Height="60"
                                     BorderThickness="3"
                                     CornerRadius="15">
                                     <Border.Background>
                                         <LinearGradientBrush>
                                             <GradientStop Offset="0.5" Color="#FF773B59" />
                                             <GradientStop Offset="0" Color="#FF3F2677" />
-                                            <GradientStop Offset="1" Color="#FF2F3B6D" />
+                                            <GradientStop Offset="1" Color="#FF3A50A9" />
                                         </LinearGradientBrush>
                                     </Border.Background>
                                     <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="0.3*" />
+                                        </Grid.ColumnDefinitions>
                                         <fa:ImageAwesome
-                                            Grid.RowSpan="2"
-                                            Width="35"
-                                            Height="35"
+                                            Grid.Column="1"
+                                            Width="25"
+                                            Height="25"
                                             Margin="10"
-                                            Foreground="#26FFFFFF"
+                                            Foreground="#1CFFFFFF"
                                             Icon="Solid_Book" />
 
                                         <TextBlock
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            HorizontalAlignment="Center"
+                                            Grid.Column="0"
+                                            Padding="15,0"
+                                            HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
+                                            FontSize="13"
+                                            FontWeight="Bold"
+                                            Foreground="#7FE8E8E8"
                                             Text="{Binding Title}" />
                                     </Grid>
                                 </Border>
