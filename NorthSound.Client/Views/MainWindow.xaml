@@ -63,50 +63,14 @@
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush>
-                        <GradientStop Offset="1" Color="#FFF19A68" />
-                        <GradientStop Offset="0" Color="#FFFFF298" />
+                        <GradientStop Offset="1" Color="#FFBDD0FF" />
+                        <GradientStop Offset="0" Color="#FFD7C1F3" />
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
 
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Height" Value="20" />
-        </Style>
-
-        <Style x:Key="SettingsIconsStyle" TargetType="fa:ImageAwesome">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="5" />
-
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <LinearGradientBrush>
-                        <GradientStop Offset="1" Color="#FF68F1E1" />
-                        <GradientStop Offset="0" Color="#FF98C4FF" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Height" Value="20" />
-        </Style>
-
-        <Style x:Key="LibraryIconStyle" TargetType="fa:ImageAwesome">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="5" />
-
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <LinearGradientBrush>
-                        <GradientStop Offset="1" Color="#FFF168BA" />
-                        <GradientStop Offset="0" Color="#FFFF989D" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Height" Value="20" />
+            <Setter Property="Width" Value="13" />
+            <Setter Property="Height" Value="13" />
         </Style>
 
         <Style x:Key="BarTextStyle" TargetType="TextBlock">
@@ -125,15 +89,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <!--  ХЕДЕР  -->
 
         <Border
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Background="{StaticResource TopBackgroundDark}"
-            BorderBrush="{StaticResource TopBackgroundDark}"
-            BorderThickness="3"
+            Background="{StaticResource BackgroundDark}"
             MouseDown="BorderMouseDown">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -187,7 +150,7 @@
         <!--  ТЕЛО  -->
         <TabControl
             Grid.Row="1"
-            Margin="5,0,0,0"
+            Margin="0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             BorderBrush="#FF8E8E8E"
@@ -196,7 +159,19 @@
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
                     <Grid>
-                        <fa:ImageAwesome Icon="Solid_User" Style="{DynamicResource UserIconsStyle}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome
+                            Grid.Column="0"
+                            Icon="Solid_User"
+                            Style="{DynamicResource UserIconsStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Профиль" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
             </TabItem>
@@ -204,7 +179,19 @@
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
                     <Grid>
-                        <fa:ImageAwesome Icon="Solid_UserFriends" Style="{DynamicResource UserIconsStyle}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome
+                            Grid.Column="0"
+                            Icon="Solid_UserFriends"
+                            Style="{DynamicResource UserIconsStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Сообщетво" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
             </TabItem>
@@ -212,7 +199,19 @@
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
                     <Grid>
-                        <fa:ImageAwesome Icon="Solid_Music" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome
+                            Grid.Column="0"
+                            Icon="Solid_Music"
+                            Style="{StaticResource UserIconsStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Моя музыка" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
 
@@ -227,7 +226,16 @@
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
                     <Grid>
-                        <fa:ImageAwesome Icon="Solid_Book" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome Icon="Solid_Book" Style="{StaticResource UserIconsStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Библиотека" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
@@ -241,10 +249,35 @@
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
                     <Grid>
-                        <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource SettingsIconsStyle}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome Icon="Solid_Circle" Style="{StaticResource UserIconsStyle}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Настройки" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
             </TabItem>
         </TabControl>
+
+        <Border
+            x:Name="PlayedMusic"
+            Grid.Row="2"
+            MinHeight="100">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Offset="0" Color="#191f35" />
+                    <GradientStop Offset="0.2" Color="#191f35" />
+                    <GradientStop Offset="0.5" Color="#FF2D1D6B" />
+                    <GradientStop Offset="0.8" Color="#191f35" />
+                    <GradientStop Offset="1" Color="#191f35" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
+        </Border>
     </Grid>
 </Window>

@@ -21,23 +21,24 @@
 
     <UserControl.Resources>
         <Style TargetType="Border">
-            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
         </Style>
 
         <Style TargetType="ListBox">
-            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="0.5*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -47,232 +48,36 @@
             <ColumnDefinition Width="0.5*" MaxWidth="300" />
         </Grid.ColumnDefinitions>
 
-        <Border
-            Name="BorderAudio"
-            Grid.Row="0"
-            Margin="20,20,10,10"
-            Padding="5"
-            BorderThickness="1"
-            CornerRadius="5">
-
-            <Border.Background>
-                <RadialGradientBrush>
-                    <GradientStop Offset="0" Color="#FF2D1842" />
-                    <GradientStop Offset="1" Color="#FF202020" />
-                </RadialGradientBrush>
-            </Border.Background>
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="0"
-                    VerticalAlignment="Center"
-                    Foreground="#4CFFFFFF"
-                    Text="" />
-
-                <Grid Grid.Row="1" Grid.Column="0">
-                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
-                        <TextBlock
-                            Margin="0"
-                            VerticalAlignment="Top"
-                            Foreground="#7FFFFFFF"
-                            Text="{Binding SongViewModel.SelectedSong.Name}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Margin="0"
-                            VerticalAlignment="Bottom"
-                            Foreground="#4CFFFFFF"
-                            Text="{Binding SongViewModel.SelectedSong.Author}" />
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <Button
-                        Grid.Column="0"
-                        Width="30"
-                        Height="30"
-                        Margin="5"
-                        BorderBrush="{StaticResource TopBackgroundDark}"
-                        Command="{Binding SongViewModel.PlayCommand}" />
-
-                    <Button Grid.Column="1" Command="{Binding SongViewModel.PlayCommand}" />
-
-                    <Button
-                        Grid.Column="2"
-                        Width="30"
-                        Height="30"
-                        Margin="5"
-                        BorderBrush="{StaticResource TopBackgroundDark}"
-                        Command="{Binding SongViewModel.PlayCommand}" />
-                </Grid>
-
-                <Slider
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                    Margin="15,5"
-                    VerticalAlignment="Bottom"
-                    IsSelectionRangeEnabled="True"
-                    Maximum="100"
-                    Style="{StaticResource SliderStyle}"
-                    Value="0" />
-            </Grid>
-
-        </Border>
-
-        <Border
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="10,20,20,10"
-            Padding="5"
-            BorderThickness="1"
-            CornerRadius="5">
-
-            <Grid Margin="0,15,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="80*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Row="2"
-                    Width="48"
-                    Margin="0,5,0,5"
-                    HorizontalAlignment="Center"
-                    FontSize="9"
-                    Foreground="#FF787F8C"
-                    Text="Громкость" />
-
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Width="43"
-                    Margin="0,5,0,5"
-                    HorizontalAlignment="Center"
-                    FontSize="9"
-                    Foreground="#FF787F8C"
-                    Text="Скорость" />
-
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    Width="64"
-                    Margin="0,5,0,5"
-                    HorizontalAlignment="Center"
-                    FontSize="9"
-                    Foreground="#FF787F8C"
-                    Text="Эквалайзер 1" />
-
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="3"
-                    Width="64"
-                    Margin="0,5,0,5"
-                    HorizontalAlignment="Center"
-                    FontSize="9"
-                    Foreground="#FF787F8C"
-                    Text="Эквалайзер 2" />
-
-                <Slider
-                    Grid.Row="1"
-                    Maximum="1"
-                    Style="{DynamicResource SliderSetStyle}"
-                    Value="{Binding SongViewModel.AudioVolume}" />
-
-                <Slider
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Interval="1"
-                    Maximum="3"
-                    Style="{DynamicResource SliderSetStyle}"
-                    Value="{Binding SongViewModel.SpeedRatio}" />
-
-                <Slider
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Style="{DynamicResource SliderSetStyle}"
-                    Value="4" />
-
-                <Slider
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    Style="{DynamicResource SliderSetStyle}"
-                    Value="4" />
-            </Grid>
+        <Border Padding="40,10">
+            <TextBox
+                Grid.Row="0"
+                Width="auto"
+                Height="30"
+                VerticalContentAlignment="Center"
+                BorderThickness="0.1"
+                Foreground="#FFA5A5A5"
+                SelectionBrush="#FFA5A5A5"
+                Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8" />
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
         </Border>
 
         <Border
             Grid.Row="1"
-            Grid.ColumnSpan="1"
-            Margin="20,10,10,20"
+            Grid.RowSpan="2"
             Padding="0"
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-
-                <TextBox
-                    Grid.Row="1"
-                    Width="auto"
-                    Height="30"
-                    Margin="12,12,12,5"
-                    Padding="8,0,18,0"
-                    VerticalContentAlignment="Center"
-                    BorderThickness="0.1"
-                    Foreground="#FFA5A5A5"
-                    SelectionBrush="#FFA5A5A5"
-                    Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="8" />
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-
-                <fa:ImageAwesome
-                    Grid.Row="1"
-                    Height="13"
-                    Margin="0,8,20,0"
-                    HorizontalAlignment="Right"
-                    Foreground="Gray"
-                    Icon="Solid_Search" />
-
                 <GroupBox
                     Grid.Row="2"
                     Padding="0,10,0,5"
                     HorizontalContentAlignment="Stretch"
+                    Background="{StaticResource BackgroundDark}"
                     BorderThickness="0"
                     Foreground="#FFE8E8E8">
 
@@ -299,14 +104,9 @@
                                     <Border
                                         Name="MusicBorder"
                                         Grid.Row="1"
+                                        Background="{StaticResource TopBackgroundDark}"
                                         BorderThickness="0"
                                         CornerRadius="13">
-                                        <Border.Background>
-                                            <LinearGradientBrush>
-                                                <GradientStop Offset="1" Color="#FF415A96" />
-                                                <GradientStop Offset="0" Color="#FF4D738C" />
-                                            </LinearGradientBrush>
-                                        </Border.Background>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -404,6 +204,7 @@
         </Border>
         <Border
             Grid.Row="1"
+            Grid.RowSpan="2"
             Grid.Column="1"
             Margin="10,10,20,20"
             Padding="5"
@@ -445,13 +246,14 @@
                                         <Border BorderThickness="3" CornerRadius="5">
                                             <Border.Background>
                                                 <LinearGradientBrush>
-                                                    <GradientStop Offset="1" Color="#663A4B5B" />
-                                                    <GradientStop Offset="0" Color="#6615191D" />
+                                                    <GradientStop Offset="0.5" Color="#FF48294A" />
+                                                    <GradientStop Offset="0" Color="#FF191F35" />
+                                                    <GradientStop Offset="1" Color="#FF191F35" />
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                             <fa:ImageAwesome
-                                                Width="30"
-                                                Height="30"
+                                                Width="80"
+                                                Height="40"
                                                 Margin="10"
                                                 Foreground="#7FFFFFFF"
                                                 Icon="Solid_Music" />
