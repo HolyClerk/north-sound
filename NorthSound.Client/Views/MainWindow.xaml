@@ -22,7 +22,7 @@
     mc:Ignorable="d">
 
     <Window.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:MainWindowVM />
     </Window.DataContext>
 
     <Window.Resources>
@@ -219,7 +219,7 @@
                     <views:AudioPage
                         FontFamily="Verdana"
                         FontSize="13"
-                        FontStyle="Normal" />
+                        FontStyle="Normal" DataContext="{Binding AudioPage}" />
                 </TabItem.Content>
             </TabItem>
 
@@ -277,7 +277,10 @@
                     <GradientStop Offset="1" Color="#191f35" />
                 </LinearGradientBrush>
             </Border.Background>
-            <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AudioPage.SongViewModel.PlayCommand}" >
+                <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
+            </Button>
+            
         </Border>
     </Grid>
 </Window>

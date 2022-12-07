@@ -2,7 +2,7 @@
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
 
-namespace NorthSound.Client.ViewModels;
+namespace NorthSound.Client.ViewModels.AudioVMs;
 
 internal class PlaylistViewModel : ViewModelBase
 {

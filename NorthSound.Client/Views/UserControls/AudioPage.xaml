@@ -15,10 +15,6 @@
     Foreground="#FF969696"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:AudioPageVM />
-    </UserControl.DataContext>
-
     <UserControl.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="{StaticResource BackgroundDark}" />

@@ -1,21 +1,18 @@
-﻿using NorthSound.Client.Infrastructure.Commands.Base;
-using NorthSound.Client.Services;
-using NorthSound.Client.ViewModels.Base;
+﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
 using NorthSound.Domain.Models.Base;
-using System;
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace NorthSound.Client.ViewModels;
+namespace NorthSound.Client.ViewModels.AudioVMs;
 
-internal class AudioPageVM : ViewModelBase
+internal class PageViewModel : ViewModelBase
 {
     private string _filterText = "";
 
     private ICollectionView? _selectedPlaylist;
 
-    public AudioPageVM()
+    public PageViewModel()
     {
         @SongViewModel = new SongViewModel();
         @PlaylistViewModel = new PlaylistViewModel();
@@ -24,7 +21,7 @@ internal class AudioPageVM : ViewModelBase
     public string FilterText
     {
         get => _filterText;
-        set 
+        set
         {
             Set(ref _filterText, value);
             BindFilter();
@@ -51,12 +48,12 @@ internal class AudioPageVM : ViewModelBase
     #region ViewModels
     public SongViewModel @SongViewModel
     {
-        get; 
+        get;
     }
 
     public PlaylistViewModel @PlaylistViewModel
     {
-        get; 
+        get;
     }
     #endregion
 
