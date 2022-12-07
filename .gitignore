@@ -5,6 +5,7 @@
 
 # North Sound
 NorthSound.Checks/
+NorthSound.Tests/
 NorthSound.Server/
 
 # Build results
