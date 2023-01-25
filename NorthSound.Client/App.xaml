@@ -15,10 +15,6 @@
                 <ResourceDictionary Source="Views/ResourceDictionaries/PlayButtonDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <com:CloseApplication x:Key="CloseApplication" />
-            <com:SwitchWindowState x:Key="SwitchWindowState" />
-            <com:MinimizeApplication x:Key="MinimizeApplication" />
-
             <SolidColorBrush x:Key="BackgroundDark" Color="#191f35" />
             <SolidColorBrush x:Key="TopBackgroundDark" Color="#13182c" />
             <SolidColorBrush x:Key="TopBackgroundDark2" Color="#FF303B67" />

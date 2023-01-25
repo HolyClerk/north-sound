@@ -1,4 +1,4 @@
-﻿using NorthSound.Client.Services;
+﻿using NorthSound.Infrastructure.Services;
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
 

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthSound.Client", "NorthS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthSound.Domain", "NorthSound.Domain\NorthSound.Domain.csproj", "{3FEDFDAF-AE2E-47EC-B77C-461B66444538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthSound.Infrastructure", "NorthSound.Infrastructure\NorthSound.Infrastructure.csproj", "{7833DBEC-00B8-4F96-B64F-E68B45F3AB55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEDFDAF-AE2E-47EC-B77C-461B66444538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7833DBEC-00B8-4F96-B64F-E68B45F3AB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7833DBEC-00B8-4F96-B64F-E68B45F3AB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7833DBEC-00B8-4F96-B64F-E68B45F3AB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7833DBEC-00B8-4F96-B64F-E68B45F3AB55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

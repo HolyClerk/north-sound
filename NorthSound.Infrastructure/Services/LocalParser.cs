@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace NorthSound.Client.Services;
+namespace NorthSound.Infrastructure.Services;
 
-internal class LocalParser
+public class LocalParser
 {
     private readonly string _playlistsPath;
 

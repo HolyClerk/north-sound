@@ -1,6 +1,5 @@
 ﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
-using NorthSound.Domain.Models.Base;
 using System.ComponentModel;
 using System.Windows.Data;
 

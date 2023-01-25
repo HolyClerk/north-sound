@@ -13,11 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NorthSound.Domain\NorthSound.Domain.csproj" />
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+    <Page Remove="Data\**" />
   </ItemGroup>
 
   <ItemGroup>
-	<Folder Include="Data\" />
+    <ProjectReference Include="..\NorthSound.Domain\NorthSound.Domain.csproj" />
+    <ProjectReference Include="..\NorthSound.Infrastructure\NorthSound.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

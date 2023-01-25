@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace NorthSound.Client.Services;
+namespace NorthSound.Infrastructure.Services;
 
 public static class MediaReader
 {
