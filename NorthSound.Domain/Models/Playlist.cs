@@ -4,25 +4,12 @@ public class Playlist
 {
 	public Playlist()
 	{
-		SongsCollection = new List<Song>();
+		Songs = new List<Song>();
 	}
 
-    public List<Song> SongsCollection 
-	{ 
-		get; 
-		set; 
-	}
+	public string Name { get; set; } = default!;
+	public string Description { get; set; } = default!;
 
-	public string Title
-	{
-		get;
-		set;
-	}
-
-	public string Subtitle
-	{
-		get;
-		set;
-	}
+    public List<Song> Songs { get; set; }
 }
 
