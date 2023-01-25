@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:ApplicationViewModel}"
     Title="{Binding Title}"
     Width="830"
     Height="650"
@@ -15,15 +16,12 @@
     MinHeight="600"
     AllowsTransparency="True"
     Background="{StaticResource BackgroundDark}"
+    
     BorderBrush="White"
     FontFamily="Verdana"
     ResizeMode="CanResizeWithGrip"
     WindowStyle="None"
     mc:Ignorable="d">
-
-    <Window.DataContext>
-        <vm:MainWindowVM />
-    </Window.DataContext>
 
     <Window.Resources>
         <Style TargetType="fa:ImageAwesome">
@@ -106,6 +104,8 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
+                <TextBlock Text="{Binding Title}"/>
+
                 <fa:ImageAwesome
                     Grid.Column="1"
                     Width="14"
@@ -155,6 +155,7 @@
             VerticalContentAlignment="Stretch"
             BorderBrush="#FF8E8E8E"
             Style="{StaticResource TabControlStyle}"
+            SelectedItem="{Binding SelectedTabItem}"
             TabStripPlacement="Left">
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
@@ -208,6 +209,7 @@
                             Grid.Column="0"
                             Icon="Solid_Music"
                             Style="{StaticResource UserIconsStyle}" />
+                        
                         <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"
@@ -219,7 +221,7 @@
                     <views:AudioPage
                         FontFamily="Verdana"
                         FontSize="13"
-                        FontStyle="Normal" DataContext="{Binding AudioPage}" />
+                        FontStyle="Normal" DataContext="{Binding SongVm}" />
                 </TabItem.Content>
             </TabItem>
 
@@ -277,7 +279,7 @@
                     <GradientStop Offset="1" Color="#191f35" />
                 </LinearGradientBrush>
             </Border.Background>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AudioPage.SongViewModel.PlayCommand}" >
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SongVm.PlayCommand}" >
                 <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
             </Button>
             

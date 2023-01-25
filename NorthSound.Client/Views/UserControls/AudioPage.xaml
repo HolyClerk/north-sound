@@ -6,7 +6,8 @@
     xmlns:fa="http://schemas.fontawesome.com/icons/"
     xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
+    xmlns:vm="clr-namespace:NorthSound.Client.ViewModels" 
+    d:DataContext="{d:DesignInstance Type=vm:SongViewModel}"
     d:DesignHeight="600"
     d:DesignWidth="800"
     Background="{StaticResource BackgroundDark}"
@@ -14,7 +15,7 @@
     FontSize="13"
     Foreground="#FF969696"
     mc:Ignorable="d">
-
+    
     <UserControl.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
@@ -56,15 +57,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="0.5*" />
-            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="0.5*" MaxWidth="300" />
         </Grid.ColumnDefinitions>
-
-        <Border Padding="40,10">
+        
+        <!-- SEARCH -->
+        <Border Padding="20,10">
             <TextBox
                 Grid.Row="0"
                 Width="auto"
@@ -81,219 +82,76 @@
                 </TextBox.Resources>
             </TextBox>
         </Border>
+        
+        
+        
+        <!-- AUDIO LISTBOX -->
+        <ListBox Grid.Row="1" ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,0,0,2">
+                        <Border
+                            Name="MusicBorder"
+                            Grid.Row="1"
+                            Background="{StaticResource TopBackgroundDark}"
+                            BorderThickness="0"
+                            CornerRadius="13">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-        <Border
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Padding="0"
-            BorderThickness="1"
-            CornerRadius="5">
-            <Grid>
-                <GroupBox
-                    Grid.Row="2"
-                    Padding="0,10,0,5"
-                    HorizontalContentAlignment="Stretch"
-                    Background="{StaticResource BackgroundDark}"
-                    BorderThickness="0"
-                    Foreground="#FFE8E8E8">
-
-                    <ListBox
-                        Name="lstCars"
-                        HorizontalContentAlignment="Stretch"
-                        BorderBrush="#FF1A1A1A"
-                        BorderThickness="0,0,0,0"
-                        Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding SelectedCollection}"
-                        SelectedItem="{Binding SongViewModel.SelectedSong}"
-                        VirtualizingPanel.CacheLength="20"
-                        VirtualizingPanel.IsContainerVirtualizable="True"
-                        VirtualizingPanel.IsVirtualizing="True"
-                        VirtualizingPanel.VirtualizationMode="Recycling">
-
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,2">
-                                    <Border
-                                        Name="MusicBorder"
-                                        Grid.Row="1"
-                                        Background="{StaticResource TopBackgroundDark}"
-                                        BorderThickness="0"
-                                        CornerRadius="13">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto" />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Border
-                                                Grid.Column="0"
-                                                Width="40"
-                                                Height="40"
-                                                Margin="5,5,0,5"
-                                                CornerRadius="100">
-                                                <Border.Background>
-                                                    <LinearGradientBrush>
-                                                        <GradientStop Offset="1" Color="#662B2B2B" />
-                                                        <GradientStop Offset="0" Color="#66202020" />
-                                                    </LinearGradientBrush>
-                                                </Border.Background>
-                                                <fa:ImageAwesome
-                                                    Name="PlayButtonOcc"
-                                                    Width="10"
-                                                    Height="10"
-                                                    Foreground="#7FFFFFFF"
-                                                    Icon="Solid_Play" />
-                                            </Border>
-                                            <Grid Grid.Column="1" Margin="10,0">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition />
-                                                    <RowDefinition />
-                                                </Grid.RowDefinitions>
-                                                <TextBlock
-                                                    Name="TitleAudio"
-                                                    Grid.Row="0"
-                                                    VerticalAlignment="Bottom"
-                                                    FontSize="12"
-                                                    Foreground="#7CFFFFFF"
-                                                    Text="{Binding Path=Name}" />
-
-                                                <TextBlock
-                                                    Name="AudioAuthor"
-                                                    Grid.Row="1"
-                                                    VerticalAlignment="Top"
-                                                    FontSize="11"
-                                                    Foreground="#4CFFFFFF"
-                                                    Text="{Binding Path=Author}" />
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
-                                    <Grid.Triggers>
-                                        <EventTrigger RoutedEvent="MouseDown">
-                                            <EventTrigger.Actions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                                            AutoReverse="True"
-                                                            Storyboard.TargetName="PlayButtonOcc"
-                                                            Storyboard.TargetProperty="Width"
-                                                            From="10"
-                                                            To="12"
-                                                            Duration="0:0:0.2" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger.Actions>
-                                        </EventTrigger>
-                                        <EventTrigger RoutedEvent="MouseDown">
-                                            <EventTrigger.Actions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                                            AutoReverse="True"
-                                                            Storyboard.TargetName="TitleAudio"
-                                                            Storyboard.TargetProperty="FontSize"
-                                                            From="12"
-                                                            To="14"
-                                                            Duration="0:0:0.2" />
-                                                        <DoubleAnimation
-                                                            AutoReverse="True"
-                                                            Storyboard.TargetName="AudioAuthor"
-                                                            Storyboard.TargetProperty="FontSize"
-                                                            From="11"
-                                                            To="13"
-                                                            Duration="0:0:0.2" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger.Actions>
-                                        </EventTrigger>
-                                    </Grid.Triggers>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
-            </Grid>
-        </Border>
-
-        <Border
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="1"
-            Margin="10,10,20,20"
-            BorderThickness="1"
-            CornerRadius="5">
-            <Grid>
-                <GroupBox
-                    Grid.Row="2"
-                    Padding="0,5"
-                    HorizontalContentAlignment="Stretch"
-                    BorderThickness="0"
-                    Foreground="#FFE8E8E8">
-                    <ListBox
-                        HorizontalContentAlignment="Stretch"
-                        BorderBrush="#FF1A1A1A"
-                        BorderThickness="0"
-                        Foreground="#FFE8E8E8"
-                        ItemsSource="{Binding PlaylistViewModel.PlaylistsCollection}"
-                        SelectedItem="{Binding SelectedPlaylist}"
-                        VirtualizingPanel.CacheLength="20"
-                        VirtualizingPanel.IsContainerVirtualizable="True"
-                        VirtualizingPanel.IsVirtualizing="True"
-                        VirtualizingPanel.VirtualizationMode="Recycling">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
                                 <Border
-                                    Width="auto"
-                                    Height="60"
-                                    BorderThickness="3"
-                                    CornerRadius="15">
+                                    Grid.Column="0"
+                                    Width="40"
+                                    Height="40"
+                                    Margin="5,5,0,5"
+                                    CornerRadius="100">
                                     <Border.Background>
                                         <LinearGradientBrush>
-                                            <GradientStop Offset="0.5" Color="#FF773B59" />
-                                            <GradientStop Offset="0" Color="#FF3F2677" />
-                                            <GradientStop Offset="1" Color="#FF3A50A9" />
+                                            <GradientStop Offset="1" Color="#662B2B2B" />
+                                            <GradientStop Offset="0" Color="#66202020" />
                                         </LinearGradientBrush>
                                     </Border.Background>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="0.3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <fa:ImageAwesome
-                                            Grid.Column="1"
-                                            Width="25"
-                                            Height="25"
-                                            Margin="10"
-                                            Foreground="#1CFFFFFF"
-                                            Icon="Solid_Book" />
-
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            Padding="15,0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="Bold"
-                                            Foreground="#7FE8E8E8"
-                                            Text="{Binding Title}" />
-                                    </Grid>
+                                    <fa:ImageAwesome
+                                        Name="PlayButtonOcc"
+                                        Width="10"
+                                        Height="10"
+                                        Foreground="#7FFFFFFF"
+                                        Icon="Solid_Play" />
                                 </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
-            </Grid>
+                                <Grid Grid.Column="1" Margin="10,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Name="TitleAudio"
+                                        Grid.Row="0"
+                                        VerticalAlignment="Bottom"
+                                        FontSize="12"
+                                        Foreground="#7CFFFFFF"
+                                        Text="{Binding Path=Name}" />
 
-        </Border>
+                                    <TextBlock
+                                        Name="AudioAuthor"
+                                        Grid.Row="1"
+                                        VerticalAlignment="Top"
+                                        FontSize="11"
+                                        Foreground="#4CFFFFFF"
+                                        Text="{Binding Path=Author}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
