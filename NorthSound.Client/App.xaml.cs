@@ -27,7 +27,7 @@ public partial class App : Application
                 services.AddSingleton<MainWindow>()
                     .AddSingleton<ApplicationViewModel>()
                     .AddSingleton<SongViewModel>()
-                    .AddSingleton<ICommandImporter, Importer>()
+                    .AddSingleton<ISongImporter, SongImporter>()
                     .AddSingleton<IFileImportService, FileImportService>()
                     .AddSingleton<IRepository<Song>>(repository)
                     .AddSingleton<IObservableStorage<Song>>(repository);
