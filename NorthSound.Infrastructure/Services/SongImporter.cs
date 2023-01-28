@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace NorthSound.Infrastructure.Services;
 
-public class Importer : ICommandImporter
+public class SongImporter : ISongImporter
 {
     private IFileImportService _importService;
 
-    public Importer(IFileImportService importService)
+    public SongImporter(IFileImportService importService)
     {
         _importService = importService;
     }
@@ -28,4 +28,7 @@ public class Importer : ICommandImporter
             });
         }
     }
+
+    public void InitImport()
+        => _importService.InitializeRepositoryStorage();
 }

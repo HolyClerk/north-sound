@@ -2,7 +2,8 @@
 
 namespace NorthSound.Infrastructure.Services.Base;
 
-public interface ICommandImporter
+public interface ISongImporter
 {
     AsyncRelayCommand AsyncImportCommand { get; }
+    void InitImport();
 }
