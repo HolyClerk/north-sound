@@ -1,18 +1,15 @@
 ﻿using NorthSound.Domain.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace NorthSound.Infrastructure.Services;
+namespace NorthSound.Infrastructure.Services.Static;
 
 public static class MediaReader
 {
-    /// <summary>
-    /// Конвертирует метаданные файла в модель Song
-    /// </summary>
+    // Конвертирует метаданные файла в модель Song
     public static async Task<Song?> ConvertMetadataAsync(string songPath)
     {
         var metadataBuffer = new byte[128];
@@ -35,14 +32,11 @@ public static class MediaReader
         {
             Name = Encoding.Default.GetString(metadataBuffer, 3, 30),
             Author = Encoding.Default.GetString(metadataBuffer, 33, 30),
-            Description = Encoding.Default.GetString(metadataBuffer, 97, 30),
             Path = new Uri(songPath, UriKind.Absolute),
         };
     }
 
-    /// <summary>
-    /// Конвертирует title файла в модель Song
-    /// </summary>
+    // Конвертирует title файла в модель Song
     public static Song ConvertToSong(FileInfo songInfo)
     {
         var songTemplate = new Song()
