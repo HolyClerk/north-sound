@@ -1,11 +1,4 @@
-﻿using Microsoft.Xaml.Behaviors.Core;
-using NorthSound.Client.ViewModels.Base;
-using NorthSound.Client.ViewModels.Interfaces;
-using NorthSound.Infrastructure.Commands.Base;
-using NorthSound.Infrastructure.Services.Base;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using NorthSound.Client.ViewModels.Base;
 
 namespace NorthSound.Client.ViewModels;
 
