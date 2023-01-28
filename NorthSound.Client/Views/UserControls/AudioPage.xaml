@@ -7,21 +7,27 @@
     xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels" 
-    d:DataContext="{d:DesignInstance Type=vm:SongViewModel}"
     d:DesignHeight="600"
     d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance vm:SongViewModel}"
     Background="{StaticResource BackgroundDark}"
     FontFamily="Verdana"
     FontSize="13"
     Foreground="#FF969696"
     mc:Ignorable="d">
-    
     <UserControl.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
             <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
         </Style>
 
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="Foreground" Value="#59FFFFFF"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
             <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
@@ -65,16 +71,14 @@
         </Grid.ColumnDefinitions>
         
         <!-- SEARCH -->
-        <Border Padding="20,10">
+        <Border Padding="0, 10">
             <TextBox
                 Grid.Row="0"
-                Width="auto"
                 Height="30"
                 VerticalContentAlignment="Center"
                 BorderThickness="0.1"
                 Foreground="#FFA5A5A5"
-                SelectionBrush="#FFA5A5A5"
-                Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}">
+                SelectionBrush="#FFA5A5A5">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="8" />
@@ -83,10 +87,26 @@
             </TextBox>
         </Border>
         
-        
-        
+        <!-- RIGHT BORDER -->
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Margin="20,10,0,0" Content="Добавить аудио" 
+                    Command="{Binding Importer.AsyncImportCommand}">
+            </Button>
+
+            <Button Margin="20,10,0,0" Content="Найти музыку из сети" Grid.Row="1"/>
+        </Grid>
+
         <!-- AUDIO LISTBOX -->
-        <ListBox Grid.Row="1" ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
+        <ListBox Grid.Row="1"  ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
@@ -94,7 +114,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,2">
+                    <Grid>
                         <Border
                             Name="MusicBorder"
                             Grid.Row="1"
@@ -111,12 +131,12 @@
                                     Grid.Column="0"
                                     Width="40"
                                     Height="40"
-                                    Margin="5,5,0,5"
+                                    Margin="5"
                                     CornerRadius="100">
                                     <Border.Background>
                                         <LinearGradientBrush>
-                                            <GradientStop Offset="1" Color="#662B2B2B" />
-                                            <GradientStop Offset="0" Color="#66202020" />
+                                            <GradientStop Offset="1" Color="#6600194A" />
+                                            <GradientStop Offset="0" Color="#6619315F" />
                                         </LinearGradientBrush>
                                     </Border.Background>
                                     <fa:ImageAwesome
