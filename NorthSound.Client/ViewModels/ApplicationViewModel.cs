@@ -1,48 +1,27 @@
-﻿using NorthSound.Client.ViewModels.Base;
+﻿using Microsoft.Xaml.Behaviors.Core;
+using NorthSound.Client.ViewModels.Base;
 using NorthSound.Client.ViewModels.Interfaces;
-using NorthSound.Domain.Models;
-using System.Collections.ObjectModel;
+using NorthSound.Infrastructure.Commands.Base;
+using NorthSound.Infrastructure.Services.Base;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace NorthSound.Client.ViewModels;
 
 internal class ApplicationViewModel : ViewModelBase
 {
-    private string _title = "";
-    private TabItem? _selectedTabItem;
-
-    public ApplicationViewModel(ISongViewModel songViewModel)
+    public ApplicationViewModel(SongViewModel songVm)
     {
-        SongVm = songViewModel;
-        /*SongVm.AudioCollection = new ObservableCollection<Song>()
-        {
-            new Song()
-            {
-                Id = 1,
-                Author = "tEST",
-                Name = "ttt"
-            }
-        };*/
-
-        // PlaylistViewModel.UpdateAudio(IService);
+        SongVm = songVm;
     }
 
+    private string _title = "Empty";
     public string Title
     {
         get => _title;
         set => Set(ref _title, value);
     }
 
-    public TabItem? SelectedTabItem
-    {
-        get => _selectedTabItem;
-        set
-        {
-            Set(ref _selectedTabItem, value);
-            Title = $"North Sound - {value?.Name}";
-        }
-    }
-
-    public ISongViewModel SongVm { get; set; }
+    public SongViewModel SongVm { get; }
 }
-
