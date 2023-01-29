@@ -6,6 +6,8 @@ using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Commands;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services;
+using NorthSound.Infrastructure.Services.AudioPlayer;
+using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using NorthSound.Infrastructure.Services.Base;
 using NorthSound.Infrastructure.Services.Import;
 using NorthSound.Infrastructure.Services.Import.Base;
@@ -28,6 +30,7 @@ public partial class App : Application
                 services.AddSingleton<MainWindow>()
                     .AddSingleton<ApplicationViewModel>()
                     .AddSingleton<SongViewModel>()
+                    .AddSingleton<IPlayer, AudioPlayer>()
                     .AddSingleton<ISongImporter, SongImporter>()
                     .AddSingleton<IFileImportService, FileImportService>()
                     .AddSingleton<IRepository<Song>>(repository)
