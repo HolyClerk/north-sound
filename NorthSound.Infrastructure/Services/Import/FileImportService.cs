@@ -5,6 +5,7 @@ using NorthSound.Infrastructure.Services.Static;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 
 namespace NorthSound.Infrastructure.Services.Import;
 
@@ -35,8 +36,7 @@ public class FileImportService : IFileImportService
             }
             catch (Exception)
             {
-                // TODO: Логгирование
-                throw;
+                MessageBox.Show("Песня с таким именем уже существует!");
             }
         }
 
