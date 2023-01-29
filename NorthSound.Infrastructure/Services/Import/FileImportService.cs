@@ -1,11 +1,12 @@
 ﻿using Microsoft.Win32;
 using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Services.Base;
+using NorthSound.Infrastructure.Services.Import.Base;
 using NorthSound.Infrastructure.Services.Static;
 using System;
 using System.IO;
 
-namespace NorthSound.Infrastructure.Services;
+namespace NorthSound.Infrastructure.Services.Import;
 
 public class FileImportService : IFileImportService
 {

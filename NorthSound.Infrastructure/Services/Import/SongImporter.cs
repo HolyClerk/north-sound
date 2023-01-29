@@ -1,12 +1,9 @@
 ﻿using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using NorthSound.Infrastructure.Services.Import.Base;
 using System.Threading.Tasks;
 
-namespace NorthSound.Infrastructure.Services;
+namespace NorthSound.Infrastructure.Services.Import;
 
 public class SongImporter : ISongImporter
 {

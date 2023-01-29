@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NorthSound.Infrastructure.Services.Base;
+namespace NorthSound.Infrastructure.Services.Import.Base;
 
 public interface IFileImportService
 {
