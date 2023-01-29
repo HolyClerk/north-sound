@@ -1,9 +1,9 @@
 ﻿using NorthSound.Infrastructure.Commands.Base;
 
-namespace NorthSound.Infrastructure.Services.Base;
+namespace NorthSound.Infrastructure.Services.Import.Base;
 
 public interface ISongImporter
 {
     AsyncRelayCommand AsyncImportCommand { get; }
-    void InitImport();
+    void InitializeImportedStorage();
 }

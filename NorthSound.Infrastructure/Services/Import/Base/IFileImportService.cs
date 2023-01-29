@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using NorthSound.Domain.Models;
+using System.Collections.Generic;
 
 namespace NorthSound.Infrastructure.Services.Import.Base;
 
 public interface IFileImportService
 {
-    void ExecuteImportAsync(string? pathToSave);
-    void InitializeRepositoryStorage();
+    Song? ExecuteImport();
+    IEnumerable<Song> GetImportedCollection();
 }

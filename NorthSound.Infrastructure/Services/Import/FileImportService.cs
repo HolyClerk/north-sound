@@ -1,48 +1,53 @@
 ﻿using Microsoft.Win32;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Services.Base;
 using NorthSound.Infrastructure.Services.Import.Base;
 using NorthSound.Infrastructure.Services.Static;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace NorthSound.Infrastructure.Services.Import;
 
 public class FileImportService : IFileImportService
 {
-    private IRepository<Song> _repository;
-
-    public FileImportService(IRepository<Song> repository)
-    {
-        _repository = repository;
-    }
-
     public static string DefaultPath
     {
         get
         {
             var localAppPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return $@"{localAppPath}\NorthSound";
+            return $@"{localAppPath}\NorthSound\";
         }
     }
 
-    public void ExecuteImportAsync(string? pathToSave)
+    public Song? ExecuteImport()
     {
         var dialogue = new OpenFileDialog();
 
         if (dialogue.ShowDialog() is true)
         {
-            var songInfo = new FileInfo(dialogue.FileName);
-            var song = MediaReader.ConvertToSong(songInfo);
+            try
+            {
+                var songInfo = new FileInfo(dialogue.FileName);
+                songInfo.CopyTo(DefaultPath + songInfo.Name);
 
-            _repository.Add(song);
+                var song = MediaReader.ConvertToSong(songInfo);
+                return song;
+            }
+            catch (Exception)
+            {
+                // TODO: Логгирование
+                throw;
+            }
         }
+
+        return null;
     }
 
-    public void InitializeRepositoryStorage()
+    public IEnumerable<Song> GetImportedCollection()
     {
-        InitFolder(DefaultPath);
+        InitializeFolder(DefaultPath);
 
+        var songsCollection = new List<Song>();
         // Паттерн *.mp3
         string[] audiofilesPath = Directory.GetFiles(DefaultPath, "*.mp3");
 
@@ -51,13 +56,15 @@ public class FileImportService : IFileImportService
         {
             if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
             {
-                Song songTemp = MediaReader.ConvertToSong(songInfo);
-                _repository.Add(songTemp);
+                Song song = MediaReader.ConvertToSong(songInfo);
+                songsCollection.Add(song);
             }
         }
+
+        return songsCollection;
     }
 
-    private void InitFolder(string playlistsPath)
+    private void InitializeFolder(string playlistsPath)
     {
         var pathInfo = new DirectoryInfo(playlistsPath);
         if (pathInfo.Exists)
