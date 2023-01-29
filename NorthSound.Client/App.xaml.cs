@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Hosting;
 using NorthSound.Client;
 using NorthSound.Client.ViewModels;
-using NorthSound.Client.ViewModels.Interfaces;
 using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Commands;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services;
 using NorthSound.Infrastructure.Services.Base;
+using NorthSound.Infrastructure.Services.Import;
+using NorthSound.Infrastructure.Services.Import.Base;
 using System.Windows;
 using System.Windows.Input;
 

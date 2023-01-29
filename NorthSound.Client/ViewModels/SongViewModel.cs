@@ -2,8 +2,8 @@
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.Base;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using NorthSound.Infrastructure.Services.Import.Base;
 
 namespace NorthSound.Client.ViewModels;
 
@@ -13,13 +13,13 @@ internal class SongViewModel : ViewModelBase
 
     public SongViewModel(IObservableStorage<Song> storage, ISongImporter importer) : base()
     {
-        Importer = importer;
-        Importer.InitImport();
+        _audioCollection = new ObservableCollection<Song>();
 
         _observableStorage = storage;
         _observableStorage.StorageChanged += UpdateCollection;
 
-        _audioCollection = new ObservableCollection<Song>();
+        Importer = importer;
+        Importer.InitializeImportedStorage();
     }
 
     public ISongImporter Importer { get; }
