@@ -269,17 +269,8 @@
         <Border
             x:Name="PlayedMusic"
             Grid.Row="2"
-            MinHeight="100">
-            <Border.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="#191f35" />
-                    <GradientStop Offset="0.2" Color="#191f35" />
-                    <GradientStop Offset="0.5" Color="#FF2D1D6B" />
-                    <GradientStop Offset="0.8" Color="#191f35" />
-                    <GradientStop Offset="1" Color="#191f35" />
-                </LinearGradientBrush>
-            </Border.Background>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SongVm.PlayCommand}" >
+            MinHeight="65" Background="#FF13182C">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SongVm.Player.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" >
                 <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
             </Button>
             

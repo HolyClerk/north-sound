@@ -4,6 +4,7 @@ using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.Base;
 using System.Collections.ObjectModel;
 using NorthSound.Infrastructure.Services.Import.Base;
+using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 
 namespace NorthSound.Client.ViewModels;
 
@@ -11,7 +12,9 @@ internal class SongViewModel : ViewModelBase
 {
     private readonly IObservableStorage<Song> _observableStorage;
 
-    public SongViewModel(IObservableStorage<Song> storage, ISongImporter importer) : base()
+    public SongViewModel(IObservableStorage<Song> storage, 
+        ISongImporter importer, 
+        IPlayer player) : base()
     {
         _audioCollection = new ObservableCollection<Song>();
 
@@ -20,9 +23,13 @@ internal class SongViewModel : ViewModelBase
 
         Importer = importer;
         Importer.InitializeImportedStorage();
+
+        Player = player;
     }
 
     public ISongImporter Importer { get; }
+
+    public IPlayer Player { get; }
 
     private Song? _selectedSong;
     public Song? SelectedSong
@@ -43,18 +50,6 @@ internal class SongViewModel : ViewModelBase
         if (_observableStorage.GetStorageCollection() is not null)
         {
             AudioCollection = new(_observableStorage.GetStorageCollection());
-        }
-    }
-
-    private RelayCommand _playCommand = null!;
-    public RelayCommand PlayCommand
-    {
-        get
-        {
-            return _playCommand ??= new RelayCommand(execute =>
-            {
-                // TODO: Play Song
-            }, canExecute => SelectedSong is not null);
         }
     }
 }

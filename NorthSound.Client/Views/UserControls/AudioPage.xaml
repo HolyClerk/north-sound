@@ -106,7 +106,7 @@
         </Grid>
 
         <!-- AUDIO LISTBOX -->
-        <ListBox Grid.Row="1"  ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
@@ -114,7 +114,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="5">
                         <Border
                             Name="MusicBorder"
                             Grid.Row="1"
