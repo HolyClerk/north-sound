@@ -2,9 +2,10 @@
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.Base;
-using System.Collections.ObjectModel;
 using NorthSound.Infrastructure.Services.Import.Base;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
+using System;
+using System.Collections.ObjectModel;
 
 namespace NorthSound.Client.ViewModels;
 
@@ -35,7 +36,11 @@ internal class SongViewModel : ViewModelBase
     public Song? SelectedSong
     {
         get => _selectedSong;
-        set => Set(ref _selectedSong, value);
+        set
+        {
+            Set(ref _selectedSong, value);
+            Player.PlayCommand.Execute(_selectedSong);
+        }
     }
 
     private ObservableCollection<Song> _audioCollection;
@@ -43,6 +48,40 @@ internal class SongViewModel : ViewModelBase
     {
         get => _audioCollection;
         set => Set(ref _audioCollection, value);
+    }
+
+    private RelayCommand _nextSongCommand = null!;
+    public RelayCommand NextSongCommand
+    {
+        get
+        {
+            return _nextSongCommand ??= new RelayCommand(obj =>
+            {
+                try
+                {
+                    var nextIndex = _audioCollection.IndexOf(_selectedSong!) + 1;
+                    SelectedSong = _audioCollection[nextIndex];
+                }
+                catch (Exception) {}
+            }, obj => _selectedSong is not null);
+        }
+    }
+
+    private RelayCommand _previousSongCommand = null!;
+    public RelayCommand PreviousSongCommand
+    {
+        get
+        {
+            return _previousSongCommand ??= new RelayCommand(obj =>
+            {
+                try
+                {
+                    var previousIndex = _audioCollection.IndexOf(_selectedSong!) - 1;
+                    SelectedSong = _audioCollection[previousIndex];
+                }
+                catch (Exception) { }
+            }, obj => _selectedSong is not null);
+        }
     }
 
     private void UpdateCollection()

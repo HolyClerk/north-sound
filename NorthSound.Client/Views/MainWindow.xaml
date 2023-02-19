@@ -175,6 +175,10 @@
                             Text="Профиль" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
+
+                <TabItem.Content>
+                    <Frame Content="Frame"/>
+                </TabItem.Content>
             </TabItem>
 
             <TabItem Style="{StaticResource TabItemsStyle}">
@@ -192,7 +196,7 @@
                         <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="Сообщетво" Margin="5,0,0,0" />
+                            Text="Сообщество" Margin="5,0,0,0" />
                     </Grid>
                 </TabItem.Header>
             </TabItem>
@@ -269,11 +273,60 @@
         <Border
             x:Name="PlayedMusic"
             Grid.Row="2"
-            MinHeight="65" Background="#FF13182C">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SongVm.Player.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" >
-                <fa:ImageAwesome Icon="Solid_Circle" Style="{DynamicResource UserIconsStyle}" />
-            </Button>
-            
+            MinHeight="50" Background="#FF13182C">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border CornerRadius="10" BorderThickness="3" Background="{StaticResource AuthorForeground}" MaxWidth="43" MaxHeight="43">
+                        <fa:FontAwesome Foreground="{StaticResource AuthorForeground}" Icon="Solid_Music" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <StackPanel Margin="0, 5, 0, 0" Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding SongVm.SelectedSong.Name}" FontSize="12" Foreground="{StaticResource TitleForeground}" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding SongVm.SelectedSong.Author}" FontSize="11" Foreground="{StaticResource AuthorForeground}" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
+                    <Button Margin="3, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStylePlayButton}" Command="{Binding SongVm.Player.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Circle" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Margin="2, 0"  VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.PreviousSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}" BorderThickness="0">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Margin="2, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.NextSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}" BorderThickness="0">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>

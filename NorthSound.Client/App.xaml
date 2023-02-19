@@ -17,6 +17,9 @@
             <SolidColorBrush x:Key="TopBackgroundDark" Color="#13182c" />
             <SolidColorBrush x:Key="TopBackgroundDark2" Color="#FF303B67" />
             <SolidColorBrush x:Key="HeaderDark" Color="#FF202020" />
+            
+            <SolidColorBrush x:Key="TitleForeground" Color="#7CFFFFFF" />
+            <SolidColorBrush x:Key="AuthorForeground" Color="#4CFFFFFF" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

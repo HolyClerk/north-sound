@@ -32,6 +32,49 @@
         </Style.Setters>
     </Style>
 
+    <Style x:Key="LightDarkStyleIcon" TargetType="fa:FontAwesome">
+        <Style.Setters>
+            <Setter Property="Foreground" Value="#FFE8E8E8" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LightDarkStyleBorder" TargetType="Border">
+        <Style.Setters>
+            <Setter Property="BorderBrush" Value="#FF8295FF" />
+            <Setter Property="Background" Value="#00000000" />
+            <Setter Property="CornerRadius" Value="135"/>
+            <Setter Property="BorderThickness" Value="3"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LightDarkStyleButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="MaxHeight" Value="35" />
+            <Setter Property="MinHeight" Value="35" />
+            <Setter Property="MaxWidth" Value="35" />
+            <Setter Property="MinWidth" Value="35" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LightDarkStylePlayButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="MaxHeight" Value="25" />
+            <Setter Property="MinHeight" Value="25" />
+            <Setter Property="MaxWidth" Value="25" />
+            <Setter Property="MinWidth" Value="25" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LightDarkStyleSkipButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="MaxHeight" Value="18" />
+            <Setter Property="MinHeight" Value="18" />
+            <Setter Property="MaxWidth" Value="18" />
+            <Setter Property="MinWidth" Value="18" />
+        </Style.Setters>
+    </Style>
+
     <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />

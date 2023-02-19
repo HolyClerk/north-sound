@@ -9,7 +9,7 @@ internal class ApplicationViewModel : ViewModelBase
         SongVm = songVm;
     }
 
-    private string _title = "Empty";
+    private string _title = "";
     public string Title
     {
         get => _title;

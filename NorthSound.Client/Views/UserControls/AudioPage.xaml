@@ -71,7 +71,7 @@
         </Grid.ColumnDefinitions>
         
         <!-- SEARCH -->
-        <Border Padding="0, 10">
+        <Border Padding="5, 10">
             <TextBox
                 Grid.Row="0"
                 Height="30"
@@ -90,7 +90,7 @@
         <!-- RIGHT BORDER -->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition MaxHeight="70"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -98,15 +98,69 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Margin="20,10,0,0" Content="Добавить аудио" 
+            <Border CornerRadius="1">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF191F35" Offset="0"/>
+                        <GradientStop Color="#FF0E1323" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button 
+                    Style="{StaticResource LightDarkStyleButton}"
                     Command="{Binding Importer.AsyncImportCommand}">
-            </Button>
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Plus" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-            <Button Margin="20,10,0,0" Content="Найти музыку из сети" Grid.Row="1"/>
+                    <Button 
+                    Style="{StaticResource LightDarkStyleButton}"
+                    Command="{Binding Importer.AsyncImportCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Brands_InternetExplorer" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button 
+                    Style="{StaticResource LightDarkStyleButton}"
+                    Command="{Binding Importer.AsyncImportCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource LightDarkStyleBorder}">
+                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Minus" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Border>
+            
+            <Border CornerRadius="0" Grid.Row="2" Grid.RowSpan="3">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF191F35" Offset="0"/>
+                        <GradientStop Color="#FF0E1323" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
         </Grid>
 
         <!-- AUDIO LISTBOX -->
-        <ListBox Grid.Row="1" ItemsSource="{Binding AudioCollection}" SelectedItem="{Binding SelectedSong}">
+        <ListBox Grid.Row="1" 
+                 ItemsSource="{Binding AudioCollection}" 
+                 SelectedItem="{Binding SelectedSong}"
+                VirtualizingPanel.CacheLength="20"
+                VirtualizingPanel.IsContainerVirtualizable="True"
+                VirtualizingPanel.IsVirtualizing="True"
+                VirtualizingPanel.VirtualizationMode="Recycling">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
@@ -155,8 +209,7 @@
                                         Name="TitleAudio"
                                         Grid.Row="0"
                                         VerticalAlignment="Bottom"
-                                        FontSize="12"
-                                        Foreground="#7CFFFFFF"
+                                        Foreground="{StaticResource TitleForeground}"
                                         Text="{Binding Path=Name}" />
 
                                     <TextBlock
@@ -164,7 +217,7 @@
                                         Grid.Row="1"
                                         VerticalAlignment="Top"
                                         FontSize="11"
-                                        Foreground="#4CFFFFFF"
+                                        Foreground="{StaticResource AuthorForeground}"
                                         Text="{Binding Path=Author}" />
                                 </Grid>
                             </Grid>
