@@ -34,16 +34,16 @@
 
     <Style x:Key="LightDarkStyleIcon" TargetType="fa:FontAwesome">
         <Style.Setters>
-            <Setter Property="Foreground" Value="#FFE8E8E8" />
+            <Setter Property="Foreground" Value="#b3b3b3" />
         </Style.Setters>
     </Style>
 
     <Style x:Key="LightDarkStyleBorder" TargetType="Border">
         <Style.Setters>
-            <Setter Property="BorderBrush" Value="#FF8295FF" />
-            <Setter Property="Background" Value="#00000000" />
+            <Setter Property="BorderBrush" Value="#b3b3b3" />
+            <Setter Property="Background" Value="#b3b3b3" />
             <Setter Property="CornerRadius" Value="135"/>
-            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
     </Style>
 

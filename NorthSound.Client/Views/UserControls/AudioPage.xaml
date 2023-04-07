@@ -9,16 +9,16 @@
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels" 
     d:DesignHeight="600"
     d:DesignWidth="800"
-    d:DataContext="{d:DesignInstance vm:SongViewModel}"
-    Background="{StaticResource BackgroundDark}"
+    d:DataContext="{d:DesignInstance vm:ApplicationViewModel}"
+    Background="{StaticResource AllApp}"
     FontFamily="Verdana"
     FontSize="13"
     Foreground="#FF969696"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="Border">
-            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource AllApp}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AllApp}" />
         </Style>
 
         <Style TargetType="Button">
@@ -29,152 +29,24 @@
         </Style>
         
         <Style TargetType="ListBox">
-            <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource BackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource AllApp}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AllApp}" />
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="Background" Value="{StaticResource TopBackgroundDark}" />
-            <Setter Property="BorderBrush" Value="{StaticResource TopBackgroundDark}" />
+            <Setter Property="Background" Value="{StaticResource Search}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Search}" />
         </Style>
 
         <Style TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Transparent" />
-                </Trigger>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="0.5*" />
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="0.5*" MaxWidth="300" />
-        </Grid.ColumnDefinitions>
-        
-        <!-- SEARCH -->
-        <Border Padding="5, 10">
-            <TextBox
-                Grid.Row="0"
-                Height="30"
-                VerticalContentAlignment="Center"
-                BorderThickness="0.1"
-                Foreground="#FFA5A5A5"
-                SelectionBrush="#FFA5A5A5">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="8" />
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
-        </Border>
-        
-        <!-- RIGHT BORDER -->
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="70"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Border CornerRadius="1">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="#FF191F35" Offset="0"/>
-                        <GradientStop Color="#FF0E1323" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button 
-                    Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding Importer.AsyncImportCommand}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}">
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Plus" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                    <Button 
-                    Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding Importer.AsyncImportCommand}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}">
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Brands_InternetExplorer" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button 
-                    Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding Importer.AsyncImportCommand}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}">
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Minus" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
-            </Border>
-            
-            <Border CornerRadius="0" Grid.Row="2" Grid.RowSpan="3">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="#FF191F35" Offset="0"/>
-                        <GradientStop Color="#FF0E1323" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-        </Grid>
-
-        <!-- AUDIO LISTBOX -->
-        <ListBox Grid.Row="1" 
-                 ItemsSource="{Binding AudioCollection}" 
-                 SelectedItem="{Binding SelectedSong}"
-                VirtualizingPanel.CacheLength="20"
-                VirtualizingPanel.IsContainerVirtualizable="True"
-                VirtualizingPanel.IsVirtualizing="True"
-                VirtualizingPanel.VirtualizationMode="Recycling">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="5">
-                        <Border
-                            Name="MusicBorder"
-                            Grid.Row="1"
-                            Background="{StaticResource TopBackgroundDark}"
-                            BorderThickness="0"
-                            CornerRadius="13">
+                        <Border Name="MusicBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                CornerRadius="10"
+                                Margin="4">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -189,8 +61,8 @@
                                     CornerRadius="100">
                                     <Border.Background>
                                         <LinearGradientBrush>
-                                            <GradientStop Offset="1" Color="#6600194A" />
-                                            <GradientStop Offset="0" Color="#6619315F" />
+                                            <GradientStop Offset="1" Color="#2F2F2F" />
+                                            <GradientStop Offset="0" Color="#7490C5" />
                                         </LinearGradientBrush>
                                     </Border.Background>
                                     <fa:ImageAwesome
@@ -222,9 +94,78 @@
                                 </Grid>
                             </Grid>
                         </Border>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource SelectedTrack}" />
+                                <Setter TargetName="PlayButtonOcc" Property="Icon" Value="Solid_Pause"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource MouseOver}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="0.5*" />
+        </Grid.RowDefinitions>
+
+        <!-- SEARCH -->
+        <Border Padding="5, 10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox
+                    Grid.Row="0"
+                    Height="30"
+                    VerticalContentAlignment="Center"
+                    BorderThickness="0.1"
+                    Foreground="#FFA5A5A5"
+                    SelectionBrush="#FFA5A5A5">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="8" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Button 
+                    Grid.Column="1"
+                    Style="{StaticResource LightDarkStyleButton}"
+                    Command="{Binding LocalImporter.AsyncImportCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Background="{StaticResource Search}" CornerRadius="15" Height="30" Width="30">
+                                <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Solid_Plus" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- AUDIO LISTBOX -->
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2"
+                 ItemsSource="{Binding LibraryVm.LocalAudioCollection}" 
+                 SelectedItem="{Binding SongVm.SelectedSong}"
+                VirtualizingPanel.CacheLength="20"
+                VirtualizingPanel.IsContainerVirtualizable="True"
+                VirtualizingPanel.IsVirtualizing="True"
+                VirtualizingPanel.VirtualizationMode="Recycling">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          
         </ListBox>
     </Grid>
 </UserControl>

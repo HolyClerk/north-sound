@@ -15,7 +15,7 @@
     MinWidth="800"
     MinHeight="600"
     AllowsTransparency="True"
-    Background="{StaticResource BackgroundDark}"
+    Background="{StaticResource AllApp}"
     
     BorderBrush="White"
     FontFamily="Verdana"
@@ -31,8 +31,8 @@
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush>
-                        <GradientStop Offset="1" Color="#FFBE68F1" />
-                        <GradientStop Offset="0" Color="#FFB298FF" />
+                        <GradientStop Offset="1" Color="#f65a5a" />
+                        <GradientStop Offset="0" Color="#ff9a9a" />
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -61,8 +61,8 @@
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush>
-                        <GradientStop Offset="1" Color="#FFBDD0FF" />
-                        <GradientStop Offset="0" Color="#FFD7C1F3" />
+                        <GradientStop Offset="0" Color="#3B7CF3" />
+                        <GradientStop Offset="1" Color="#4AB4F9" />
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -94,7 +94,7 @@
         <Border
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Background="{StaticResource BackgroundDark}"
+            Background="{StaticResource AllApp}"
             MouseDown="BorderMouseDown">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -103,8 +103,6 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-
-                <TextBlock Text="{Binding Title}"/>
 
                 <fa:ImageAwesome
                     Grid.Column="1"
@@ -155,7 +153,6 @@
             VerticalContentAlignment="Stretch"
             BorderBrush="#FF8E8E8E"
             Style="{StaticResource TabControlStyle}"
-            SelectedItem="{Binding SelectedTabItem}"
             TabStripPlacement="Left">
             <TabItem Style="{StaticResource TabItemsStyle}">
                 <TabItem.Header>
@@ -225,7 +222,7 @@
                     <views:AudioPage
                         FontFamily="Verdana"
                         FontSize="13" 
-                        DataContext="{Binding SongVm}"/>
+                        DataContext="{Binding Current}"/>
                 </TabItem.Content>
             </TabItem>
 
@@ -241,7 +238,8 @@
                         <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="Библиотека" Margin="5,0,0,0" />
+                            Text="Библиотека" Margin="5,0,0,0" 
+                            DataContext="{Binding LibraryVm}"/>
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
@@ -273,17 +271,17 @@
         <Border
             x:Name="PlayedMusic"
             Grid.Row="2"
-            MinHeight="50" Background="#FF13182C">
+            MinHeight="60" Background="{StaticResource Footer}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.7*"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.5*" MaxWidth="180"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="0.8*"/>
                     </Grid.ColumnDefinitions>
 
@@ -297,11 +295,11 @@
                     </StackPanel>
                 </Grid>
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
-                    <Button Margin="3, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStylePlayButton}" Command="{Binding SongVm.Player.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
+                    <Button Margin="3, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStylePlayButton}" Command="{Binding SongVm.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}">
+                                <Border >
                                     <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Circle" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -310,7 +308,7 @@
                     <Button Margin="2, 0"  VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.PreviousSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}" BorderThickness="0">
+                                <Border BorderThickness="0">
                                     <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -319,7 +317,7 @@
                     <Button Margin="2, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.NextSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border Style="{StaticResource LightDarkStyleBorder}" BorderThickness="0">
+                                <Border BorderThickness="0">
                                     <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>

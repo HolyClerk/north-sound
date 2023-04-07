@@ -1,14 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="BackgroundDark" Color="#191f35" />
     <SolidColorBrush x:Key="TopBackgroundDark" Color="#13182c" />
-
+    <SolidColorBrush x:Key="AllApp" Color="#1a1a1a" />
+    <SolidColorBrush x:Key="Footer" Color="#323232" />
+    
     <Style TargetType="TabPanel">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
 
     <Style x:Key="TabControlStyle" TargetType="TabControl">
-        <Setter Property="Background" Value="{StaticResource BackgroundDark}" />
+        <Setter Property="Background" Value="{StaticResource AllApp}" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
@@ -34,8 +36,8 @@
                                 Height="45"
                                 Padding="5"
                                 HorizontalAlignment="Stretch"
-                                Background="{StaticResource BackgroundDark}"
-                                BorderBrush="{StaticResource BackgroundDark}">
+                                Background="{StaticResource AllApp}"
+                                BorderBrush="{StaticResource AllApp}">
                                 <ContentPresenter
                                     Name="ContentPanel"
                                     Margin="5"
@@ -45,11 +47,11 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="{StaticResource TopBackgroundDark}" />
+                                <Setter TargetName="Panel" Property="Background" Value="{StaticResource Footer}" />
                             </Trigger>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="{StaticResource TopBackgroundDark}" />
+                                <Setter TargetName="Panel" Property="Background" Value="{StaticResource Footer}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
