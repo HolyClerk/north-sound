@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NorthSound.Domain.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NorthSound.Infrastructure.Services.Base;
 
 public interface IObservableStorage<T>
 {
-    Action? StorageChanged { get; set; }
-    IEnumerable<T> GetStorageCollection();
+    ObservableCollection<Song> Collection { get; }
 }

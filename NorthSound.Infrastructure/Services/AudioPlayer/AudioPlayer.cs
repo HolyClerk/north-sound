@@ -7,7 +7,7 @@ namespace NorthSound.Infrastructure.Services.AudioPlayer;
 
 public class AudioPlayer : IPlayer
 {
-    private MediaPlayer _mediaPlayer;
+    private readonly MediaPlayer _mediaPlayer;
 
     public AudioPlayer()
 	{
@@ -28,7 +28,7 @@ public class AudioPlayer : IPlayer
     public bool IsPlaying { get; private set; }
     public Song Current { get; private set; }
 
-    public void Open(Song song)
+    public void Open(Song? song)
     {
         if (song is null)
             return;
@@ -46,6 +46,6 @@ public class AudioPlayer : IPlayer
     public void Pause()
     {
         _mediaPlayer.Pause();
-        IsPlaying = true;
+        IsPlaying = false;
     }
 }
