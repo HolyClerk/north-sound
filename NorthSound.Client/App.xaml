@@ -17,9 +17,18 @@
             <SolidColorBrush x:Key="TopBackgroundDark" Color="#13182c" />
             <SolidColorBrush x:Key="TopBackgroundDark2" Color="#FF303B67" />
             <SolidColorBrush x:Key="HeaderDark" Color="#FF202020" />
-            
-            <SolidColorBrush x:Key="TitleForeground" Color="#7CFFFFFF" />
-            <SolidColorBrush x:Key="AuthorForeground" Color="#4CFFFFFF" />
+
+            <SolidColorBrush x:Key="TitleForeground" Color=" #b3b3b3" />
+            <SolidColorBrush x:Key="AuthorForeground" Color="#7f7f7f" />
+
+            <SolidColorBrush x:Key="SelectedTrack" Color="#2e2e2e" />
+            <SolidColorBrush x:Key="MouseOver" Color="#414141" />
+            <SolidColorBrush x:Key="AllApp" Color="#1a1a1a" />
+            <SolidColorBrush x:Key="Footer" Color="#323232" />
+            <SolidColorBrush x:Key="Search" Color="#555555" />
+
+            <SolidColorBrush x:Key="Gradient1" Color="#3C8DBC" />
+            <SolidColorBrush x:Key="Gradient2" Color="#2C3E50" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

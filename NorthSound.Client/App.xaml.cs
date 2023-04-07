@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NorthSound.Client;
 using NorthSound.Client.ViewModels;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Commands;
-using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services;
 using NorthSound.Infrastructure.Services.AudioPlayer;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
@@ -12,7 +9,6 @@ using NorthSound.Infrastructure.Services.Base;
 using NorthSound.Infrastructure.Services.Import;
 using NorthSound.Infrastructure.Services.Import.Base;
 using System.Windows;
-using System.Windows.Input;
 
 namespace NorthSound.Client;
 
@@ -30,8 +26,9 @@ public partial class App : Application
                 services.AddSingleton<MainWindow>()
                     .AddSingleton<ApplicationViewModel>()
                     .AddSingleton<SongViewModel>()
+                    .AddSingleton<LibraryViewModel>()
                     .AddSingleton<IPlayer, AudioPlayer>()
-                    .AddSingleton<ISongImporter, SongImporter>()
+                    .AddSingleton<ILocalImporter, LocalImporter>()
                     .AddSingleton<IFileImportService, FileImportService>()
                     .AddSingleton<IRepository<Song>>(repository)
                     .AddSingleton<IObservableStorage<Song>>(repository);
