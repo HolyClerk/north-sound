@@ -1,94 +1,147 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.Client.ViewModels.Base;
-using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.Base;
-using NorthSound.Infrastructure.Services.Import.Base;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using System;
-using System.Collections.ObjectModel;
 
 namespace NorthSound.Client.ViewModels;
 
-internal class SongViewModel : ViewModelBase
+internal sealed class SongViewModel : ViewModelBase
 {
-    private readonly IObservableStorage<Song> _observableStorage;
+    private ObservableCollection<Song> _globalCollection;
+    private Song? _selectedSong;
 
-    public SongViewModel(IObservableStorage<Song> storage, 
-        ISongImporter importer, 
+    private readonly IObservableStorage<Song> _observableStorage;
+    private readonly IPlayer _player;
+
+    public SongViewModel(
+        IObservableStorage<Song> storage,
         IPlayer player) : base()
     {
-        _audioCollection = new ObservableCollection<Song>();
+        _globalCollection = new ObservableCollection<Song>();
 
         _observableStorage = storage;
         _observableStorage.StorageChanged += UpdateCollection;
-
-        Importer = importer;
-        Importer.InitializeImportedStorage();
-
-        Player = player;
+        
+        _player = player;
+        _player.Ended += OnSongEnd;
     }
 
-    public ISongImporter Importer { get; }
-
-    public IPlayer Player { get; }
-
-    private Song? _selectedSong;
+    // Текущая песня (глобально)
     public Song? SelectedSong
     {
         get => _selectedSong;
         set
         {
             Set(ref _selectedSong, value);
-            Player.PlayCommand.Execute(_selectedSong);
+
+            _player.Open(_selectedSong);
+            _player.Play();
         }
     }
 
-    private ObservableCollection<Song> _audioCollection;
-    public ObservableCollection<Song> AudioCollection 
+    // GlobalCollection - коллекция, выбранная в текущий момент времени
+    public ObservableCollection<Song> GlobalCollection 
     {
-        get => _audioCollection;
-        set => Set(ref _audioCollection, value);
+        get => _globalCollection;
+        set => Set(ref _globalCollection, value);
     }
 
+    private void OnSongEnd()
+    {
+        var next = GetNextSong();
+
+        if (next is null)
+            return;
+
+        SelectedSong = next;
+    }
+
+    private void UpdateCollection()
+    {
+        if (_observableStorage.GetStorageCollection() is IEnumerable<Song> collection)
+            GlobalCollection = new(collection);
+    }
+
+    private Song? GetNextSong()
+    {
+        try
+        {
+            var nextIndex = GlobalCollection.IndexOf(_selectedSong!) + 1;
+            return GlobalCollection[nextIndex];
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    private Song? GetPreviousSong()
+    {
+        try
+        {
+            var prevIndex = GlobalCollection.IndexOf(_selectedSong!) - 1;
+            return GlobalCollection[prevIndex];
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    private RelayCommand _playCommand = null!;
     private RelayCommand _nextSongCommand = null!;
+    private RelayCommand _previousSongCommand = null!;
+
+    public RelayCommand PlayCommand
+    {
+        get
+        {
+            return _playCommand ??= new RelayCommand(obj =>
+            {
+                if (_player.IsPlaying)
+                {
+                    _player.Pause();
+                    return;
+                }
+
+                if (_player.Current != _selectedSong)
+                {
+                    _player.Open(_selectedSong);
+                    _player.Play();
+                    return;
+                }
+
+                _player.Play();
+
+            }, obj => _selectedSong is not null);
+        }
+    }
+
     public RelayCommand NextSongCommand
     {
         get
         {
             return _nextSongCommand ??= new RelayCommand(obj =>
             {
-                try
-                {
-                    var nextIndex = _audioCollection.IndexOf(_selectedSong!) + 1;
-                    SelectedSong = _audioCollection[nextIndex];
-                }
-                catch (Exception) {}
-            }, obj => _selectedSong is not null);
+                var next = GetNextSong();
+                SelectedSong = next;
+            }, obj => GetNextSong() is not null);
         }
     }
 
-    private RelayCommand _previousSongCommand = null!;
     public RelayCommand PreviousSongCommand
     {
         get
         {
             return _previousSongCommand ??= new RelayCommand(obj =>
             {
-                try
-                {
-                    var previousIndex = _audioCollection.IndexOf(_selectedSong!) - 1;
-                    SelectedSong = _audioCollection[previousIndex];
-                }
-                catch (Exception) { }
-            }, obj => _selectedSong is not null);
-        }
-    }
-
-    private void UpdateCollection()
-    {
-        if (_observableStorage.GetStorageCollection() is not null)
-        {
-            AudioCollection = new(_observableStorage.GetStorageCollection());
+                var previous = GetPreviousSong();
+                SelectedSong = previous;
+            }, obj => GetPreviousSong() is not null);
         }
     }
 }
