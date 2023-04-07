@@ -4,20 +4,20 @@ using System.Collections.Specialized;
 
 namespace NorthSound.Client.ViewModels;
 
-internal class ApplicationViewModel : ViewModelBase
+internal sealed class ApplicationViewModel : ViewModelBase
 {
     public ApplicationViewModel Current { get; }
 
     public ApplicationViewModel(
-        SongViewModel songVm,
-        LibraryViewModel libraryVm,
+        PlayerViewModel songVm,
+        LibraryCollectionViewModel libraryVm,
         ILocalImporter importer)
     {
         SongVm = songVm;
         LibraryVm = libraryVm;
         LocalImporter = importer;
 
-        LocalImporter.ImportedCollection.CollectionChanged += OnLocalCollectionChanged;
+        LocalImporter.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
         LocalImporter.InitializeImportedStorage();
 
         Current = this;
@@ -25,11 +25,11 @@ internal class ApplicationViewModel : ViewModelBase
 
     public ILocalImporter LocalImporter { get; }
 
-    public SongViewModel SongVm { get; }
-    public LibraryViewModel LibraryVm { get; }
+    public PlayerViewModel SongVm { get; }
+    public LibraryCollectionViewModel LibraryVm { get; }
 
-    private void OnLocalCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    private void OnImportCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        LibraryVm.LocalAudioCollection = LocalImporter.ImportedCollection;
+        LibraryVm.UpdateSongCollection(LocalImporter.ImportedCollection);
     }
 }

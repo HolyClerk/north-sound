@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using System;
+using System.Collections.Specialized;
 
 namespace NorthSound.Client.ViewModels;
 
-internal sealed class SongViewModel : ViewModelBase
+internal sealed class PlayerViewModel : ViewModelBase
 {
     private ObservableCollection<Song> _globalCollection;
     private Song? _selectedSong;
@@ -17,20 +18,19 @@ internal sealed class SongViewModel : ViewModelBase
     private readonly IObservableStorage<Song> _observableStorage;
     private readonly IPlayer _player;
 
-    public SongViewModel(
+    public PlayerViewModel(
         IObservableStorage<Song> storage,
         IPlayer player) : base()
     {
         _globalCollection = new ObservableCollection<Song>();
 
         _observableStorage = storage;
-        _observableStorage.StorageChanged += UpdateCollection;
-        
+        _observableStorage.Collection.CollectionChanged += OnObservableCollectionChanged;
+
         _player = player;
         _player.Ended += OnSongEnd;
     }
 
-    // Текущая песня (глобально)
     public Song? SelectedSong
     {
         get => _selectedSong;
@@ -43,11 +43,16 @@ internal sealed class SongViewModel : ViewModelBase
         }
     }
 
-    // GlobalCollection - коллекция, выбранная в текущий момент времени
-    public ObservableCollection<Song> GlobalCollection 
+    // PlayerCollection - коллекция, выбранная в текущий момент времени
+    public ObservableCollection<Song> PlayerCollection 
     {
         get => _globalCollection;
         set => Set(ref _globalCollection, value);
+    }
+
+    private void OnObservableCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        PlayerCollection = _observableStorage.Collection;
     }
 
     private void OnSongEnd()
@@ -60,18 +65,12 @@ internal sealed class SongViewModel : ViewModelBase
         SelectedSong = next;
     }
 
-    private void UpdateCollection()
-    {
-        if (_observableStorage.GetStorageCollection() is IEnumerable<Song> collection)
-            GlobalCollection = new(collection);
-    }
-
     private Song? GetNextSong()
     {
         try
         {
-            var nextIndex = GlobalCollection.IndexOf(_selectedSong!) + 1;
-            return GlobalCollection[nextIndex];
+            var nextIndex = PlayerCollection.IndexOf(_selectedSong!) + 1;
+            return PlayerCollection[nextIndex];
         }
         catch (Exception)
         {
@@ -83,8 +82,8 @@ internal sealed class SongViewModel : ViewModelBase
     {
         try
         {
-            var prevIndex = GlobalCollection.IndexOf(_selectedSong!) - 1;
-            return GlobalCollection[prevIndex];
+            var prevIndex = PlayerCollection.IndexOf(_selectedSong!) - 1;
+            return PlayerCollection[prevIndex];
         }
         catch (Exception)
         {
