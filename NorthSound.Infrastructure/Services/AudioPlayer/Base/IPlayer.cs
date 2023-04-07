@@ -1,10 +1,18 @@
-﻿using NorthSound.Infrastructure.Commands.Base;
+﻿using NorthSound.Domain.Models;
+using NorthSound.Infrastructure.Commands.Base;
+using System;
 
 namespace NorthSound.Infrastructure.Services.AudioPlayer.Base;
 
 public interface IPlayer
 {
-    public RelayCommand PlayCommand { get; }
-    public RelayCommand PauseCommand { get; }
-    public RelayCommand StopCommand { get; }
+    event Action Ended;
+
+    Song Current { get; }
+    bool IsPlaying { get; }
+
+    void Pause();
+    void Play();
+    void Open(Song? selectedSong);
+
 }

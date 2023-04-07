@@ -2,6 +2,7 @@
 using NorthSound.Infrastructure.Services.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NorthSound.Infrastructure.Services;
 
@@ -28,6 +29,12 @@ public class SongRepository : IRepository<Song>, IObservableStorage<Song>
     public void AddRange(IEnumerable<Song> items)
     {
         _collection.AddRange(items);
+        StorageChanged?.Invoke();
+    }
+
+    public void ReplaceCollection(IEnumerable<Song> items)
+    {
+        _collection = items.ToList();
         StorageChanged?.Invoke();
     }
 
