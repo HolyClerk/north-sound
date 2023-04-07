@@ -18,20 +18,23 @@ public partial class App : Application
 
     public App()
     {
-        var repository = new SongRepository();
+        var storageService = new SongStorageService();
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
-                services.AddSingleton<MainWindow>()
+                services
+                    .AddSingleton<MainWindow>()
                     .AddSingleton<ApplicationViewModel>()
                     .AddSingleton<SongViewModel>()
-                    .AddSingleton<LibraryViewModel>()
+                    .AddSingleton<LibraryCollectionViewModel>();
+
+                services
                     .AddSingleton<IPlayer, AudioPlayer>()
                     .AddSingleton<ILocalImporter, LocalImporter>()
                     .AddSingleton<IFileImportService, FileImportService>()
-                    .AddSingleton<IRepository<Song>>(repository)
-                    .AddSingleton<IObservableStorage<Song>>(repository);
+                    .AddSingleton<ICollectionObserver<Song>>(storageService)
+                    .AddSingleton<IObservableStorage<Song>>(storageService);
             })
             .Build();
     }
