@@ -2,14 +2,14 @@
 
 public class Playlist
 {
-	public Playlist()
-	{
-		Songs = new List<Song>();
-	}
+    public Playlist()
+    {
+        Songs = new List<SongModel>();
+    }
 
-	public string Name { get; set; } = default!;
-	public string Description { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
 
-    public List<Song> Songs { get; set; }
+    public List<SongModel> Songs { get; set; }
 }
 
