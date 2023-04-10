@@ -246,7 +246,8 @@
                     <views:LibrarySoundPage
                         FontFamily="Verdana"
                         FontSize="13"
-                        FontStyle="Normal" />
+                        FontStyle="Normal" 
+                        DataContext="{Binding Current}"/>
                 </TabItem.Content>
             </TabItem>
 
@@ -290,36 +291,65 @@
                     </Border>
 
                     <StackPanel Margin="0, 5, 0, 0" Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding SongVm.SelectedSong.Name}" FontSize="12" Foreground="{StaticResource TitleForeground}" HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding SongVm.SelectedSong.Author}" FontSize="11" Foreground="{StaticResource AuthorForeground}" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding PlayerVm.SelectedSong.Name}" FontSize="12" Foreground="{StaticResource TitleForeground}" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding PlayerVm.SelectedSong.Author}" FontSize="11" Foreground="{StaticResource AuthorForeground}" HorizontalAlignment="Left" />
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
-                    <Button Margin="3, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStylePlayButton}" Command="{Binding SongVm.PlayCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                    <CheckBox x:Name="checkBox1" IsChecked="{Binding PlayerVm.IsPlaying, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Visibility="Visible"/>
+                    <Button DataContext="{Binding PlayerVm}" Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayCommand}" CommandParameter="{Binding SelectedSong}" Width="40" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border >
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_Circle" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border x:Name="bord" BorderThickness="0">
+                                    <Grid>
+                                        <fa:FontAwesome x:Name="PlayIcon" Icon="Solid_Play" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="10" Foreground="{StaticResource Gradient3}"/>
+                                        <fa:FontAwesome x:Name="PauseIcon" Icon="Solid_Pause" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="8" Visibility="Collapsed"  Foreground="{StaticResource Gradient3}"/>
+                                    </Grid>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="PlayIcon" Property="Foreground" Value="#fff"/>
+                                        <Setter TargetName="PauseIcon" Property="Foreground" Value="#fff"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="True">
+                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Collapsed"/>
+                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger  Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="False">
+                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Margin="2, 0"  VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.PreviousSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+
+                    <Button Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayerVm.PreviousSongCommand}" CommandParameter="{Binding PlayerVm.SelectedSong}" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border BorderThickness="0">
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border x:Name="bord" BorderThickness="0">
+                                    <fa:FontAwesome x:Name="PrevIcon" Foreground="{StaticResource Gradient1}" FontSize="20" Icon="Solid_ArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="PrevIcon" Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Margin="2, 0" VerticalAlignment="Center" Style="{StaticResource LightDarkStyleSkipButton}" Command="{Binding SongVm.NextSongCommand}" CommandParameter="{Binding SongVm.SelectedSong}" HorizontalAlignment="Center" >
+                    <Button Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayerVm.NextSongCommand}" CommandParameter="{Binding PlayerVm.SelectedSong}" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>
-                                <Border BorderThickness="0">
-                                    <fa:FontAwesome Style="{StaticResource LightDarkStyleIcon}" Icon="Solid_ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border x:Name="bord" BorderThickness="0">
+                                    <fa:FontAwesome x:Name="NextIcon" Foreground="{StaticResource Gradient1}" FontSize="20" Icon="Solid_ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="NextIcon" Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>

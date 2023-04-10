@@ -45,7 +45,7 @@
                         <Border Name="MusicBorder"
                                 Background="{TemplateBinding Background}"
                                 BorderThickness="0"
-                                CornerRadius="10"
+                                CornerRadius="0"
                                 Margin="4">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -129,7 +129,8 @@
                     VerticalContentAlignment="Center"
                     BorderThickness="0.1"
                     Foreground="#FFA5A5A5"
-                    SelectionBrush="#FFA5A5A5">
+                    SelectionBrush="#FFA5A5A5"
+                    Text="{Binding LibraryVm.Filter, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="8" />
@@ -154,8 +155,8 @@
 
         <!-- AUDIO LISTBOX -->
         <ListBox Grid.Row="1" Grid.ColumnSpan="2"
-                 ItemsSource="{Binding LibraryVm.LocalAudioCollection}" 
-                 SelectedItem="{Binding SongVm.SelectedSong}"
+                 ItemsSource="{Binding LibraryVm.SongsCollectionView}" 
+                 SelectedItem="{Binding PlayerVm.SelectedSong}"
                 VirtualizingPanel.CacheLength="20"
                 VirtualizingPanel.IsContainerVirtualizable="True"
                 VirtualizingPanel.IsVirtualizing="True"
