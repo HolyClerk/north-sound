@@ -7,20 +7,23 @@ using System.Linq;
 
 namespace NorthSound.Infrastructure.Services;
 
-public class SongStorageService : ICollectionObserver<Song>, IObservableStorage<Song>
+public class SongStorageService : ICollectionObserver<SongModel>, IObservableStorage<SongModel>
 {
+    /// <summary>
+    /// Класс представляет собой текущую коллекцию, избранную на воспроизведение.
+    /// </summary>
     public SongStorageService()
     {
         Collection = new();
     }
 
-    public ObservableCollection<Song> Collection
+    public ObservableCollection<SongModel> Collection
     { 
         get; 
         private set; 
     }
 
-    public void ChangeObservableCollection(IEnumerable<Song> newObservableCollection)
+    public void ChangeObservableCollection(IEnumerable<SongModel> newObservableCollection)
     {
         Collection.Clear();
 

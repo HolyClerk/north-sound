@@ -10,7 +10,7 @@ namespace NorthSound.Infrastructure.Services.Static;
 public static class MediaReader
 {
     // Конвертирует метаданные файла в модель Song
-    public static async Task<Song?> ConvertMetadataAsync(string songPath)
+    public static async Task<SongModel?> ConvertMetadataAsync(string songPath)
     {
         var metadataBuffer = new byte[128];
 
@@ -28,7 +28,7 @@ public static class MediaReader
             return null;
         }
 
-        return new Song()
+        return new LocalSong()
         {
             Name = Encoding.Default.GetString(metadataBuffer, 3, 30),
             Author = Encoding.Default.GetString(metadataBuffer, 33, 30),
@@ -37,9 +37,9 @@ public static class MediaReader
     }
 
     // Конвертирует title файла в модель Song
-    public static Song ConvertToSong(FileInfo songInfo)
+    public static LocalSong ConvertToSong(FileInfo songInfo)
     {
-        var songTemplate = new Song()
+        var songTemplate = new LocalSong()
         {
             Author = "None",
             Name = "None",

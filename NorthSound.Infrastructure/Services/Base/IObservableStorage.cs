@@ -7,5 +7,5 @@ namespace NorthSound.Infrastructure.Services.Base;
 
 public interface IObservableStorage<T>
 {
-    ObservableCollection<Song> Collection { get; }
+    ObservableCollection<T> Collection { get; }
 }
