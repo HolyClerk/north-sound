@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 
 namespace NorthSound.Infrastructure.Services.Import.Base;
 
-public interface ILocalImporter
+public interface IImportService
 {
     AsyncRelayCommand AsyncImportCommand { get; }
-    ObservableCollection<Song> ImportedCollection { get; }
+    ObservableCollection<SongModel> ImportedCollection { get; }
 
     void InitializeImportedStorage();
 }

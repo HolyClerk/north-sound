@@ -20,7 +20,7 @@ public class FileImportService : IFileImportService
         }
     }
 
-    public Song? ExecuteImport()
+    public LocalSong? ExecuteImport()
     {
         var dialogue = new OpenFileDialog();
 
@@ -43,11 +43,11 @@ public class FileImportService : IFileImportService
         return null;
     }
 
-    public IEnumerable<Song> GetImportedCollection()
+    public IEnumerable<LocalSong> GetImportedCollection()
     {
         InitializeFolder(DefaultPath);
 
-        var songsCollection = new List<Song>();
+        var songsCollection = new List<LocalSong>();
         // Паттерн *.mp3
         string[] audiofilesPath = Directory.GetFiles(DefaultPath, "*.mp3");
 
@@ -56,12 +56,20 @@ public class FileImportService : IFileImportService
         {
             if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
             {
-                Song song = MediaReader.ConvertToSong(songInfo);
+                LocalSong song = MediaReader.ConvertToSong(songInfo);
                 songsCollection.Add(song);
             }
         }
 
         return songsCollection;
+    }
+
+    public LocalSong Import(LocalSong entity)
+    {
+        var songInfo = new FileInfo(entity.Path!.AbsolutePath);
+        songInfo.CopyTo(DefaultPath + songInfo.Name);
+        var song = MediaReader.ConvertToSong(songInfo);
+        return song;
     }
 
     private void InitializeFolder(string playlistsPath)
