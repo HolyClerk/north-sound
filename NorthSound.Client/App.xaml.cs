@@ -8,6 +8,7 @@ using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using NorthSound.Infrastructure.Services.Base;
 using NorthSound.Infrastructure.Services.Import;
 using NorthSound.Infrastructure.Services.Import.Base;
+using NorthSound.Infrastructure.Services.Web;
 using System.Windows;
 
 namespace NorthSound.Client;
@@ -19,22 +20,31 @@ public partial class App : Application
     public App()
     {
         var storageService = new SongStorageService();
+        var webLibrary = new WebLibrary();
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
                 services
-                    .AddSingleton<MainWindow>()
-                    .AddSingleton<ApplicationViewModel>()
-                    .AddSingleton<SongViewModel>()
-                    .AddSingleton<LibraryCollectionViewModel>();
+                    .AddScoped<MainWindow>()
+                    .AddScoped<ApplicationViewModel>()
+                    .AddScoped<PlayerViewModel>()
+                    .AddScoped<LibraryCollectionViewModel>()
+                    .AddScoped<OnlineLibraryViewModel>();
 
                 services
                     .AddSingleton<IPlayer, AudioPlayer>()
-                    .AddSingleton<ILocalImporter, LocalImporter>()
-                    .AddSingleton<IFileImportService, FileImportService>()
-                    .AddSingleton<ICollectionObserver<Song>>(storageService)
-                    .AddSingleton<IObservableStorage<Song>>(storageService);
+                    .AddScoped<IImportService, ImportFacade>()
+                    .AddScoped<ILocator, ImportFacade>()
+                    .AddTransient<IFileImportService, FileImportService>();
+
+                services
+                    .AddSingleton<ICollectionObserver<SongModel>>(storageService)
+                    .AddSingleton<IObservableStorage<SongModel>>(storageService);
+
+                services
+                    .AddScoped<IWebLibraryService, WebLibrary>()
+                    .AddScoped<IWebStreamService, WebLibrary>();
             })
             .Build();
     }

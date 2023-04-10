@@ -29,6 +29,7 @@
 
             <SolidColorBrush x:Key="Gradient1" Color="#3C8DBC" />
             <SolidColorBrush x:Key="Gradient2" Color="#2C3E50" />
+            <SolidColorBrush x:Key="Gradient3" Color="#f65a5a" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
