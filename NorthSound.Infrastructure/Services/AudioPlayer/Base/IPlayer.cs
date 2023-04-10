@@ -8,11 +8,12 @@ public interface IPlayer
 {
     event Action Ended;
 
-    Song Current { get; }
+    SongModel Current { get; }
     bool IsPlaying { get; }
 
     void Pause();
     void Play();
-    void Open(Song? selectedSong);
+    void Open(LocalSong? selectedSong);
+    void OpenStream(VirtualSong? selectedSong);
 
 }
