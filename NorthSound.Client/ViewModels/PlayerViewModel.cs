@@ -12,17 +12,19 @@ namespace NorthSound.Client.ViewModels;
 
 internal sealed class PlayerViewModel : ViewModelBase
 {
-    private ObservableCollection<Song> _globalCollection;
-    private Song? _selectedSong;
+    private ObservableCollection<SongModel> _playerCollection;
+    private SongModel? _selectedSong;
 
-    private readonly IObservableStorage<Song> _observableStorage;
+    private bool _isPlaying;
+
+    private readonly IObservableStorage<SongModel> _observableStorage;
     private readonly IPlayer _player;
 
     public PlayerViewModel(
-        IObservableStorage<Song> storage,
+        IObservableStorage<SongModel> storage,
         IPlayer player) : base()
     {
-        _globalCollection = new ObservableCollection<Song>();
+        _playerCollection = new ObservableCollection<SongModel>();
 
         _observableStorage = storage;
         _observableStorage.Collection.CollectionChanged += OnObservableCollectionChanged;
@@ -31,23 +33,36 @@ internal sealed class PlayerViewModel : ViewModelBase
         _player.Ended += OnSongEnd;
     }
 
-    public Song? SelectedSong
+    public SongModel? SelectedSong
     {
         get => _selectedSong;
         set
         {
             Set(ref _selectedSong, value);
 
-            _player.Open(_selectedSong);
+            if (_selectedSong is LocalSong localSong)
+                _player.Open(localSong);
+
+            if (_selectedSong is VirtualSong virtualSong)
+                _player.OpenStream(virtualSong);
+
             _player.Play();
+
+            _isPlaying = true;
         }
     }
 
     // PlayerCollection - коллекция, выбранная в текущий момент времени
-    public ObservableCollection<Song> PlayerCollection 
+    public ObservableCollection<SongModel> PlayerCollection 
     {
-        get => _globalCollection;
-        set => Set(ref _globalCollection, value);
+        get => _playerCollection;
+        set => Set(ref _playerCollection, value);
+    }
+
+    public bool IsPlaying
+    {
+        get => _isPlaying;
+        set => Set(ref _isPlaying, value);
     }
 
     private void OnObservableCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -65,7 +80,7 @@ internal sealed class PlayerViewModel : ViewModelBase
         SelectedSong = next;
     }
 
-    private Song? GetNextSong()
+    private SongModel? GetNextSong()
     {
         try
         {
@@ -78,7 +93,7 @@ internal sealed class PlayerViewModel : ViewModelBase
         }
     }
 
-    private Song? GetPreviousSong()
+    private SongModel? GetPreviousSong()
     {
         try
         {
@@ -104,17 +119,21 @@ internal sealed class PlayerViewModel : ViewModelBase
                 if (_player.IsPlaying)
                 {
                     _player.Pause();
+                    IsPlaying = false;
                     return;
                 }
 
                 if (_player.Current != _selectedSong)
                 {
-                    _player.Open(_selectedSong);
+                    // Сделать метод для обеих типов
+                    _player.Open(_selectedSong as LocalSong);
                     _player.Play();
+                    _isPlaying = true;
                     return;
                 }
 
                 _player.Play();
+                _isPlaying = true;
 
             }, obj => _selectedSong is not null);
         }

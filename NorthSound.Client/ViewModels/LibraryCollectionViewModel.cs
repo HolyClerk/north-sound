@@ -12,13 +12,13 @@ namespace NorthSound.Client.ViewModels;
 
 internal sealed class LibraryCollectionViewModel : ViewModelBase
 {
-    private readonly ICollectionObserver<Song> _storageObserver;
+    private readonly ICollectionObserver<SongModel> _storageObserver;
 
-    public LibraryCollectionViewModel(ICollectionObserver<Song> storageObserver)
+    public LibraryCollectionViewModel(ICollectionObserver<SongModel> storageObserver)
     {
         _storageObserver = storageObserver;
 
-        SongsCollectionView = CollectionViewSource.GetDefaultView(new ObservableCollection<Song>());
+        SongsCollectionView = CollectionViewSource.GetDefaultView(new ObservableCollection<SongModel>());
         SongsCollectionView.Filter = FilterCollection;
         SongsCollectionView.CollectionChanged += (sender, args) => NotifyStorageObserver();
     }
@@ -43,24 +43,25 @@ internal sealed class LibraryCollectionViewModel : ViewModelBase
         set
         {
             Set(ref _filter, value);
-            SongsCollectionView.Refresh();
+
+            SongsCollectionView.Filter = FilterCollection;
         }
     }
 
     private void NotifyStorageObserver()
     {
-        _storageObserver.ChangeObservableCollection((IEnumerable<Song>)SongsCollectionView.SourceCollection);
+        _storageObserver.ChangeObservableCollection((IEnumerable<SongModel>)SongsCollectionView.SourceCollection);
     }
 
     private bool FilterCollection(object entity)
     {
-        if (entity is not Song song || string.IsNullOrWhiteSpace(Filter))
-            return false;
+        if (entity is not LocalSong song || string.IsNullOrWhiteSpace(Filter))
+            return true;
 
         return song.IsAnyPropsContains(Filter);
     }
 
-    public void UpdateSongCollection(ObservableCollection<Song> collection)
+    public void UpdateSongCollection(ObservableCollection<SongModel> collection)
     {
         SongsCollectionView = CollectionViewSource.GetDefaultView(collection);
         NotifyStorageObserver();

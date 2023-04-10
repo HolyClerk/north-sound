@@ -11,22 +11,25 @@ internal sealed class ApplicationViewModel : ViewModelBase
     public ApplicationViewModel(
         PlayerViewModel songVm,
         LibraryCollectionViewModel libraryVm,
-        ILocalImporter importer)
+        OnlineLibraryViewModel onlineLibraryVm,
+        IImportService importer)
     {
-        SongVm = songVm;
-        LibraryVm = libraryVm;
-        LocalImporter = importer;
+        Current = this;
 
+        PlayerVm = songVm;
+        LibraryVm = libraryVm;
+        OnlineLibraryVm = onlineLibraryVm;
+
+        LocalImporter = importer;
         LocalImporter.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
         LocalImporter.InitializeImportedStorage();
-
-        Current = this;
     }
 
-    public ILocalImporter LocalImporter { get; }
+    public IImportService LocalImporter { get; }
 
-    public PlayerViewModel SongVm { get; }
+    public PlayerViewModel PlayerVm { get; }
     public LibraryCollectionViewModel LibraryVm { get; }
+    public OnlineLibraryViewModel OnlineLibraryVm { get; }
 
     private void OnImportCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
