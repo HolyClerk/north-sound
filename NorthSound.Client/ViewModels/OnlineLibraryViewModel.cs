@@ -1,8 +1,9 @@
 ﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Commands.Base;
-using NorthSound.Infrastructure.Services.Import;
-using NorthSound.Infrastructure.Services.Web;
+using NorthSound.Infrastructure.Services.Import.Base;
+using NorthSound.Infrastructure.Services.Web.Base;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,20 +13,8 @@ namespace NorthSound.Client.ViewModels;
 
 internal sealed class OnlineLibraryViewModel : ViewModelBase
 {
-    private readonly IWebLibraryService _webLibrary;
-    private readonly IWebStreamService _webStreamer;
-    private readonly ILocator _locator;
-
-    public OnlineLibraryViewModel(
-        IWebLibraryService downloaderService,
-        IWebStreamService streamService,
-        ILocator locator)
+    public OnlineLibraryViewModel()
     {
-        _webLibrary = downloaderService;
-        _webStreamer = streamService;
-        _locator = locator;
-
-        IntializeVirtualCollection();
     }
 
     private ICollectionView _virtualCollectionView = default!;
@@ -41,46 +30,28 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
         }
     }
 
-    private VirtualSong? _selectedVirtualModel;
-    public VirtualSong? SelectedVirtualModel
+    private string? _filter;
+    public string? Filter
     {
-        get => _selectedVirtualModel;
+        get => _filter;
         set
         {
-            if (_selectedVirtualModel == value)
-                return;
+            Set(ref _filter, value);
 
-            Set(ref _selectedVirtualModel, value);
+            VirtualCollectionView.Filter = FilterCollection;
         }
     }
 
-    private AsyncRelayCommand _asyncDownloadCommand = null!;
-    public AsyncRelayCommand AsyncDownloadCommand
+    private bool FilterCollection(object entity)
     {
-        get
-        {
-            return _asyncDownloadCommand ??= new AsyncRelayCommand(async Task () =>
-            {
-                if (_webStreamer.IsServerOnline() is false || _selectedVirtualModel is null)
-                    return;
+        if (entity is not VirtualSong song || string.IsNullOrWhiteSpace(Filter))
+            return true;
 
-                var song = await _webStreamer.DownloadSong(_selectedVirtualModel);
-
-                if (song is null)
-                    return;
-
-                _locator.Locate(song);
-            });
-        }
+        return song.IsAnyPropsContains(Filter);
     }
 
-    private async Task IntializeVirtualCollection()
+    public void UpdateVirtualCollection(ObservableCollection<VirtualSong> collection)
     {
-        /*if (_webLibrary.IsServerOnline() is false)
-            return;*/
-
-        var collection = await _webLibrary.FetchVirtualSongs();
         VirtualCollectionView = CollectionViewSource.GetDefaultView(collection);
-
     }
 }

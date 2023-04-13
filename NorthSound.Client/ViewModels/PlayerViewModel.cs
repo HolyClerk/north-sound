@@ -1,12 +1,12 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.Client.ViewModels.Base;
-using NorthSound.Infrastructure.Services.Base;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using System;
 using System.Collections.Specialized;
+using NorthSound.Infrastructure.Services.Storage.Base;
 
 namespace NorthSound.Client.ViewModels;
 
@@ -40,7 +40,7 @@ internal sealed class PlayerViewModel : ViewModelBase
         {
             Set(ref _selectedSong, value);
 
-            if (_selectedSong is LocalSong localSong)
+            if (_selectedSong is SongFile localSong)
                 _player.Open(localSong);
 
             if (_selectedSong is VirtualSong virtualSong)
@@ -125,8 +125,7 @@ internal sealed class PlayerViewModel : ViewModelBase
 
                 if (_player.Current != _selectedSong)
                 {
-                    // Сделать метод для обеих типов
-                    _player.Open(_selectedSong as LocalSong);
+                    _player.Open(_selectedSong as SongFile);
                     _player.Play();
                     _isPlaying = true;
                     return;

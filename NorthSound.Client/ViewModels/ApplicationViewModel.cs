@@ -1,18 +1,20 @@
 ﻿using NorthSound.Client.ViewModels.Base;
+using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Services.Import.Base;
+using NorthSound.Infrastructure.Services.Web.Base;
+using System;
 using System.Collections.Specialized;
 
 namespace NorthSound.Client.ViewModels;
 
 internal sealed class ApplicationViewModel : ViewModelBase
 {
-    public ApplicationViewModel Current { get; }
-
     public ApplicationViewModel(
         PlayerViewModel songVm,
         LibraryCollectionViewModel libraryVm,
         OnlineLibraryViewModel onlineLibraryVm,
-        IImportService importer)
+        IImportService importer,
+        IWebService webService)
     {
         Current = this;
 
@@ -20,12 +22,20 @@ internal sealed class ApplicationViewModel : ViewModelBase
         LibraryVm = libraryVm;
         OnlineLibraryVm = onlineLibraryVm;
 
-        LocalImporter = importer;
-        LocalImporter.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
-        LocalImporter.InitializeImportedStorage();
+        ImportService = importer;
+        ImportService.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
+        ImportService.InitializeImportedStorage();
+
+        WebService = webService;
+        WebService.VirtualCollection.CollectionChanged += OnOnlineCollectionChanged;
+        WebService.Downloaded += OnDownloaded;
+        WebService.InitializeOnlineCollection();
     }
 
-    public IImportService LocalImporter { get; }
+    public ApplicationViewModel Current { get; }
+
+    public IImportService ImportService { get; }
+    public IWebService WebService { get; }
 
     public PlayerViewModel PlayerVm { get; }
     public LibraryCollectionViewModel LibraryVm { get; }
@@ -33,6 +43,16 @@ internal sealed class ApplicationViewModel : ViewModelBase
 
     private void OnImportCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        LibraryVm.UpdateSongCollection(LocalImporter.ImportedCollection);
+        LibraryVm.UpdateSongCollection(ImportService.ImportedCollection);
+    }
+
+    private void OnOnlineCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        OnlineLibraryVm.UpdateVirtualCollection(WebService.VirtualCollection);
+    }
+
+    private void OnDownloaded(SongFile songFile)
+    {
+        ImportService.Import(songFile);
     }
 }

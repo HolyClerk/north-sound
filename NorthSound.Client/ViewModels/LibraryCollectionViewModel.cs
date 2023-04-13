@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Services.Base;
+using NorthSound.Infrastructure.Services.Storage.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -55,7 +55,7 @@ internal sealed class LibraryCollectionViewModel : ViewModelBase
 
     private bool FilterCollection(object entity)
     {
-        if (entity is not LocalSong song || string.IsNullOrWhiteSpace(Filter))
+        if (entity is not SongFile song || string.IsNullOrWhiteSpace(Filter))
             return true;
 
         return song.IsAnyPropsContains(Filter);
