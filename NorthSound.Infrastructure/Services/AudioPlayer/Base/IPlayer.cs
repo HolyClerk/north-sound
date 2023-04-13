@@ -13,7 +13,7 @@ public interface IPlayer
 
     void Pause();
     void Play();
-    void Open(SongFile? selectedSong);
+    void Open(LocalSong? selectedSong);
     void OpenStream(VirtualSong? selectedSong);
 
 }

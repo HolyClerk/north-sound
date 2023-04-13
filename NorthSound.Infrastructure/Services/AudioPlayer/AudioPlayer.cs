@@ -29,28 +29,22 @@ public class AudioPlayer : IPlayer
 
     public SongModel Current { get; private set; }
 
-    public void Open(SongFile? song)
+    public void Open(LocalSong? song)
     {
         if (song is null)
             return;
 
         Current = song;
-        _mediaPlayer.Close();
         _mediaPlayer.Open(song.Path);
     }
 
     public void OpenStream(VirtualSong? selectedSong)
     {
-       // throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void Play()
     {
-        if (Current is VirtualSong)
-        {
-            return;
-        }
-
         _mediaPlayer.Play();
         IsPlaying = true;
     }

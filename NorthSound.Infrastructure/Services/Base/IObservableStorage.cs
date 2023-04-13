@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace NorthSound.Infrastructure.Services.Storage.Base;
+namespace NorthSound.Infrastructure.Services.Base;
 
 public interface IObservableStorage<T>
 {

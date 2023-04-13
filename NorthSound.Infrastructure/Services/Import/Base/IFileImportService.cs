@@ -5,7 +5,7 @@ namespace NorthSound.Infrastructure.Services.Import.Base;
 
 public interface IFileImportService
 {
-    SongFile? ExecuteImport();
-    IEnumerable<SongFile> GetImportedCollection();
-    SongFile Import(SongFile song);
+    LocalSong? ExecuteImport();
+    IEnumerable<LocalSong> GetImportedCollection();
+    LocalSong Import(LocalSong song);
 }

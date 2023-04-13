@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NorthSound.Infrastructure.Services.Storage.Base;
+namespace NorthSound.Infrastructure.Services.Base;
 
 public interface ICollectionObserver<T>
 {

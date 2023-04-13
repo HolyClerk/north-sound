@@ -11,7 +11,16 @@ namespace NorthSound.Infrastructure.Services.Import;
 
 public class FileImportService : IFileImportService
 {
-    public SongFile? ExecuteImport()
+    public static string DefaultPath
+    {
+        get
+        {
+            var localAppPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return $@"{localAppPath}\NorthSound\";
+        }
+    }
+
+    public LocalSong? ExecuteImport()
     {
         var dialogue = new OpenFileDialog();
 
@@ -20,7 +29,7 @@ public class FileImportService : IFileImportService
             try
             {
                 var songInfo = new FileInfo(dialogue.FileName);
-                songInfo.CopyTo(MediaReader.MusicPath + songInfo.Name);
+                songInfo.CopyTo(DefaultPath + songInfo.Name);
 
                 var song = MediaReader.ConvertToSong(songInfo);
                 return song;
@@ -34,20 +43,20 @@ public class FileImportService : IFileImportService
         return null;
     }
 
-    public IEnumerable<SongFile> GetImportedCollection()
+    public IEnumerable<LocalSong> GetImportedCollection()
     {
-        InitializeFolder(MediaReader.MusicPath);
+        InitializeFolder(DefaultPath);
 
-        var songsCollection = new List<SongFile>();
+        var songsCollection = new List<LocalSong>();
         // Паттерн *.mp3
-        string[] audiofilesPath = Directory.GetFiles(MediaReader.MusicPath, "*.mp3");
+        string[] audiofilesPath = Directory.GetFiles(DefaultPath, "*.mp3");
 
         // Поиск аудиофайлов в директории
         foreach (string audiofile in audiofilesPath)
         {
             if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
             {
-                SongFile song = MediaReader.ConvertToSong(songInfo);
+                LocalSong song = MediaReader.ConvertToSong(songInfo);
                 songsCollection.Add(song);
             }
         }
@@ -55,20 +64,17 @@ public class FileImportService : IFileImportService
         return songsCollection;
     }
 
-    public SongFile Import(SongFile entity)
+    public LocalSong Import(LocalSong entity)
     {
-        var songInfo = new FileInfo(entity.Path.LocalPath);
-        var newPath = MediaReader.MusicPath + songInfo.Name;
-
-        songInfo.CopyTo(newPath, true);
-        entity.Path = new Uri(newPath);
-        return entity;
+        var songInfo = new FileInfo(entity.Path!.AbsolutePath);
+        songInfo.CopyTo(DefaultPath + songInfo.Name);
+        var song = MediaReader.ConvertToSong(songInfo);
+        return song;
     }
 
     private void InitializeFolder(string playlistsPath)
     {
         var pathInfo = new DirectoryInfo(playlistsPath);
-
         if (pathInfo.Exists)
             return;
 
