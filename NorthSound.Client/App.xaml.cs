@@ -2,13 +2,15 @@
 using Microsoft.Extensions.Hosting;
 using NorthSound.Client.ViewModels;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Services;
+using NorthSound.Infrastructure.Facades;
 using NorthSound.Infrastructure.Services.AudioPlayer;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
-using NorthSound.Infrastructure.Services.Base;
 using NorthSound.Infrastructure.Services.Import;
 using NorthSound.Infrastructure.Services.Import.Base;
+using NorthSound.Infrastructure.Services.Storage;
+using NorthSound.Infrastructure.Services.Storage.Base;
 using NorthSound.Infrastructure.Services.Web;
+using NorthSound.Infrastructure.Services.Web.Base;
 using System.Windows;
 
 namespace NorthSound.Client;
@@ -20,7 +22,6 @@ public partial class App : Application
     public App()
     {
         var storageService = new SongStorageService();
-        var webLibrary = new WebLibrary();
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
@@ -34,8 +35,7 @@ public partial class App : Application
 
                 services
                     .AddSingleton<IPlayer, AudioPlayer>()
-                    .AddScoped<IImportService, ImportFacade>()
-                    .AddScoped<ILocator, ImportFacade>()
+                    .AddScoped<IImportService, ImportService>()
                     .AddTransient<IFileImportService, FileImportService>();
 
                 services
@@ -43,8 +43,8 @@ public partial class App : Application
                     .AddSingleton<IObservableStorage<SongModel>>(storageService);
 
                 services
-                    .AddScoped<IWebLibraryService, WebLibrary>()
-                    .AddScoped<IWebStreamService, WebLibrary>();
+                    .AddScoped<IWebRepository, WebRepository>()
+                    .AddScoped<IWebService, WebService>();
             })
             .Build();
     }
