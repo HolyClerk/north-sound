@@ -12,4 +12,11 @@ public abstract class SongModel
 
     [JsonPropertyName("author")]
     public string Author { get; set; } = default!;
+
+    public bool IsAnyPropsContains(string filter)
+    {
+        return
+            Name.ToLower().Contains(filter.ToLower()) ||
+            Author.ToLower().Contains(filter.ToLower());
+    }
 }
