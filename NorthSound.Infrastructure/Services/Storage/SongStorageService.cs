@@ -1,11 +1,11 @@
 ﻿using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Services.Base;
+using NorthSound.Infrastructure.Services.Storage.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace NorthSound.Infrastructure.Services;
+namespace NorthSound.Infrastructure.Services.Storage;
 
 public class SongStorageService : ICollectionObserver<SongModel>, IObservableStorage<SongModel>
 {
@@ -18,9 +18,9 @@ public class SongStorageService : ICollectionObserver<SongModel>, IObservableSto
     }
 
     public ObservableCollection<SongModel> Collection
-    { 
-        get; 
-        private set; 
+    {
+        get;
+        private set;
     }
 
     public void ChangeObservableCollection(IEnumerable<SongModel> newObservableCollection)
