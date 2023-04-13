@@ -297,7 +297,7 @@
                 </Grid>
 
                 <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
-                    <CheckBox x:Name="checkBox1" IsChecked="{Binding PlayerVm.IsPlaying, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Visibility="Visible"/>
+                    <CheckBox x:Name="checkBox1" IsChecked="{Binding PlayerVm.IsPlaying, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Visibility="Hidden"/>
                     <Button DataContext="{Binding PlayerVm}" Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayCommand}" CommandParameter="{Binding SelectedSong}" Width="40" HorizontalAlignment="Center" >
                         <Button.Template>
                             <ControlTemplate>

@@ -141,10 +141,10 @@
                 <Button 
                     Grid.Column="1"
                     Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding LocalImporter.AsyncImportCommand}">
+                    Command="{Binding ImportService.AsyncImportCommand}">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Background="{StaticResource Search}" CornerRadius="15" Height="30" Width="30">
+                            <Border Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
                                 <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Solid_Plus" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                         </ControlTemplate>
