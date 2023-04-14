@@ -9,6 +9,9 @@ namespace NorthSound.Infrastructure.Services.Static;
 
 public static class MediaReader
 {
+    public static string MusicPath => Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\NorthSound\";
+    public static string DownloadPath => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\";
+
     // Конвертирует метаданные файла в модель Song
     public static async Task<SongModel?> ConvertMetadataAsync(string songPath)
     {
@@ -28,7 +31,7 @@ public static class MediaReader
             return null;
         }
 
-        return new LocalSong()
+        return new SongFile()
         {
             Name = Encoding.Default.GetString(metadataBuffer, 3, 30),
             Author = Encoding.Default.GetString(metadataBuffer, 33, 30),
@@ -37,9 +40,9 @@ public static class MediaReader
     }
 
     // Конвертирует title файла в модель Song
-    public static LocalSong ConvertToSong(FileInfo songInfo)
+    public static SongFile ConvertToSong(FileInfo songInfo)
     {
-        var songTemplate = new LocalSong()
+        var songTemplate = new SongFile()
         {
             Author = "None",
             Name = "None",
