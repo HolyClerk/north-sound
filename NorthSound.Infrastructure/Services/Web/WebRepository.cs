@@ -60,7 +60,7 @@ public class WebRepository : IWebRepository, IDisposable
         throw new NotImplementedException();
     }
 
-    public async Task<Stream>? GetSongStreamByEntity(VirtualSong song)
+    public async Task<Stream?> GetSongStreamByEntity(VirtualSong song)
     {
         var response = await _httpClient.GetAsync(ConnectionString + ApiBasePath + song.Id);
         var stream = await response.Content.ReadAsStreamAsync();

@@ -10,4 +10,5 @@ public interface IImportService
     ObservableCollection<SongModel> ImportedCollection { get; }
 
     void InitializeImportedStorage();
+    void Import(SongFile entity);
 }

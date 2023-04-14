@@ -11,7 +11,7 @@ public interface IWebRepository : IWebConnector
     Task<IEnumerable<VirtualSong>> GetVirtualCollectionByPattern(string pattern);
 
     Task<SongFile?> GetSongFileByEntity(VirtualSong song);
-    Task<Stream> GetSongStreamByEntity(VirtualSong song);
+    Task<Stream?> GetSongStreamByEntity(VirtualSong song);
 
     Task<bool> UpdateSong(SongFile song);
     Task<bool> AddSong(SongFile song);
