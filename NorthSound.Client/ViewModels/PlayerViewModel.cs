@@ -1,7 +1,6 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.Client.ViewModels.Base;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using NorthSound.Infrastructure.Commands.Base;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using System;
@@ -12,10 +11,10 @@ namespace NorthSound.Client.ViewModels;
 
 internal sealed class PlayerViewModel : ViewModelBase
 {
+    private bool _isPlaying;
+
     private ObservableCollection<SongModel> _playerCollection;
     private SongModel? _selectedSong;
-
-    private bool _isPlaying;
 
     private readonly IObservableStorage<SongModel> _observableStorage;
     private readonly IPlayer _player;
@@ -30,7 +29,8 @@ internal sealed class PlayerViewModel : ViewModelBase
         _observableStorage.Collection.CollectionChanged += OnObservableCollectionChanged;
 
         _player = player;
-        _player.Ended += OnSongEnd;
+        _player.SongEnded += OnSongEnd;
+        _player.PlayerStateChanged += OnPlayerStateChanged;
     }
 
     public SongModel? SelectedSong
@@ -44,15 +44,14 @@ internal sealed class PlayerViewModel : ViewModelBase
                 _player.Open(localSong);
 
             if (_selectedSong is VirtualSong virtualSong)
-                _player.OpenStream(virtualSong);
+                _player.OpenVirtual(virtualSong);
 
             _player.Play();
-
-            _isPlaying = true;
         }
     }
 
     // PlayerCollection - коллекция, выбранная в текущий момент времени
+    // на ее основе формируется порядок очереди воспроизведения.
     public ObservableCollection<SongModel> PlayerCollection 
     {
         get => _playerCollection;
@@ -80,6 +79,10 @@ internal sealed class PlayerViewModel : ViewModelBase
         SelectedSong = next;
     }
 
+    private void OnPlayerStateChanged(bool isPlaying) 
+        => IsPlaying = isPlaying;
+
+    #region Commands & Executes
     private SongModel? GetNextSong()
     {
         try
@@ -116,24 +119,16 @@ internal sealed class PlayerViewModel : ViewModelBase
         {
             return _playCommand ??= new RelayCommand(obj =>
             {
-                if (_player.IsPlaying)
+                if (IsPlaying)
                 {
                     _player.Pause();
-                    IsPlaying = false;
                     return;
                 }
 
                 if (_player.Current != _selectedSong)
-                {
                     _player.Open(_selectedSong as SongFile);
-                    _player.Play();
-                    _isPlaying = true;
-                    return;
-                }
 
                 _player.Play();
-                _isPlaying = true;
-
             }, obj => _selectedSong is not null);
         }
     }
@@ -161,4 +156,5 @@ internal sealed class PlayerViewModel : ViewModelBase
             }, obj => GetPreviousSong() is not null);
         }
     }
+    #endregion
 }
