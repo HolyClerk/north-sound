@@ -6,14 +6,14 @@ namespace NorthSound.Infrastructure.Services.AudioPlayer.Base;
 
 public interface IPlayer
 {
-    event Action Ended;
+    event Action<bool>? PlayerStateChanged;
+    event Action? SongEnded;
 
     SongModel Current { get; }
-    bool IsPlaying { get; }
 
     void Pause();
     void Play();
-    void Open(LocalSong? selectedSong);
-    void OpenStream(VirtualSong? selectedSong);
+    void Open(SongFile? selectedSong);
+    void OpenVirtual(VirtualSong? selectedSong);
 
 }

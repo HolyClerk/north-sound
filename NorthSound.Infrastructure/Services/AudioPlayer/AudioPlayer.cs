@@ -1,5 +1,6 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.Infrastructure.Services.AudioPlayer.Base;
+using NorthSound.Infrastructure.Services.Static;
 using System;
 using System.Windows.Media;
 
@@ -13,45 +14,58 @@ public class AudioPlayer : IPlayer
 	{
         _mediaPlayer = new MediaPlayer();
 
-        _mediaPlayer.MediaOpened += (o, e) 
-            => IsPlaying = true;
+        _mediaPlayer.MediaOpened += (o, e) =>
+        {
+            PlayerStateChanged?.Invoke(true);
+        };
 
         _mediaPlayer.MediaEnded += (o, e) =>
         {
-            Ended?.Invoke();
-            IsPlaying = false;
+            PlayerStateChanged?.Invoke(false);
+            SongEnded?.Invoke();
         };
     }
 
-    public event Action Ended;
-
-    public bool IsPlaying { get; private set; }
+    public event Action<bool>? PlayerStateChanged;
+    public event Action? SongEnded;
 
     public SongModel Current { get; private set; }
 
-    public void Open(LocalSong? song)
+    public void Open(SongFile? song)
     {
         if (song is null)
             return;
 
         Current = song;
+        
+        _mediaPlayer.Close();
         _mediaPlayer.Open(song.Path);
     }
 
-    public void OpenStream(VirtualSong? selectedSong)
+    public void OpenVirtual(VirtualSong? selectedSong)
     {
-        throw new NotImplementedException();
+        if (selectedSong is null)
+            return;
+
+        var streamSource = VirtualSongConverter.GetUriLinkToStream(selectedSong);
+        Current = selectedSong;
+        
+        _mediaPlayer.Close();
+        _mediaPlayer.Open(streamSource);
     }
 
     public void Play()
     {
+        if (Current is null)
+            return;
+
         _mediaPlayer.Play();
-        IsPlaying = true;
+        PlayerStateChanged?.Invoke(true);
     }
 
     public void Pause()
     {
         _mediaPlayer.Pause();
-        IsPlaying = false;
+        PlayerStateChanged?.Invoke(false);
     }
 }
