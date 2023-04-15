@@ -6,6 +6,7 @@ using NorthSound.Infrastructure.Services.AudioPlayer.Base;
 using System;
 using System.Collections.Specialized;
 using NorthSound.Infrastructure.Services.Storage.Base;
+using System.Windows.Media;
 
 namespace NorthSound.Client.ViewModels;
 
@@ -16,11 +17,11 @@ internal sealed class PlayerViewModel : ViewModelBase
     private ObservableCollection<SongModel> _playerCollection;
     private SongModel? _selectedSong;
 
-    private readonly IObservableStorage<SongModel> _observableStorage;
+    private readonly ICollectionObserver<SongModel> _observableStorage;
     private readonly IPlayer _player;
 
     public PlayerViewModel(
-        IObservableStorage<SongModel> storage,
+        ICollectionObserver<SongModel> storage,
         IPlayer player) : base()
     {
         _playerCollection = new ObservableCollection<SongModel>();
@@ -40,13 +41,11 @@ internal sealed class PlayerViewModel : ViewModelBase
         {
             Set(ref _selectedSong, value);
 
-            if (_selectedSong is SongFile localSong)
-                _player.Open(localSong);
-
-            if (_selectedSong is VirtualSong virtualSong)
-                _player.OpenVirtual(virtualSong);
-
-            _player.Play();
+            if (value is not null)
+            {
+                Open(_selectedSong);
+                Play();
+            }
         }
     }
 
@@ -83,30 +82,16 @@ internal sealed class PlayerViewModel : ViewModelBase
         => IsPlaying = isPlaying;
 
     #region Commands & Executes
-    private SongModel? GetNextSong()
-    {
-        try
-        {
-            var nextIndex = PlayerCollection.IndexOf(_selectedSong!) + 1;
-            return PlayerCollection[nextIndex];
-        }
-        catch (Exception)
-        {
-            return null;
-        }
-    }
+    private void Play() => _player.Play();
 
-    private SongModel? GetPreviousSong()
+    private void Open(SongModel song)
     {
-        try
-        {
-            var prevIndex = PlayerCollection.IndexOf(_selectedSong!) - 1;
-            return PlayerCollection[prevIndex];
-        }
-        catch (Exception)
-        {
-            return null;
-        }
+        if (song is VirtualSong)
+            _observableStorage.SwitchObservableCollection(CollectionType.Virtual);
+        else
+            _observableStorage.SwitchObservableCollection(CollectionType.Local);
+
+        _player.Open(song);
     }
 
     private RelayCommand _playCommand = null!;
@@ -119,17 +104,8 @@ internal sealed class PlayerViewModel : ViewModelBase
         {
             return _playCommand ??= new RelayCommand(obj =>
             {
-                if (IsPlaying)
-                {
-                    _player.Pause();
-                    return;
-                }
-
-                if (_player.Current != _selectedSong)
-                    _player.Open(_selectedSong as SongFile);
-
-                _player.Play();
-            }, obj => _selectedSong is not null);
+                ExecutePlayCommand(obj);
+            }, obj => obj is VirtualSong or SongFile);
         }
     }
 
@@ -154,6 +130,52 @@ internal sealed class PlayerViewModel : ViewModelBase
                 var previous = GetPreviousSong();
                 SelectedSong = previous;
             }, obj => GetPreviousSong() is not null);
+        }
+    }
+
+    private void ExecutePlayCommand(object obj)
+    {
+        if (obj is not SongModel songModel)
+            return;
+
+        if (IsPlaying && songModel == _selectedSong)
+        {
+            _player.Pause();
+            return;
+        }
+
+        if (songModel != _selectedSong)
+        {
+            Open(songModel);
+            SelectedSong = songModel;
+        }
+
+        Play();
+    }
+
+    private SongModel? GetNextSong()
+    {
+        try
+        {
+            var nextIndex = PlayerCollection.IndexOf(_selectedSong!) + 1;
+            return PlayerCollection[nextIndex];
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    private SongModel? GetPreviousSong()
+    {
+        try
+        {
+            var prevIndex = PlayerCollection.IndexOf(_selectedSong!) - 1;
+            return PlayerCollection[prevIndex];
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
     #endregion

@@ -13,8 +13,7 @@ internal sealed class ApplicationViewModel : ViewModelBase
         PlayerViewModel songVm,
         LibraryCollectionViewModel libraryVm,
         OnlineLibraryViewModel onlineLibraryVm,
-        IImportService importer,
-        IWebService webService)
+        IImportService importer)
     {
         Current = this;
 
@@ -25,17 +24,11 @@ internal sealed class ApplicationViewModel : ViewModelBase
         ImportService = importer;
         ImportService.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
         ImportService.InitializeImportedStorage();
-
-        WebService = webService;
-        WebService.VirtualCollection.CollectionChanged += OnOnlineCollectionChanged;
-        WebService.Downloaded += OnDownloaded;
-        WebService.InitializeOnlineCollection();
     }
 
     public ApplicationViewModel Current { get; }
 
     public IImportService ImportService { get; }
-    public IWebService WebService { get; }
 
     public PlayerViewModel PlayerVm { get; }
     public LibraryCollectionViewModel LibraryVm { get; }
@@ -44,15 +37,5 @@ internal sealed class ApplicationViewModel : ViewModelBase
     private void OnImportCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         LibraryVm.UpdateSongCollection(ImportService.ImportedCollection);
-    }
-
-    private void OnOnlineCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        OnlineLibraryVm.UpdateVirtualCollection(WebService.VirtualCollection);
-    }
-
-    private void OnDownloaded(SongFile songFile)
-    {
-        ImportService.Import(songFile);
     }
 }
