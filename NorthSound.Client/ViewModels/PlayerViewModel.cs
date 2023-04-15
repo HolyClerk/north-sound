@@ -43,7 +43,7 @@ internal sealed class PlayerViewModel : ViewModelBase
 
             if (value is not null)
             {
-                Open(_selectedSong);
+                Open(value);
                 Play();
             }
         }
@@ -88,7 +88,8 @@ internal sealed class PlayerViewModel : ViewModelBase
     {
         if (song is VirtualSong)
             _observableStorage.SwitchObservableCollection(CollectionType.Virtual);
-        else
+
+        if (song is SongFile)
             _observableStorage.SwitchObservableCollection(CollectionType.Local);
 
         _player.Open(song);

@@ -9,9 +9,9 @@ public interface IPlayer
     event Action<bool>? PlayerStateChanged;
     event Action? SongEnded;
 
-    SongModel Current { get; }
+    SongModel? Current { get; }
 
     void Pause();
     void Play();
-    void Open(SongModel? selectedSong);
+    void Open(SongModel selectedSong);
 }

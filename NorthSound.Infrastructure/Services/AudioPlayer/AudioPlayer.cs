@@ -29,38 +29,32 @@ public class AudioPlayer : IPlayer
     public event Action<bool>? PlayerStateChanged;
     public event Action? SongEnded;
 
-    public SongModel Current { get; private set; }
+    public SongModel? Current { get; private set; }
 
-    public void Open(SongModel? song)
+    public void Open(SongModel song)
     {
         if (song is null)
             return;
+
+        _mediaPlayer.Close();
 
         if (song is VirtualSong virtualSong)
             OpenVirtual(virtualSong);
 
         if (song is SongFile songFile)
             OpenFileStream(songFile);
+
+        Current = song;
     }
 
     private void OpenFileStream(SongFile songFile)
     {
-        Current = songFile;
-
-        _mediaPlayer.Close();
         _mediaPlayer.Open(songFile.Path);
     }
 
-    private void OpenVirtual(VirtualSong? selectedSong)
+    private void OpenVirtual(VirtualSong selectedSong)
     {
-        if (selectedSong is null)
-            return;
-
         var streamSource = VirtualSongConverter.GetUriLinkToStream(selectedSong);
-
-        Current = selectedSong;
-        
-        _mediaPlayer.Close();
         _mediaPlayer.Open(streamSource);
     }
 

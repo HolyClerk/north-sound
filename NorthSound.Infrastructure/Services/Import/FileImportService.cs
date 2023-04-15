@@ -57,7 +57,7 @@ public class FileImportService : IFileImportService
 
     public SongFile Import(SongFile entity)
     {
-        var songInfo = new FileInfo(entity.Path.LocalPath);
+        var songInfo = new FileInfo(entity.Path!.LocalPath);
         var newPath = MediaReader.MusicPath + songInfo.Name;
 
         songInfo.CopyTo(newPath, true);
