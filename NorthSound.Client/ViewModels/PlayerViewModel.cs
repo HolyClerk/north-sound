@@ -1,11 +1,11 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.Client.ViewModels.Base;
 using System.Collections.ObjectModel;
-using NorthSound.Infrastructure.Commands.Base;
-using NorthSound.Infrastructure.Services.AudioPlayer.Base;
+using NorthSound.BLL.Commands.Base;
+using NorthSound.BLL.Services.AudioPlayer.Base;
 using System;
 using System.Collections.Specialized;
-using NorthSound.Infrastructure.Services.Storage.Base;
+using NorthSound.BLL.Services.Storage.Base;
 using System.Windows.Media;
 
 namespace NorthSound.Client.ViewModels;

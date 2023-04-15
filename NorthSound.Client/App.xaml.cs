@@ -2,16 +2,17 @@
 using Microsoft.Extensions.Hosting;
 using NorthSound.Client.ViewModels;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Facades;
-using NorthSound.Infrastructure.Services.AudioPlayer;
-using NorthSound.Infrastructure.Services.AudioPlayer.Base;
-using NorthSound.Infrastructure.Services.Import;
-using NorthSound.Infrastructure.Services.Import.Base;
-using NorthSound.Infrastructure.Services.Storage;
-using NorthSound.Infrastructure.Services.Storage.Base;
-using NorthSound.Infrastructure.Services.Web;
-using NorthSound.Infrastructure.Services.Web.Base;
+using NorthSound.BLL.Facades;
+using NorthSound.BLL.Services.AudioPlayer;
+using NorthSound.BLL.Services.AudioPlayer.Base;
+using NorthSound.BLL.Services.Import;
+using NorthSound.BLL.Services.Import.Base;
+using NorthSound.BLL.Services.Storage;
+using NorthSound.BLL.Services.Storage.Base;
+using NorthSound.DAL;
+using NorthSound.DAL.Base;
 using System.Windows;
+using NorthSound.BLL.Facades.Base;
 
 namespace NorthSound.Client;
 

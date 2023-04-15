@@ -1,9 +1,9 @@
 ﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Commands.Base;
-using NorthSound.Infrastructure.Services.Import.Base;
-using NorthSound.Infrastructure.Services.Storage.Base;
-using NorthSound.Infrastructure.Services.Web.Base;
+using NorthSound.BLL.Commands.Base;
+using NorthSound.BLL.Services.Import.Base;
+using NorthSound.BLL.Services.Storage.Base;
+using NorthSound.BLL.Facades.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

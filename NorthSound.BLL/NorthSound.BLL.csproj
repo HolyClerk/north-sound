@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NorthSound.DAL\NorthSound.DAL.csproj" />
+    <ProjectReference Include="..\NorthSound.Domain\NorthSound.Domain.csproj" />
+    <ProjectReference Include="..\NorthSound.Infrastructure\NorthSound.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

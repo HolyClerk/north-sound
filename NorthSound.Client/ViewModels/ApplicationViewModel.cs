@@ -1,7 +1,7 @@
 ﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure.Services.Import.Base;
-using NorthSound.Infrastructure.Services.Web.Base;
+using NorthSound.BLL.Services.Import.Base;
+using NorthSound.DAL.Base;
 using System;
 using System.Collections.Specialized;
 
