@@ -13,7 +13,5 @@ public interface IPlayer
 
     void Pause();
     void Play();
-    void Open(SongFile? selectedSong);
-    void OpenVirtual(VirtualSong? selectedSong);
-
+    void Open(SongModel? selectedSong);
 }

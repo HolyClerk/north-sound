@@ -31,23 +31,33 @@ public class AudioPlayer : IPlayer
 
     public SongModel Current { get; private set; }
 
-    public void Open(SongFile? song)
+    public void Open(SongModel? song)
     {
         if (song is null)
             return;
 
-        Current = song;
-        
-        _mediaPlayer.Close();
-        _mediaPlayer.Open(song.Path);
+        if (song is VirtualSong virtualSong)
+            OpenVirtual(virtualSong);
+
+        if (song is SongFile songFile)
+            OpenFileStream(songFile);
     }
 
-    public void OpenVirtual(VirtualSong? selectedSong)
+    private void OpenFileStream(SongFile songFile)
+    {
+        Current = songFile;
+
+        _mediaPlayer.Close();
+        _mediaPlayer.Open(songFile.Path);
+    }
+
+    private void OpenVirtual(VirtualSong? selectedSong)
     {
         if (selectedSong is null)
             return;
 
         var streamSource = VirtualSongConverter.GetUriLinkToStream(selectedSong);
+
         Current = selectedSong;
         
         _mediaPlayer.Close();
