@@ -7,7 +7,7 @@ namespace NorthSound.Infrastructure.Services.Import.Base;
 public interface IImportService
 {
     AsyncRelayCommand AsyncImportCommand { get; }
-    ObservableCollection<SongModel> ImportedCollection { get; }
+    ObservableCollection<SongFile> ImportedCollection { get; }
 
     void InitializeImportedStorage();
     void Import(SongFile entity);
