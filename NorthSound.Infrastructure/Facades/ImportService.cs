@@ -28,10 +28,10 @@ public class ImportService : IImportService
         IFileImportService importService)
     {
         _fileImport = importService;
-        ImportedCollection = new ObservableCollection<SongModel>();
+        ImportedCollection = new ObservableCollection<SongFile>();
     }
 
-    public ObservableCollection<SongModel> ImportedCollection
+    public ObservableCollection<SongFile> ImportedCollection
     {
         get; private set;
     }
