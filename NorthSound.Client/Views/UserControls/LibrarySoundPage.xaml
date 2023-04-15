@@ -42,27 +42,43 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border
+                                <Button
+                                    Name="PlayButton"
                                     Grid.Column="0"
-                                    Width="40"
-                                    Height="40"
+                                    Background="#00000000"
+                                    BorderThickness="0"
                                     Margin="5"
-                                    CornerRadius="100">
-                                    <Border.Background>
-                                        <LinearGradientBrush>
-                                            <GradientStop Offset="1" Color="#2F2F2F" />
-                                            <GradientStop Offset="0" Color="#7490C5" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                    <fa:ImageAwesome
-                                        Name="PlayButtonOcc"
-                                        Width="10"
-                                        Height="10"
-                                        Foreground="#7FFFFFFF"
-                                        Icon="Solid_Play" />
-                                </Border>
+                                    Command="{Binding DataContext.PlayerVm.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}">
+
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Border
+                                                x:Name="PlayButtonBorder"
+                                                Grid.Column="0"
+                                                Width="40"
+                                                Height="40"
+                                                CornerRadius="100"
+                                                Background="#2E4154">
+                                                <fa:ImageAwesome
+                                                    Width="10"
+                                                    Height="10"
+                                                    Foreground="#7FFFFFFF"
+                                                    Icon="Solid_Play" />
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PlayButtonBorder" Property="Background" Value="#CC924A"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                
                                 <Grid Grid.Column="1" Margin="10,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -83,12 +99,48 @@
                                         Foreground="{StaticResource AuthorForeground}"
                                         Text="{Binding Path=Author}" />
                                 </Grid>
+
+                                <Button
+                                    Name="DownloadButton"
+                                    Grid.Column="3"
+                                    Background="#00000000"
+                                    BorderThickness="0"
+                                    Margin="5"
+                                    Command="{Binding DataContext.OnlineLibraryVm.AsyncDownloadCommand,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding DataContext.PlayerVm.SelectedSong,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}">
+
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Border
+                                                x:Name="DownloadButtonBorder"
+                                                Grid.Column="0"
+                                                Width="40"
+                                                Height="40"
+                                                CornerRadius="100">
+                                                <fa:ImageAwesome
+                                                    Name="DownloadIcon"
+                                                    Width="10"
+                                                    Height="10"
+                                                    Foreground="#7FFFFFFF"
+                                                    Icon="Solid_Download" />
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="DownloadIcon" Property="Foreground" Value="#CC924A"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </Grid>
                         </Border>
+                        
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource SelectedTrack}" />
-                                <Setter TargetName="PlayButtonOcc" Property="Icon" Value="Solid_Pause"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource MouseOver}" />
@@ -110,7 +162,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBox
@@ -131,10 +183,10 @@
                 <Button 
                     Grid.Column="1"
                     Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding WebService.AsyncDownloadCommand}" CommandParameter="{Binding PlayerVm.SelectedSong}">
+                    Command="{Binding OnlineLibraryVm.AsyncUpdateCommand}">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
+                            <Border x:Name="D" Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
                                 <Grid>
                                     <fa:FontAwesome x:Name="Icon" Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Solid_Redo" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     <Ellipse x:Name="Ellipse" Fill="{StaticResource TitleForeground}" Opacity="0" />
@@ -151,6 +203,9 @@
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>

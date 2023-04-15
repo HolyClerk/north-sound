@@ -53,25 +53,42 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Border
+                                <Button
+                                    Name="PlayButton"
                                     Grid.Column="0"
-                                    Width="40"
-                                    Height="40"
+                                    Background="#00000000"
+                                    BorderThickness="0"
                                     Margin="5"
-                                    CornerRadius="100">
-                                    <Border.Background>
-                                        <LinearGradientBrush>
-                                            <GradientStop Offset="1" Color="#2F2F2F" />
-                                            <GradientStop Offset="0" Color="#7490C5" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                    <fa:ImageAwesome
-                                        Name="PlayButtonOcc"
-                                        Width="10"
-                                        Height="10"
-                                        Foreground="#7FFFFFFF"
-                                        Icon="Solid_Play" />
-                                </Border>
+                                    Command="{Binding DataContext.PlayerVm.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}">
+
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Border
+                                                x:Name="PlayButtonBorder"
+                                                Grid.Column="0"
+                                                Width="40"
+                                                Height="40"
+                                                CornerRadius="100"
+                                                Background="#2E4154">
+                                                <fa:ImageAwesome
+                                                    Name="PlayIcon"
+                                                    Width="10"
+                                                    Height="10"
+                                                    Foreground="#7FFFFFFF"
+                                                    Icon="Solid_Music" />
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PlayButtonBorder" Property="Background" Value="#CC924A"/>
+                                                    <Setter TargetName="PlayIcon" Property="Icon" Value="Solid_Play"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
                                 <Grid Grid.Column="1" Margin="10,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -97,7 +114,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource SelectedTrack}" />
-                                <Setter TargetName="PlayButtonOcc" Property="Icon" Value="Solid_Pause"/>
+
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="MusicBorder" Property="Background" Value="{StaticResource MouseOver}" />
@@ -120,7 +137,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 
                 <TextBox
@@ -144,9 +161,14 @@
                     Command="{Binding ImportService.AsyncImportCommand}">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
+                            <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
                                 <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Solid_Plus" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
