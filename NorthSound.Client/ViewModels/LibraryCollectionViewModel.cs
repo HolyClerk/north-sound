@@ -5,19 +5,27 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
+using NorthSound.BLL.Facades.Base;
+using System.Collections.Specialized;
+using NorthSound.BLL.Commands.Base;
 
 namespace NorthSound.Client.ViewModels;
 
 internal sealed class LibraryCollectionViewModel : ViewModelBase
 {
     private readonly ICollectionObserver<SongModel> _storageObserver;
+    private readonly IImportService _importService;
 
-    public LibraryCollectionViewModel(ICollectionObserver<SongModel> storageObserver)
+    public LibraryCollectionViewModel(ICollectionObserver<SongModel> storageObserver, IImportService importService)
     {
         _storageObserver = storageObserver;
+        _importService = importService;
 
         SongsCollectionView = CollectionViewSource.GetDefaultView(new ObservableCollection<SongFile>());
         SongsCollectionView.Filter = FilterCollection;
+
+        _importService.ImportedCollection.CollectionChanged += OnImportCollectionChanged;
+        _importService.InitializeImportedStorage();
     }
 
     private ICollectionView _songsCollectionView = default!;
@@ -56,11 +64,18 @@ internal sealed class LibraryCollectionViewModel : ViewModelBase
 
     private void NotifyStorageObserver()
     {
-        _storageObserver.UpdateObservableCollection(CollectionType.Local, (IEnumerable<SongFile>)SongsCollectionView.SourceCollection);
+        _storageObserver.UpdateObservableCollection(
+            CollectionType.Local, 
+            (IEnumerable<SongFile>)SongsCollectionView.SourceCollection);
     }
 
-    public void UpdateSongCollection(ObservableCollection<SongFile> collection)
+    private void OnImportCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        SongsCollectionView = CollectionViewSource.GetDefaultView(collection);
+        SongsCollectionView = CollectionViewSource.GetDefaultView(_importService.ImportedCollection);
+    }
+
+    public RelayCommand ImportNewSongCommand
+    {
+        get => new RelayCommand((empty) => _importService.ExecuteImportDialogue());
     }
 }

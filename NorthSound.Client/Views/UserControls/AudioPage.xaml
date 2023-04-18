@@ -158,7 +158,7 @@
                 <Button 
                     Grid.Column="1"
                     Style="{StaticResource LightDarkStyleButton}"
-                    Command="{Binding ImportService.AsyncImportCommand}">
+                    Command="{Binding LibraryVm.ImportNewSongCommand}">
                     <Button.Template>
                         <ControlTemplate>
                             <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="15" Height="30" Width="30">
