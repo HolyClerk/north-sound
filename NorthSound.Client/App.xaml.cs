@@ -37,7 +37,7 @@ public partial class App : Application
                 services
                     .AddSingleton<IPlayer, AudioPlayer>()
                     .AddScoped<IImportService, ImportService>()
-                    .AddTransient<IFileImportService, FileImportService>();
+                    .AddTransient<IFileImporter, FileImporter>();
 
                 services
                     .AddSingleton<ICollectionObserver<SongModel>>(storageService)
