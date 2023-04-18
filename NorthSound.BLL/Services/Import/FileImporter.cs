@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace NorthSound.BLL.Services.Import;
 
-public class FileImportService : IFileImportService
+public class FileImporter : IFileImporter
 {
     public SongFile? ExecuteImport()
     {

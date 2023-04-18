@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NorthSound.BLL.Services.Import.Base;
 
-public interface IFileImportService
+public interface IFileImporter
 {
     SongFile? ExecuteImport();
     IEnumerable<SongFile> GetImportedCollection();

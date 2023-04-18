@@ -4,6 +4,7 @@ using NorthSound.BLL.Services.Import.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NorthSound.BLL.Facades.Base;
 
 namespace NorthSound.BLL.Facades;
 
@@ -22,10 +23,10 @@ namespace NorthSound.BLL.Facades;
 /// </summary>
 public class ImportService : IImportService
 {
-    private readonly IFileImportService _fileImport;
+    private readonly IFileImporter _fileImport;
 
     public ImportService(
-        IFileImportService importService)
+        IFileImporter importService)
     {
         _fileImport = importService;
         ImportedCollection = new ObservableCollection<SongFile>();
@@ -36,27 +37,20 @@ public class ImportService : IImportService
         get; private set;
     }
 
-    private AsyncRelayCommand _asyncImportCommand = null!;
-    public AsyncRelayCommand AsyncImportCommand
-    {
-        get
-        {
-            return _asyncImportCommand ??= new AsyncRelayCommand(async Task (obj) =>
-            {
-                var song = _fileImport.ExecuteImport();
-
-                if (song is not null)
-                    ImportedCollection.Add(song);
-            });
-        }
-    }
-
     public void InitializeImportedStorage()
     {
         var imported = _fileImport.GetImportedCollection();
 
         foreach (var item in imported)
             ImportedCollection.Add(item);
+    }
+
+    public void ExecuteImportDialogue()
+    {
+        var song = _fileImport.ExecuteImport();
+
+        if (song is not null)
+            ImportedCollection.Add(song);
     }
 
     public void Import(SongFile entity)

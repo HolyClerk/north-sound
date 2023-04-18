@@ -2,13 +2,13 @@
 using NorthSound.BLL.Commands.Base;
 using System.Collections.ObjectModel;
 
-namespace NorthSound.BLL.Services.Import.Base;
+namespace NorthSound.BLL.Facades.Base;
 
 public interface IImportService
 {
-    AsyncRelayCommand AsyncImportCommand { get; }
     ObservableCollection<SongFile> ImportedCollection { get; }
 
     void InitializeImportedStorage();
+    void ExecuteImportDialogue();
     void Import(SongFile entity);
 }
