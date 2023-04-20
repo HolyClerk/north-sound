@@ -71,11 +71,6 @@ public class WebRepository : IWebRepository, IDisposable
         throw new NotImplementedException();
     }
 
-    public bool IsServerOnline()
-    {
-        return true;
-    }
-
     private bool _isDisposed;
 
     protected virtual void Dispose(bool disposing)

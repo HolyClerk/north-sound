@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NorthSound.DAL.Base;
 
-public interface IWebRepository : IWebConnector
+public interface IWebRepository
 {
     Task<IEnumerable<VirtualSong>> GetVirtualCollection();
     Task<IEnumerable<VirtualSong>> GetVirtualCollectionByPattern(string pattern);
