@@ -6,6 +6,7 @@ namespace NorthSound.BLL.Services.Import.Base;
 public interface IFileImporter
 {
     SongFile? ExecuteImport();
-    IEnumerable<SongFile> GetImportedCollection();
-    SongFile Import(SongFile song);
+    IEnumerable<SongFile> GetCollection();
+    SongFile Add(SongFile song);
+    bool Delete();
 }

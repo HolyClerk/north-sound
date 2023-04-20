@@ -11,6 +11,16 @@ namespace NorthSound.BLL.Services.Import;
 
 public class FileImporter : IFileImporter
 {
+    private void InitializeFolder(string playlistsPath)
+    {
+        var pathInfo = new DirectoryInfo(playlistsPath);
+
+        if (pathInfo.Exists)
+            return;
+
+        pathInfo.Create();
+    }
+
     public SongFile? ExecuteImport()
     {
         var dialogue = new OpenFileDialog();
@@ -34,7 +44,7 @@ public class FileImporter : IFileImporter
         return null;
     }
 
-    public IEnumerable<SongFile> GetImportedCollection()
+    public IEnumerable<SongFile> GetCollection()
     {
         InitializeFolder(MediaReader.MusicPath);
 
@@ -55,7 +65,7 @@ public class FileImporter : IFileImporter
         return songsCollection;
     }
 
-    public SongFile Import(SongFile entity)
+    public SongFile Add(SongFile entity)
     {
         var songInfo = new FileInfo(entity.Path!.LocalPath);
         var newPath = MediaReader.MusicPath + songInfo.Name;
@@ -65,13 +75,8 @@ public class FileImporter : IFileImporter
         return entity;
     }
 
-    private void InitializeFolder(string playlistsPath)
+    public bool Delete()
     {
-        var pathInfo = new DirectoryInfo(playlistsPath);
-
-        if (pathInfo.Exists)
-            return;
-
-        pathInfo.Create();
+        throw new NotImplementedException();
     }
 }
