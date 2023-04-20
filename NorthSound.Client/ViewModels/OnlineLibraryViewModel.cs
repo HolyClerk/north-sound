@@ -1,8 +1,10 @@
-﻿using NorthSound.Client.ViewModels.Base;
-using NorthSound.Domain.Models;
-using NorthSound.BLL.Commands.Base;
-using NorthSound.BLL.Services.Storage.Base;
+﻿using NorthSound.BLL.Commands.Base;
 using NorthSound.BLL.Facades.Base;
+using NorthSound.BLL.Services.Storage.Base;
+using NorthSound.Client.ViewModels.Base;
+using NorthSound.Domain;
+using NorthSound.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -56,10 +58,17 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
         }
     }
 
+    private bool _isEnabled;
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set => Set(ref _isEnabled, value);
+    }
+
     public AsyncRelayCommand AsyncDownloadCommand
     {
         get => new(
-            execute: async Task (obj) => await DownloadSongAsync(obj as VirtualSong), 
+            execute: async Task (obj) => await DownloadSongAsync(obj as VirtualSong),
             canExecute: (obj) => true);
     }
 
@@ -70,23 +79,38 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
 
     private async Task UpdateOnlineCollection()
     {
-        var collection = await _webService.GetOnlineCollectionAsync();
-        VirtualCollectionView = CollectionViewSource.GetDefaultView(collection);
-        Filter = string.Empty;
-        VirtualCollectionView.Refresh();
+        try
+        {
+            IsEnabled = true;
+            var collection = await _webService.GetOnlineCollectionAsync();
+            VirtualCollectionView = CollectionViewSource.GetDefaultView(collection);
+            Filter = string.Empty;
+            VirtualCollectionView.Refresh();
+        }
+        catch (Exception)
+        {
+            IsEnabled = false;
+        }
     }
 
     private async Task DownloadSongAsync(VirtualSong? virtualSong)
     {
-        if (virtualSong is null)
-            return;
+        try
+        {
+            if (virtualSong is null)
+                return;
 
-        var songFile = await _webService.DownloadAsync(virtualSong);
+            var songFile = await _webService.DownloadAsync(virtualSong);
 
-        if (songFile is null)
-            return;
+            if (songFile is null)
+                return;
 
-        _importService.Import(songFile);
+            _importService.Import(songFile);
+        }
+        catch (Exception)
+        {
+            // TODO: Сообщение об ошибке
+        }
     }
 
     private void NotifyStorageObserver()

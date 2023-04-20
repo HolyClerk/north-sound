@@ -22,6 +22,12 @@
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="{StaticResource AllApp}" />
             <Setter Property="BorderBrush" Value="{StaticResource AllApp}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding OnlineLibraryVm.IsEnabled}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="TextBox">
@@ -212,6 +218,8 @@
                 </Button>
             </Grid>
         </Border>
+
+        <TextBlock Text="Подключение к серверу отсутствует" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Grid.Row="1"/>
 
         <ListBox
                 SelectedItem="{Binding PlayerVm.SelectedSong}"
