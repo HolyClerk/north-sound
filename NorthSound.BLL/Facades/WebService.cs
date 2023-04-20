@@ -4,16 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NorthSound.BLL.Facades.Base;
+using System.Net.Http;
+using System.Printing;
+using NorthSound.Domain;
 
 namespace NorthSound.BLL.Facades;
 
 public class WebService : IWebService
 {
     private readonly IWebRepository _webRepository;
+    private readonly HttpClient _httpClient;
+
+    private const string ConnectionString = "http://localhost:5000/";
+    private const string ApiBasePath = "api/library/";
 
     public WebService(IWebRepository webRepository)
     {
         _webRepository = webRepository;
+        _httpClient = new HttpClient();
     }
 
     public Action<SongFile> Downloaded { get; set; }
@@ -33,5 +41,16 @@ public class WebService : IWebService
         return songFile;
     }
 
-    public bool IsServerOnline() => _webRepository.IsServerOnline();
+    public async Task<ServerStatus> GetServerStatusAsync()
+    {
+        try
+        {
+            await _httpClient.GetAsync(ConnectionString);
+            return ServerStatus.Online;
+        }
+        catch (Exception)
+        {
+            return ServerStatus.Offline;
+        }
+    }
 }

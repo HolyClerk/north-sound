@@ -39,7 +39,7 @@ public class ImportService : IImportService
 
     public void InitializeImportedStorage()
     {
-        var imported = _fileImport.GetImportedCollection();
+        var imported = _fileImport.GetCollection();
 
         foreach (var item in imported)
             ImportedCollection.Add(item);
@@ -55,7 +55,7 @@ public class ImportService : IImportService
 
     public void Import(SongFile entity)
     {
-        var song = _fileImport.Import(entity);
+        var song = _fileImport.Add(entity);
         ImportedCollection.Add(song);
     }
 }

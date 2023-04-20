@@ -1,4 +1,5 @@
-﻿using NorthSound.Domain.Models;
+﻿using NorthSound.Domain;
+using NorthSound.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,6 +12,5 @@ public interface IWebService
 
     Task<IEnumerable<VirtualSong>> GetOnlineCollectionAsync();
     Task<SongFile?> DownloadAsync(VirtualSong virtualSong);
-
-    bool IsServerOnline();
+    Task<ServerStatus> GetServerStatusAsync();
 }
