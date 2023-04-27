@@ -86,11 +86,11 @@ internal sealed class PlayerViewModel : ViewModelBase
 
     private void Open(SongModel song)
     {
-        if (song is VirtualSong)
-            _observableStorage.SwitchObservableCollection(CollectionType.Virtual);
-
         if (song is SongFile)
             _observableStorage.SwitchObservableCollection(CollectionType.Local);
+
+        if (song is VirtualSong)
+            _observableStorage.SwitchObservableCollection(CollectionType.Virtual);
 
         _player.Open(song);
     }
