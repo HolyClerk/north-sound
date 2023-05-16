@@ -3,11 +3,6 @@ using NorthSound.BLL.Other;
 using NorthSound.BLL.Tokens;
 using NorthSound.Domain.POCO;
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace NorthSound.BLL.Facades;
@@ -15,58 +10,54 @@ namespace NorthSound.BLL.Facades;
 public class AuthenticateWeb : IAuthenticateWeb, IDisposable
 {
     private readonly ITokenHandler _tokenHandler;
-    private readonly IServerInfo _serverInfo;
-    private readonly HttpClient _httpClient;
+    private readonly IRemoteAccountRepository _remoteRepository;
 
     public AuthenticateWeb(
-        ITokenHandler tokenHandler, 
-        IServerInfo serverInfo)
+        ITokenHandler tokenHandler,
+        IRemoteAccountRepository remoteRepository)
     {
-        _httpClient = new HttpClient();
         _tokenHandler = tokenHandler;
-        _serverInfo = serverInfo;
+        _remoteRepository = remoteRepository;
     }
 
     public async Task<Response<JwtToken>> LoginAsync(string username, string password)
     {
-        AddJsonHeaders();
-
-        var url = _serverInfo.GetLoginUrl();
-        var loginModel = new LoginModel()
+        var loginModel = new LoginModel
         {
             Username = username,
             Password = password,
         };
 
-        var json = JsonSerializer.Serialize(loginModel);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(url, content);
+        var response = await _remoteRepository.GetJwtTokenAsync(loginModel);
 
-        if (response.IsSuccessStatusCode is false)
-            return Response<JwtToken>.Failed($"Ошибка! {response.StatusCode}");
+        if (response.Status is not ResponseStatus.Success)
+            return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
 
-        var token = new JwtToken()
+        _tokenHandler.UpdateToken(response.Data);
+        return response;
+    }
+
+    public async Task<Response<JwtToken>> RegisterAsync(string username, string email, string password)
+    {
+        var registerModel = new RegisterModel
         {
-            Token = await response.Content.ReadAsStringAsync()
+            Username = username,
+            Email = email,
+            Password = password
         };
 
-        return Response<JwtToken>.Success(token);
-    }
+        var response = await _remoteRepository.PostNewAccount(registerModel);
 
-    public Task<Response<JwtToken>> RegisterAsync(string username, string email, string password)
-    {
-        throw new NotImplementedException();
-    }
+        if (response.Status is not ResponseStatus.Success)
+            return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
 
-    private void AddJsonHeaders()
-    {
-        _httpClient.DefaultRequestHeaders.Accept.Clear();
-        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        _tokenHandler.UpdateToken(response.Data);
+        return response;
     }
 
     public void Dispose()
     {
-        _httpClient.Dispose();
+        _remoteRepository.Dispose();
         GC.SuppressFinalize(this);
     }
 }
