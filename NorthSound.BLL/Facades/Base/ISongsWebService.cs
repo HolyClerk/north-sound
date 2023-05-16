@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NorthSound.BLL.Facades.Base;
 
-public interface IWebService
+public interface ISongsWebService
 {
     Action<SongFile> Downloaded { get; set; }
 
