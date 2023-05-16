@@ -17,11 +17,11 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
 {
     private readonly ICollectionObserver<SongModel> _storageObserver;
     private readonly IImportService _importService;
-    private readonly IWebService _webService;
+    private readonly ISongsWebService _webService;
 
     public OnlineLibraryViewModel(
         IImportService importService,
-        IWebService webService,
+        ISongsWebService webService,
         ICollectionObserver<SongModel> storageObserver)
     {
         _importService = importService;

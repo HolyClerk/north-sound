@@ -45,7 +45,7 @@ public partial class App : Application
 
                 services
                     .AddScoped<IWebRepository, WebRepository>()
-                    .AddScoped<IWebService, WebService>();
+                    .AddScoped<ISongsWebService, SongsWebService>();
             })
             .Build();
     }
