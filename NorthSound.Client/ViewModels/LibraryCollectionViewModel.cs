@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
-using NorthSound.BLL.Facades.Base;
 using System.Collections.Specialized;
 using NorthSound.BLL.Commands.Base;
+using NorthSound.BLL.Common.Import.Base;
 
 namespace NorthSound.Client.ViewModels;
 

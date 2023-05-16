@@ -2,7 +2,7 @@
 using NorthSound.BLL.Commands.Base;
 using System.Collections.ObjectModel;
 
-namespace NorthSound.BLL.Facades.Base;
+namespace NorthSound.BLL.Common.Import.Base;
 
 public interface IImportService
 {

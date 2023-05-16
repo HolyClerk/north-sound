@@ -2,6 +2,7 @@
 
 namespace NorthSound.Client.ViewModels;
 
-class Authenticate : ViewModelBase
+class AuthenticateViewModel : ViewModelBase
 {
+
 }

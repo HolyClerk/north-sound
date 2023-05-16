@@ -1,6 +1,5 @@
 ﻿using NorthSound.Client.ViewModels.Base;
 using NorthSound.Domain.Models;
-using NorthSound.DAL.Base;
 using System;
 using System.Collections.Specialized;
 using NorthSound.BLL.Facades.Base;
@@ -26,4 +25,5 @@ internal sealed class ApplicationViewModel : ViewModelBase
     public PlayerViewModel PlayerVm { get; }
     public LibraryCollectionViewModel LibraryVm { get; }
     public OnlineLibraryViewModel OnlineLibraryVm { get; }
+    public AuthenticateViewModel AuthenticateViewModel { get; }
 }

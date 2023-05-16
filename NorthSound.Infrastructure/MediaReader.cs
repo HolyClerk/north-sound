@@ -1,16 +1,17 @@
-﻿using NorthSound.Domain.Models;
+﻿using NorthSound.BLL.Other;
+using NorthSound.Domain.Models;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace NorthSound.Infrastructure;
 
-public static class MediaReader
+public class MediaReader : IMediaReader
 {
-    public static string MusicPath => Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\NorthSound\";
-    public static string DownloadPath => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\";
+    public string MusicPath => Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\NorthSound\";
+    public string DownloadPath => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\";
 
     // Конвертирует метаданные файла в модель Song
-    public static async Task<SongModel?> ConvertMetadataAsync(string songPath)
+    public async Task<SongModel?> ConvertMetadataAsync(string songPath)
     {
         var metadataBuffer = new byte[128];
 
@@ -37,7 +38,7 @@ public static class MediaReader
     }
 
     // Конвертирует title файла в модель Song
-    public static SongFile ConvertToSong(FileInfo songInfo)
+    public SongFile ConvertToSong(FileInfo songInfo)
     {
         var songTemplate = new SongFile()
         {
@@ -62,7 +63,7 @@ public static class MediaReader
         return songTemplate;
     }
 
-    public static bool TryFindMediaFile(string songPath, out FileInfo songInfo)
+    public bool TryFindMediaFile(string songPath, out FileInfo songInfo)
     {
         songInfo = new FileInfo(songPath);
 
