@@ -9,11 +9,11 @@ namespace NorthSound.BLL.Facades;
 
 public class AuthenticateWeb : IAuthenticateWeb, IDisposable
 {
-    private readonly ITokenHandler _tokenHandler;
+    private readonly ITokenStorage _tokenHandler;
     private readonly IRemoteAccountRepository _remoteRepository;
 
     public AuthenticateWeb(
-        ITokenHandler tokenHandler,
+        ITokenStorage tokenHandler,
         IRemoteAccountRepository remoteRepository)
     {
         _tokenHandler = tokenHandler;
