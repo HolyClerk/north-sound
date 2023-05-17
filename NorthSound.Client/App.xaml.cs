@@ -9,10 +9,13 @@ using NorthSound.BLL.Services.Import;
 using NorthSound.BLL.Services.Import.Base;
 using NorthSound.BLL.Services.Storage;
 using NorthSound.BLL.Services.Storage.Base;
-using NorthSound.DAL;
-using NorthSound.DAL.Base;
 using System.Windows;
 using NorthSound.BLL.Facades.Base;
+using NorthSound.BLL.Tokens;
+using NorthSound.BLL.Other;
+using NorthSound.BLL.Common.Import;
+using NorthSound.BLL.Common.Import.Base;
+using NorthSound.Infrastructure;
 
 namespace NorthSound.Client;
 
@@ -32,7 +35,8 @@ public partial class App : Application
                     .AddScoped<ApplicationViewModel>()
                     .AddScoped<PlayerViewModel>()
                     .AddScoped<LibraryCollectionViewModel>()
-                    .AddScoped<OnlineLibraryViewModel>();
+                    .AddScoped<OnlineLibraryViewModel>()
+                    .AddScoped<AuthenticateViewModel>();
 
                 services
                     .AddSingleton<IPlayer, AudioPlayer>()
@@ -44,7 +48,11 @@ public partial class App : Application
                     .AddSingleton<IObservableStorage<SongModel>>(storageService);
 
                 services
-                    .AddScoped<IWebRepository, WebRepository>()
+                    .AddScoped<IRemoteSongRepository, RemoteSongRepository>()
+                    .AddScoped<IMediaReader, MediaReader>()
+                    .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
+                    .AddScoped<IServerInfo, ServerInfo>()
+                    .AddScoped<ITokenStorage, TokenStorage>()
                     .AddScoped<ISongsWebService, SongsWebService>();
             })
             .Build();

@@ -1,4 +1,5 @@
 ﻿using NorthSound.BLL.Commands.Base;
+using NorthSound.BLL.Common.Import.Base;
 using NorthSound.BLL.Facades.Base;
 using NorthSound.BLL.Services.Storage.Base;
 using NorthSound.Client.ViewModels.Base;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace NorthSound.Client.ViewModels;
@@ -107,9 +109,9 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
 
             _importService.Import(songFile);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // TODO: Сообщение об ошибке
+            MessageBox.Show(e.Message);
         }
     }
 

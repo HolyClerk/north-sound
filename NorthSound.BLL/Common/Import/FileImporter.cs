@@ -1,16 +1,23 @@
 ﻿using Microsoft.Win32;
 using NorthSound.Domain.Models;
 using NorthSound.BLL.Services.Import.Base;
-using NorthSound.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using NorthSound.BLL.Other;
 
 namespace NorthSound.BLL.Services.Import;
 
 public class FileImporter : IFileImporter
 {
+    private readonly IMediaReader _mediaReader;
+
+    public FileImporter(IMediaReader mediaReader)
+    {
+        _mediaReader = mediaReader;
+    }
+
     private void InitializeFolder(string playlistsPath)
     {
         var pathInfo = new DirectoryInfo(playlistsPath);
@@ -30,9 +37,9 @@ public class FileImporter : IFileImporter
             try
             {
                 var songInfo = new FileInfo(dialogue.FileName);
-                songInfo.CopyTo(MediaReader.MusicPath + songInfo.Name);
+                songInfo.CopyTo(_mediaReader.MusicPath + songInfo.Name);
 
-                var song = MediaReader.ConvertToSong(songInfo);
+                var song = _mediaReader.ConvertToSong(songInfo);
                 return song;
             }
             catch (Exception)
@@ -46,18 +53,18 @@ public class FileImporter : IFileImporter
 
     public IEnumerable<SongFile> GetCollection()
     {
-        InitializeFolder(MediaReader.MusicPath);
+        InitializeFolder(_mediaReader.MusicPath);
 
         var songsCollection = new List<SongFile>();
         // Паттерн *.mp3
-        string[] audiofilesPath = Directory.GetFiles(MediaReader.MusicPath, "*.mp3");
+        string[] audiofilesPath = Directory.GetFiles(_mediaReader.MusicPath, "*.mp3");
 
         // Поиск аудиофайлов в директории
         foreach (string audiofile in audiofilesPath)
         {
-            if (MediaReader.TryFindMediaFile(audiofile, out var songInfo))
+            if (_mediaReader.TryFindMediaFile(audiofile, out var songInfo))
             {
-                SongFile song = MediaReader.ConvertToSong(songInfo);
+                SongFile song = _mediaReader.ConvertToSong(songInfo);
                 songsCollection.Add(song);
             }
         }
@@ -68,7 +75,7 @@ public class FileImporter : IFileImporter
     public SongFile Add(SongFile entity)
     {
         var songInfo = new FileInfo(entity.Path!.LocalPath);
-        var newPath = MediaReader.MusicPath + songInfo.Name;
+        var newPath = _mediaReader.MusicPath + songInfo.Name;
 
         songInfo.CopyTo(newPath, true);
         entity.Path = new Uri(newPath);

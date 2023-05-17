@@ -1,27 +1,27 @@
-﻿using NorthSound.DAL.Base;
+﻿using NorthSound.BLL.Other;
 using NorthSound.Domain.Models;
-using NorthSound.Infrastructure;
 using System.Net.Http.Json;
 
-namespace NorthSound.DAL;
+namespace NorthSound.Infrastructure;
 
-public class WebRepository : IWebRepository, IDisposable
+public class RemoteSongRepository : IRemoteSongRepository
 {
     private readonly HttpClient _httpClient;
+    private readonly MediaReader _mediaReader;
+    private readonly ServerInfo _serverInfo;
 
-    private const string ConnectionString = "http://localhost:5000/";
-    private const string ApiBasePath = "api/library/";
-
-    public WebRepository()
+    public RemoteSongRepository()
     {
         _httpClient = new HttpClient();
+        _mediaReader = new MediaReader();
+        _serverInfo = new ServerInfo();
     }
 
     public async Task<SongFile?> GetSongFileByEntity(VirtualSong song)
     {
-        var path = MediaReader.DownloadPath + $"{song.Author} - {song.Name}.mp3";
+        var path = _mediaReader.DownloadPath + $"{song.Author} - {song.Name}.mp3";
 
-        var response = await _httpClient.GetAsync(ConnectionString + ApiBasePath + song.Id);
+        var response = await _httpClient.GetAsync(_serverInfo.GetCurrentSongUrl(song.Id));
 
         using (var fileStream = new FileStream(path, FileMode.Create))
         {
@@ -39,9 +39,9 @@ public class WebRepository : IWebRepository, IDisposable
         return songFile;
     }
 
-    public async Task <IEnumerable<VirtualSong>> GetVirtualCollection()
+    public async Task<IEnumerable<VirtualSong>> GetVirtualCollection()
     {
-        var response = await _httpClient.GetFromJsonAsync<IEnumerable<VirtualSong>>(ConnectionString + ApiBasePath);
+        var response = await _httpClient.GetFromJsonAsync<IEnumerable<VirtualSong>>(_serverInfo.GetLibraryUrl());
 
         if (response is null)
             throw new Exception("Невозможно десериализовать JSON");
@@ -49,14 +49,14 @@ public class WebRepository : IWebRepository, IDisposable
         return response;
     }
 
-    public async Task <IEnumerable<VirtualSong>> GetVirtualCollectionByPattern(string pattern)
+    public async Task<IEnumerable<VirtualSong>> GetVirtualCollectionByPattern(string pattern)
     {
         throw new NotImplementedException();
     }
 
     public async Task<Stream?> GetSongStreamByEntity(VirtualSong song)
     {
-        var response = await _httpClient.GetAsync(ConnectionString + ApiBasePath + song.Id);
+        var response = await _httpClient.GetAsync(_serverInfo.GetCurrentSongUrl(song.Id));
         var stream = await response.Content.ReadAsStreamAsync();
         return stream;
     }

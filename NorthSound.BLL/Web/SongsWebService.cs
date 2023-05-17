@@ -1,34 +1,32 @@
 ﻿using NorthSound.Domain.Models;
-using NorthSound.DAL.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NorthSound.BLL.Facades.Base;
+using NorthSound.BLL.Other;
 using System.Net.Http;
-using System.Printing;
 using NorthSound.Domain;
+using NorthSound.BLL.Facades.Base;
 
-namespace NorthSound.BLL.Facades;
+namespace NorthSound.BLL.Common.Import;
 
-public class WebService : IWebService
+public class SongsWebService : ISongsWebService
 {
-    private readonly IWebRepository _webRepository;
+    private readonly IRemoteSongRepository _remoteRepository;
+    private readonly IServerInfo _serverInfo;
     private readonly HttpClient _httpClient;
 
-    private const string ConnectionString = "http://localhost:5000/";
-    private const string ApiBasePath = "api/library/";
-
-    public WebService(IWebRepository webRepository)
+    public SongsWebService(
+        IRemoteSongRepository webRepository, 
+        IServerInfo serverInfo)
     {
-        _webRepository = webRepository;
+        _remoteRepository = webRepository;
+        _serverInfo = serverInfo;
         _httpClient = new HttpClient();
     }
 
-    public Action<SongFile> Downloaded { get; set; }
-
     public async Task<IEnumerable<VirtualSong>> GetOnlineCollectionAsync()
     {
-        var collection = await _webRepository.GetVirtualCollection();
+        var collection = await _remoteRepository.GetVirtualCollection();
         return collection;
     }
 
@@ -37,7 +35,7 @@ public class WebService : IWebService
         if (virtualSong is null)
             return null;
 
-        var songFile = await _webRepository.GetSongFileByEntity(virtualSong);
+        var songFile = await _remoteRepository.GetSongFileByEntity(virtualSong);
         return songFile;
     }
 
@@ -45,7 +43,7 @@ public class WebService : IWebService
     {
         try
         {
-            await _httpClient.GetAsync(ConnectionString);
+            await _httpClient.GetAsync(_serverInfo.GetBaseUrl());
             return ServerStatus.Online;
         }
         catch (Exception)

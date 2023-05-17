@@ -1,6 +1,5 @@
 ﻿using NorthSound.Domain.Models;
 using NorthSound.BLL.Services.AudioPlayer.Base;
-using NorthSound.Infrastructure;
 using System;
 using System.Windows.Media;
 
@@ -54,7 +53,7 @@ public class AudioPlayer : IPlayer
 
     private void OpenVirtual(VirtualSong selectedSong)
     {
-        var streamSource = VirtualSongConverter.GetUriLinkToStream(selectedSong);
+        var streamSource = GetUriLinkToStream(selectedSong);
         _mediaPlayer.Open(streamSource);
     }
 
@@ -72,4 +71,7 @@ public class AudioPlayer : IPlayer
         _mediaPlayer.Pause();
         PlayerStateChanged?.Invoke(false);
     }
+
+    public static Uri GetUriLinkToStream(VirtualSong virtualSong)
+        => new("http://localhost:5000/api/library/" + virtualSong.Id); // TODO: FIX
 }

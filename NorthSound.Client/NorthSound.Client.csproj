@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <BaseOutputPath>bin\</BaseOutputPath>
@@ -14,23 +14,23 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
+    <Compile Remove="ViewModels\Interfaces\**" />
     <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="ViewModels\Interfaces\**" />
     <None Remove="Data\**" />
+    <None Remove="ViewModels\Interfaces\**" />
     <Page Remove="Data\**" />
+    <Page Remove="ViewModels\Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NorthSound.Domain\NorthSound.Domain.csproj" />
-    <ProjectReference Include="..\NorthSound.BLL\NorthSound.BLL.csproj" />
+    <ProjectReference Include="..\NorthSound.Infrastructure\NorthSound.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FontAwesome5" Version="2.1.11" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
 </Project>

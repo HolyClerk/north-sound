@@ -4,9 +4,9 @@ using NorthSound.BLL.Services.Import.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using NorthSound.BLL.Facades.Base;
+using NorthSound.BLL.Common.Import.Base;
 
-namespace NorthSound.BLL.Facades;
+namespace NorthSound.BLL.Common.Import;
 
 /// <summary>
 /// LocalImporter Выступает модулем/сервисом импорта.

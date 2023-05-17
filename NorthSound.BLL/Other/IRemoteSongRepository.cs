@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace NorthSound.DAL.Base;
+namespace NorthSound.BLL.Other;
 
-public interface IWebRepository
+public interface IRemoteSongRepository
 {
     Task<IEnumerable<VirtualSong>> GetVirtualCollection();
     Task<IEnumerable<VirtualSong>> GetVirtualCollectionByPattern(string pattern);
