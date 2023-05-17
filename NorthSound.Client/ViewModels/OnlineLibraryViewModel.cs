@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace NorthSound.Client.ViewModels;
@@ -108,9 +109,9 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
 
             _importService.Import(songFile);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // TODO: Сообщение об ошибке
+            MessageBox.Show(e.Message);
         }
     }
 

@@ -52,7 +52,7 @@ public partial class App : Application
                     .AddScoped<IMediaReader, MediaReader>()
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()
-                    .AddScoped<ITokenHandler, TokenHandler>()
+                    .AddScoped<ITokenStorage, TokenStorage>()
                     .AddScoped<ISongsWebService, SongsWebService>();
             })
             .Build();
