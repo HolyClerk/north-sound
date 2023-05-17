@@ -2,7 +2,7 @@
 
 namespace NorthSound.BLL.Tokens;
 
-public interface ITokenHandler
+public interface ITokenStorage
 {
     public JwtToken? ActualToken { get; }
 

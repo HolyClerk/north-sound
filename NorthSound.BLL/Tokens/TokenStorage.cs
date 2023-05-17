@@ -2,7 +2,7 @@
 
 namespace NorthSound.BLL.Tokens;
 
-public class TokenHandler : ITokenHandler
+public class TokenStorage : ITokenStorage
 {
     public JwtToken? ActualToken { get; private set; }
 
