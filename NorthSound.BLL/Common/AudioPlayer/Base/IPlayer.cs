@@ -10,6 +10,7 @@ public interface IPlayer
     event Action? SongEnded;
 
     SongModel? Current { get; }
+    double Volume { get; }
 
     void Pause();
     void Play();

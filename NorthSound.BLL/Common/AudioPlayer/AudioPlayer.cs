@@ -31,6 +31,8 @@ public class AudioPlayer : IPlayer
 
     public SongModel? Current { get; private set; }
 
+    public double Volume => _mediaPlayer.Volume;
+
     public void Open(SongModel song)
     {
         if (song is null)
