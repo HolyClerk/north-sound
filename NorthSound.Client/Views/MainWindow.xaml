@@ -174,7 +174,10 @@
                 </TabItem.Header>
 
                 <TabItem.Content>
-                    <Frame Content="Frame"/>
+                    <views:AccountPage
+                        FontFamily="Verdana"
+                        FontSize="13" 
+                        DataContext="{Binding Current}"/>
                 </TabItem.Content>
             </TabItem>
 
