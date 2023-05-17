@@ -6,12 +6,12 @@ using System.Net.Http.Headers;
 
 namespace NorthSound.Infrastructure;
 
-public class AccountRepository : IRemoteAccountRepository
+public class RemoteAccountRepository : IRemoteAccountRepository
 {
     private readonly HttpClient _httpClient;
     private readonly ServerInfo _serverInfo;
 
-    public AccountRepository()
+    public RemoteAccountRepository()
     {
         _httpClient = new HttpClient();
         _serverInfo = new ServerInfo();

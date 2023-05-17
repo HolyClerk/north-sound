@@ -49,6 +49,7 @@ public partial class App : Application
 
                 services
                     .AddScoped<IRemoteSongRepository, RemoteSongRepository>()
+                    .AddScoped<IRemoteAccountRepository, RemoteAccountRepository>()
                     .AddScoped<IMediaReader, MediaReader>()
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()
