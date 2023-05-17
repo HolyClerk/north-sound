@@ -13,6 +13,7 @@ namespace NorthSound.Client.ViewModels;
 internal sealed class PlayerViewModel : ViewModelBase
 {
     private bool _isPlaying;
+    private int _volume;
 
     private ObservableCollection<SongModel> _playerCollection;
     private SongModel? _selectedSong;
@@ -32,6 +33,16 @@ internal sealed class PlayerViewModel : ViewModelBase
         _player = player;
         _player.SongEnded += OnSongEnd;
         _player.PlayerStateChanged += OnPlayerStateChanged;
+    }
+
+    public int Volume
+    {
+        get => _volume;
+        set
+        { 
+            Set(ref _volume, value);
+            _player.SetVolume(value / 100d);
+        }
     }
 
     public SongModel? SelectedSong

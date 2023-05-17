@@ -14,4 +14,5 @@ public interface IPlayer
     void Pause();
     void Play();
     void Open(SongModel selectedSong);
+    void SetVolume(double volume);  
 }
