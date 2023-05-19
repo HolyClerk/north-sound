@@ -25,5 +25,5 @@ internal sealed class ApplicationViewModel : ViewModelBase
     public PlayerViewModel PlayerVm { get; }
     public LibraryCollectionViewModel LibraryVm { get; }
     public OnlineLibraryViewModel OnlineLibraryVm { get; }
-    public AuthenticateViewModel AuthenticateViewModel { get; }
+    public AuthenticateViewModel AuthenticateVm { get; }
 }
