@@ -377,23 +377,6 @@
                         DataContext="{Binding Current}"/>
                 </TabItem.Content>
             </TabItem>
-
-            <TabItem Style="{StaticResource TabItemsStyle}">
-                <TabItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <fa:ImageAwesome Icon="Solid_Circle" Style="{StaticResource UserIconsStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Настройки" Margin="5,0,0,0" />
-                    </Grid>
-                </TabItem.Header>
-            </TabItem>
         </TabControl>
 
         <Border
