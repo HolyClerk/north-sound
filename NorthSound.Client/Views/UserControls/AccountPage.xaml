@@ -83,9 +83,9 @@
                         </TextBox>
 
                         <Button 
-                                Grid.ColumnSpan="2"
-                                Grid.Row="3"
-                                Command="{Binding AuthenticateVm.Auth}">
+                            Grid.ColumnSpan="2"
+                            Grid.Row="3"
+                            Command="{Binding AuthenticateVm.AuthenticateCommand}">
                             <Button.Template>
                                 <ControlTemplate>
                                     <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="10" Height="30" Width="150">
