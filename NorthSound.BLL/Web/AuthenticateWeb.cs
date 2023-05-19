@@ -9,15 +9,23 @@ namespace NorthSound.BLL.Facades;
 
 public class AuthenticateWeb : IAuthenticateWeb, IDisposable
 {
-    private readonly ITokenStorage _tokenHandler;
+    private readonly ITokenStorage _tokenStorage;
     private readonly IRemoteAccountRepository _remoteRepository;
 
     public AuthenticateWeb(
         ITokenStorage tokenHandler,
         IRemoteAccountRepository remoteRepository)
     {
-        _tokenHandler = tokenHandler;
+        _tokenStorage = tokenHandler;
         _remoteRepository = remoteRepository;
+    }
+
+    public async Task<bool> HaveAccesssRights()
+    {
+        if (_tokenStorage.ActualToken is null)
+            return false;
+
+        return await _remoteRepository.HaveAccessRights(_tokenStorage.ActualToken);
     }
 
     public async Task<Response<JwtToken>> LoginAsync(string username, string password)
@@ -33,8 +41,7 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
         if (response.Status is not ResponseStatus.Success)
             return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
 
-        _tokenHandler.UpdateToken(response.Data);
-        return response;
+        return SaveToken(response.Data);
     }
 
     public async Task<Response<JwtToken>> RegisterAsync(string username, string email, string password)
@@ -51,8 +58,21 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
         if (response.Status is not ResponseStatus.Success)
             return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
 
-        _tokenHandler.UpdateToken(response.Data);
-        return response;
+        return SaveToken(response.Data);
+    }
+
+    private Response<JwtToken> SaveToken(string untrimmedToken)
+    {
+        var trimmedToken = untrimmedToken.Trim(new char[] { ' ', '/', '\\', '"' });
+
+        var jwtToken = new JwtToken
+        {
+            Token = trimmedToken
+        };
+
+        _tokenStorage.UpdateToken(jwtToken);
+
+        return Response<JwtToken>.Success(jwtToken);
     }
 
     public void Dispose()

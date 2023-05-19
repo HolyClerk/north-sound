@@ -9,6 +9,11 @@ public class ServerInfo : IServerInfo
         return "http://localhost:5000/api/Account/login";
     }
 
+    public string GetPermissionsCheckUrl()
+    {
+        return "http://localhost:5000/api/Account/secret";
+    }
+
     public string GetRegisterUrl()
     {
         return "http://localhost:5000/api/Account/register";
