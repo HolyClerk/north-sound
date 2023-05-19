@@ -31,7 +31,6 @@ internal sealed class OnlineLibraryViewModel : ViewModelBase
         _storageObserver = storageObserver;
 
         VirtualCollectionView = CollectionViewSource.GetDefaultView(new ObservableCollection<VirtualSong>());
-
         UpdateOnlineCollection();
     }
 

@@ -16,6 +16,7 @@ using NorthSound.BLL.Other;
 using NorthSound.BLL.Common.Import;
 using NorthSound.BLL.Common.Import.Base;
 using NorthSound.Infrastructure;
+using NorthSound.Client.ViewModels.Auth;
 
 namespace NorthSound.Client;
 
@@ -35,8 +36,8 @@ public partial class App : Application
                     .AddScoped<ApplicationViewModel>()
                     .AddScoped<PlayerViewModel>()
                     .AddScoped<LibraryCollectionViewModel>()
-                    .AddScoped<OnlineLibraryViewModel>()
-                    .AddScoped<AuthenticateViewModel>();
+                    .AddScoped<AuthenticateViewModel>()
+                    .AddScoped<OnlineLibraryViewModel>();
 
                 services
                     .AddSingleton<IPlayer, AudioPlayer>()
@@ -49,6 +50,7 @@ public partial class App : Application
 
                 services
                     .AddScoped<IRemoteSongRepository, RemoteSongRepository>()
+                    .AddScoped<IRemoteAccountRepository, RemoteAccountRepository>()
                     .AddScoped<IMediaReader, MediaReader>()
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()

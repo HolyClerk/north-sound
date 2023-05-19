@@ -10,8 +10,10 @@ public interface IPlayer
     event Action? SongEnded;
 
     SongModel? Current { get; }
+    double Volume { get; }
 
     void Pause();
     void Play();
     void Open(SongModel selectedSong);
+    void SetVolume(double volume);  
 }

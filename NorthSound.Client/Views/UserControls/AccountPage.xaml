@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NorthSound.Client.Views.UserControls"
-                xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:vm="clr-namespace:NorthSound.Client.ViewModels" 
+             d:DataContext="{d:DesignInstance vm:ApplicationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -20,86 +22,86 @@
         </Grid.RowDefinitions>
 
         <Border x:Name="AuthorizationPanel" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
-            <Grid >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                    <Border Grid.Row="1" Background="#0BFFFFFF" CornerRadius="30">
-                        <Grid >
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="0.5*"/>
-                                <RowDefinition Height="0.5*"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                <Border Grid.Row="1" Background="#0BFFFFFF" CornerRadius="30">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Форма входа" Grid.ColumnSpan="2" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource TitleForeground}"/>
+                        <TextBlock Text="Форма входа" Grid.ColumnSpan="2" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource TitleForeground}"/>
 
-                            <fa:FontAwesome Foreground="{StaticResource TitleForeground}" Grid.Row="1" FontSize="20" Icon="Regular_User" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            <fa:FontAwesome Foreground="{StaticResource TitleForeground}" Grid.Row="2" FontSize="20" Icon="Solid_Key" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <fa:FontAwesome Foreground="{StaticResource TitleForeground}" Grid.Row="1" FontSize="20" Icon="Regular_User" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <fa:FontAwesome Foreground="{StaticResource TitleForeground}" Grid.Row="2" FontSize="20" Icon="Solid_Key" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                            <TextBox
-                                Margin="0, 5, 20, 5"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                VerticalContentAlignment="Center"
-                                BorderThickness="0.5"
-                                Background="{StaticResource Footer}"
-                                Foreground="#FFA5A5A5"
-                                SelectionBrush="#FFA5A5A5">
-                                <TextBox.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3" />
-                                    </Style>
-                                </TextBox.Resources>
-                            </TextBox>
+                        <TextBox
+                            Margin="0, 5, 20, 5"
+                            Grid.Row="2"
+                            Text="{Binding AuthenticateVm.Password}"
+                            Grid.Column="1"
+                            VerticalContentAlignment="Center"
+                            BorderThickness="0.5"
+                            Background="{StaticResource Footer}"
+                            Foreground="#FFA5A5A5"
+                            SelectionBrush="#FFA5A5A5">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
 
-                            <TextBox
-                                Margin="0, 5, 20, 5"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                VerticalContentAlignment="Center"
-                                BorderThickness="0.5"
-                                Background="{StaticResource Footer}"
-                                Foreground="#FFA5A5A5"
-                                SelectionBrush="#FFA5A5A5">
-                                <TextBox.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3" />
-                                    </Style>
-                                </TextBox.Resources>
-                            </TextBox>
+                        <TextBox
+                            Margin="0, 5, 20, 5"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            VerticalContentAlignment="Center"
+                            BorderThickness="0.5"
+                            Text="{Binding AuthenticateVm.Login}"
+                            Background="{StaticResource Footer}"
+                            Foreground="#FFA5A5A5"
+                            SelectionBrush="#FFA5A5A5">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
 
-                            <Button 
-                                Grid.ColumnSpan="2"
-                                Grid.Row="3"> 
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="10" Height="30" Width="150">
-                                            <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Regular_User" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="D" Property="Background" Value="#202D3B" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </Grid>
-                    </Border>
-                    
-                </Grid>
+                        <Button 
+                            Grid.ColumnSpan="2"
+                            Grid.Row="3"
+                            Command="{Binding AuthenticateVm.AuthenticateCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="10" Height="30" Width="150">
+                                        <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Regular_User" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
 

@@ -7,6 +7,7 @@ namespace NorthSound.BLL.Other;
 
 public interface IRemoteAccountRepository : IDisposable
 {
-    Task<Response<JwtToken>> GetJwtTokenAsync(LoginModel loginModel);
-    Task<Response<JwtToken>> PostNewAccount(RegisterModel registerModel);
+    Task<bool> HaveAccessRights(JwtToken token);
+    Task<Response<string>> GetJwtTokenAsync(LoginModel loginModel);
+    Task<Response<string>> PostNewAccount(RegisterModel registerModel);
 }

@@ -3,21 +3,22 @@ using NorthSound.Domain.POCO;
 using System.Text.Json;
 using System.Text;
 using System.Net.Http.Headers;
+using System.Reflection.PortableExecutable;
 
 namespace NorthSound.Infrastructure;
 
-public class AccountRepository : IRemoteAccountRepository
+public class RemoteAccountRepository : IRemoteAccountRepository
 {
     private readonly HttpClient _httpClient;
     private readonly ServerInfo _serverInfo;
 
-    public AccountRepository()
+    public RemoteAccountRepository()
     {
         _httpClient = new HttpClient();
         _serverInfo = new ServerInfo();
     }
 
-    public async Task<Response<JwtToken>> GetJwtTokenAsync(LoginModel loginModel)
+    public async Task<Response<string>> GetJwtTokenAsync(LoginModel loginModel)
     {
         SetHeaders();
 
@@ -26,17 +27,13 @@ public class AccountRepository : IRemoteAccountRepository
         var response = await _httpClient.PostAsync(_serverInfo.GetLoginUrl(), content);
 
         if (response.IsSuccessStatusCode is false)
-            return Response<JwtToken>.Failed(response.StatusCode.ToString());
+            return Response<string>.Failed(response.StatusCode.ToString());
 
-        var token = new JwtToken()
-        {
-            Token = await response.Content.ReadAsStringAsync()
-        };
-
-        return Response<JwtToken>.Success(token);
+        var token = await response.Content.ReadAsStringAsync();
+        return Response<string>.Success(token);
     }
 
-    public async Task<Response<JwtToken>> PostNewAccount(RegisterModel registerModel)
+    public async Task<Response<string>> PostNewAccount(RegisterModel registerModel)
     {
         SetHeaders();
 
@@ -45,14 +42,18 @@ public class AccountRepository : IRemoteAccountRepository
         var response = await _httpClient.PostAsync(_serverInfo.GetRegisterUrl(), content);
 
         if (response.IsSuccessStatusCode is false)
-            return Response<JwtToken>.Failed(response.StatusCode.ToString());
+            return Response<string>.Failed(response.StatusCode.ToString());
 
-        var token = new JwtToken()
-        {
-            Token = await response.Content.ReadAsStringAsync()
-        };
+        var token = await response.Content.ReadAsStringAsync();
+        return Response<string>.Success(token);
+    }
 
-        return Response<JwtToken>.Success(token);
+    public async Task<bool> HaveAccessRights(JwtToken token)
+    {
+        _httpClient.DefaultRequestHeaders.Accept.Clear();
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
+        var response = await _httpClient.GetAsync(_serverInfo.GetPermissionsCheckUrl());
+        return response.IsSuccessStatusCode;
     }
 
     public void SetHeaders()

@@ -24,6 +24,78 @@
     mc:Ignorable="d">
 
     <Window.Resources>
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border  BorderThickness="1" CornerRadius="0, 1, 1, 0" BorderBrush="Black" Background="Black" Height="4"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="{StaticResource Gradient1}" CornerRadius="1" BorderThickness="0" Height="4"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse Height="8" Width="8" Fill="{StaticResource Gradient1}"></Ellipse>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Track Grid.Row="1" x:Name="PART_Track"   >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}"  />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style TargetType="fa:ImageAwesome">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -103,45 +175,97 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-
-                <fa:ImageAwesome
+                <Button 
                     Grid.Column="1"
-                    Width="14"
-                    Height="4"
-                    VerticalAlignment="Center"
-                    Icon="Solid_WindowMinimize">
-                    <fa:ImageAwesome.Foreground>
-                        <LinearGradientBrush>
-                            <GradientStop Offset="1" Color="#FF68E1F1" />
-                            <GradientStop Offset="0" Color="#FF989EFF" />
-                        </LinearGradientBrush>
-                    </fa:ImageAwesome.Foreground>
-                </fa:ImageAwesome>
+                    Width="30"
+                    Height="30"
+                    Click="Minimize">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Name="D" CornerRadius="10" Height="25" Width="25">
+                                <fa:ImageAwesome
+                                    Grid.Column="1"
+                                    Width="14"
+                                    Height="4"
+                                    VerticalAlignment="Center"
+                                    Icon="Solid_WindowMinimize">
+                                    <fa:ImageAwesome.Foreground>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1" Color="#FF68E1F1" />
+                                            <GradientStop Offset="0" Color="#FF989EFF" />
+                                        </LinearGradientBrush>
+                                    </fa:ImageAwesome.Foreground>
+                                </fa:ImageAwesome>
+                            </Border>
 
-                <fa:ImageAwesome
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button 
                     Grid.Column="2"
-                    Width="13"
-                    Icon="Regular_WindowMaximize">
-                    <fa:ImageAwesome.Foreground>
-                        <LinearGradientBrush>
-                            <GradientStop Offset="1" Color="#FF68E1F1" />
-                            <GradientStop Offset="0" Color="#FF989EFF" />
-                        </LinearGradientBrush>
-                    </fa:ImageAwesome.Foreground>
-                </fa:ImageAwesome>
+                    Width="30"
+                    Height="30"
+                    Click="Maximize">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Name="D"  CornerRadius="10" Height="25" Width="25">
+                                <fa:ImageAwesome
+                                    Grid.Column="3"
+                                    Width="14"
+                                    Height="12"
+                                    Icon="Regular_WindowMaximize">
+                                    <fa:ImageAwesome.Foreground>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1" Color="#FF68E1F1" />
+                                            <GradientStop Offset="0" Color="#FF989EFF" />
+                                        </LinearGradientBrush>
+                                    </fa:ImageAwesome.Foreground>
+                                </fa:ImageAwesome>
+                            </Border>
 
-                <fa:ImageAwesome
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button 
                     Grid.Column="3"
-                    Width="14"
-                    Height="12"
-                    Icon="Solid_WindowClose">
-                    <fa:ImageAwesome.Foreground>
-                        <LinearGradientBrush>
-                            <GradientStop Offset="1" Color="#FFF16868" />
-                            <GradientStop Offset="0" Color="#FFFF98E3" />
-                        </LinearGradientBrush>
-                    </fa:ImageAwesome.Foreground>
-                </fa:ImageAwesome>
+                    Width="30"
+                    Height="30"
+                    Click="Close">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Name="D"  CornerRadius="10" Height="25" Width="25">
+                                <fa:ImageAwesome
+                                    Grid.Column="3"
+                                    Width="14"
+                                    Height="12"
+                                    Icon="Solid_WindowClose">
+                                    <fa:ImageAwesome.Foreground>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1" Color="#FFF16868" />
+                                            <GradientStop Offset="0" Color="#FFFF98E3" />
+                                        </LinearGradientBrush>
+                                    </fa:ImageAwesome.Foreground>
+                                </fa:ImageAwesome>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
         </Border>
 
@@ -253,23 +377,6 @@
                         DataContext="{Binding Current}"/>
                 </TabItem.Content>
             </TabItem>
-
-            <TabItem Style="{StaticResource TabItemsStyle}">
-                <TabItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <fa:ImageAwesome Icon="Solid_Circle" Style="{StaticResource UserIconsStyle}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Настройки" Margin="5,0,0,0" />
-                    </Grid>
-                </TabItem.Header>
-            </TabItem>
         </TabControl>
 
         <Border
@@ -282,6 +389,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
+                
+                <Slider HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource Horizontal_Slider}" Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding PlayerVm.Volume}"/>
 
                 <Grid>
                     <Grid.ColumnDefinitions>

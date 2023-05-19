@@ -2,6 +2,7 @@
 using NorthSound.BLL.Services.AudioPlayer.Base;
 using System;
 using System.Windows.Media;
+using System.Windows;
 
 namespace NorthSound.BLL.Services.AudioPlayer;
 
@@ -30,6 +31,8 @@ public class AudioPlayer : IPlayer
 
     public SongModel? Current { get; private set; }
 
+    public double Volume => _mediaPlayer.Volume;
+
     public void Open(SongModel song)
     {
         if (song is null)
@@ -44,6 +47,14 @@ public class AudioPlayer : IPlayer
             OpenFileStream(songFile);
 
         Current = song;
+    }
+
+    public void SetVolume(double volume)
+    {
+        if (volume < 0 || volume > 1)
+            return;
+
+        _mediaPlayer.Volume = volume;
     }
 
     private void OpenFileStream(SongFile songFile)
