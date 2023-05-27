@@ -1,8 +1,4 @@
 ﻿using NorthSound.Client.ViewModels.Base;
-using NorthSound.Domain.Models;
-using System;
-using System.Collections.Specialized;
-using NorthSound.BLL.Facades.Base;
 using NorthSound.Client.ViewModels.Auth;
 
 namespace NorthSound.Client.ViewModels;
@@ -13,7 +9,8 @@ internal sealed class ApplicationViewModel : ViewModelBase
         PlayerViewModel songVm,
         LibraryCollectionViewModel libraryVm,
         OnlineLibraryViewModel onlineLibraryVm,
-        AuthenticateViewModel authenticate)
+        AuthenticateViewModel authenticate,
+        ChatViewModel chatVm)
     {
         Current = this;
 
@@ -21,6 +18,7 @@ internal sealed class ApplicationViewModel : ViewModelBase
         LibraryVm = libraryVm;
         OnlineLibraryVm = onlineLibraryVm;
         AuthenticateVm = authenticate;
+        ChatVm = chatVm;
     }
 
     public ApplicationViewModel Current { get; }
@@ -29,4 +27,5 @@ internal sealed class ApplicationViewModel : ViewModelBase
     public LibraryCollectionViewModel LibraryVm { get; }
     public OnlineLibraryViewModel OnlineLibraryVm { get; }
     public AuthenticateViewModel AuthenticateVm { get; }
+    public ChatViewModel ChatVm { get; }
 }
