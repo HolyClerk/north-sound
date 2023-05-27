@@ -7,4 +7,5 @@ public interface IServerInfo
     string GetCurrentSongUrl(int id);
     string GetLibraryUrl();
     string GetBaseUrl();
+    string GetChatUrl();
 }
