@@ -8,15 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:NorthSound.Client.Views.UserControls"
     xmlns:vm="clr-namespace:NorthSound.Client.ViewModels"
-    d:DataContext="{d:DesignInstance vm:ApplicationViewModel}"
     Title="{Binding Title}"
     Width="830"
     Height="650"
     MinWidth="800"
     MinHeight="600"
+    d:DataContext="{d:DesignInstance vm:ApplicationViewModel}"
     AllowsTransparency="True"
     Background="{StaticResource AllApp}"
-    
     BorderBrush="White"
     FontFamily="Verdana"
     ResizeMode="CanResizeWithGrip"
@@ -32,7 +31,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border  BorderThickness="1" CornerRadius="0, 1, 1, 0" BorderBrush="Black" Background="Black" Height="4"/>
+                        <Border
+                            Height="4"
+                            Background="Black"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="0, 1, 1, 0" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -44,7 +48,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border SnapsToDevicePixels="True" Background="{StaticResource Gradient1}" CornerRadius="1" BorderThickness="0" Height="4"/>
+                        <Border
+                            Height="4"
+                            Background="{StaticResource Gradient1}"
+                            BorderThickness="0"
+                            CornerRadius="1"
+                            SnapsToDevicePixels="True" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -56,35 +65,38 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Ellipse Height="8" Width="8" Fill="{StaticResource Gradient1}"></Ellipse>
+                        <Ellipse
+                            Width="8"
+                            Height="8"
+                            Fill="{StaticResource Gradient1}" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+        <ControlTemplate x:Key="Slider" TargetType="Slider">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Track Grid.Row="1" x:Name="PART_Track"   >
+                <Track x:Name="PART_Track" Grid.Row="1">
                     <Track.DecreaseRepeatButton>
-                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                        <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource SliderRepeatButton1}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
-                        <Thumb Style="{StaticResource SliderThumb}"  />
+                        <Thumb Style="{StaticResource SliderThumb}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
-                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                        <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource SliderRepeatButton}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
             </Grid>
         </ControlTemplate>
 
         <Style x:Key="Horizontal_Slider" TargetType="Slider">
-            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Focusable" Value="False" />
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />
             <Style.Triggers>
@@ -95,7 +107,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style TargetType="fa:ImageAwesome">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -175,14 +187,18 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Button 
+                <Button
                     Grid.Column="1"
                     Width="30"
                     Height="30"
                     Click="Minimize">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Name="D" CornerRadius="10" Height="25" Width="25">
+                            <Border
+                                Name="D"
+                                Width="25"
+                                Height="25"
+                                CornerRadius="10">
                                 <fa:ImageAwesome
                                     Grid.Column="1"
                                     Width="14"
@@ -206,14 +222,18 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button 
+                <Button
                     Grid.Column="2"
                     Width="30"
                     Height="30"
                     Click="Maximize">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Name="D"  CornerRadius="10" Height="25" Width="25">
+                            <Border
+                                Name="D"
+                                Width="25"
+                                Height="25"
+                                CornerRadius="10">
                                 <fa:ImageAwesome
                                     Grid.Column="3"
                                     Width="14"
@@ -236,14 +256,18 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button 
+                <Button
                     Grid.Column="3"
                     Width="30"
                     Height="30"
                     Click="Close">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Name="D"  CornerRadius="10" Height="25" Width="25">
+                            <Border
+                                Name="D"
+                                Width="25"
+                                Height="25"
+                                CornerRadius="10">
                                 <fa:ImageAwesome
                                     Grid.Column="3"
                                     Width="14"
@@ -292,16 +316,17 @@
                             Style="{DynamicResource UserIconsStyle}" />
                         <TextBlock
                             Grid.Column="1"
+                            Margin="5,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Профиль" Margin="5,0,0,0" />
+                            Text="Профиль" />
                     </Grid>
                 </TabItem.Header>
 
                 <TabItem.Content>
                     <views:AccountPage
+                        DataContext="{Binding Current}"
                         FontFamily="Verdana"
-                        FontSize="13" 
-                        DataContext="{Binding Current}"/>
+                        FontSize="13" />
                 </TabItem.Content>
             </TabItem>
 
@@ -319,10 +344,18 @@
                             Style="{DynamicResource UserIconsStyle}" />
                         <TextBlock
                             Grid.Column="1"
+                            Margin="5,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Сообщество" Margin="5,0,0,0" />
+                            Text="Сообщество" />
                     </Grid>
                 </TabItem.Header>
+
+                <TabItem.Content>
+                    <views:MessageView
+                        DataContext="{Binding Current}"
+                        FontFamily="Verdana"
+                        FontSize="13" />
+                </TabItem.Content>
             </TabItem>
 
             <TabItem Style="{StaticResource TabItemsStyle}">
@@ -337,19 +370,20 @@
                             Grid.Column="0"
                             Icon="Solid_Music"
                             Style="{StaticResource UserIconsStyle}" />
-                        
+
                         <TextBlock
                             Grid.Column="1"
+                            Margin="5,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Моя музыка" Margin="5,0,0,0" />
+                            Text="Моя музыка" />
                     </Grid>
                 </TabItem.Header>
 
                 <TabItem.Content>
                     <views:AudioPage
+                        DataContext="{Binding Current}"
                         FontFamily="Verdana"
-                        FontSize="13" 
-                        DataContext="{Binding Current}"/>
+                        FontSize="13" />
                 </TabItem.Content>
             </TabItem>
 
@@ -364,17 +398,18 @@
                         <fa:ImageAwesome Icon="Solid_Book" Style="{StaticResource UserIconsStyle}" />
                         <TextBlock
                             Grid.Column="1"
+                            Margin="5,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Библиотека" Margin="5,0,0,0" 
-                            DataContext="{Binding LibraryVm}"/>
+                            DataContext="{Binding LibraryVm}"
+                            Text="Библиотека" />
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
                     <views:LibrarySoundPage
+                        DataContext="{Binding Current}"
                         FontFamily="Verdana"
                         FontSize="13"
-                        FontStyle="Normal" 
-                        DataContext="{Binding Current}"/>
+                        FontStyle="Normal" />
                 </TabItem.Content>
             </TabItem>
         </TabControl>
@@ -382,84 +417,165 @@
         <Border
             x:Name="PlayedMusic"
             Grid.Row="2"
-            MinHeight="60" Background="{StaticResource Footer}">
+            MinHeight="60"
+            Background="{StaticResource Footer}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" MaxWidth="180"/>
+                    <ColumnDefinition Width="0.5*" MaxWidth="180" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                
-                <Slider HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource Horizontal_Slider}" Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding PlayerVm.Volume}"/>
+
+                <Slider
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Maximum="100"
+                    Minimum="0"
+                    Style="{StaticResource Horizontal_Slider}"
+                    Value="{Binding PlayerVm.Volume}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="0.8*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border CornerRadius="10" BorderThickness="3" Background="{StaticResource AuthorForeground}" MaxWidth="43" MaxHeight="43">
-                        <fa:FontAwesome Foreground="{StaticResource AuthorForeground}" Icon="Solid_Music" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border
+                        MaxWidth="43"
+                        MaxHeight="43"
+                        Background="{StaticResource AuthorForeground}"
+                        BorderThickness="3"
+                        CornerRadius="10">
+                        <fa:FontAwesome
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource AuthorForeground}"
+                            Icon="Solid_Music" />
                     </Border>
 
-                    <StackPanel Margin="0, 5, 0, 0" Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding PlayerVm.SelectedSong.Name}" FontSize="12" Foreground="{StaticResource TitleForeground}" HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding PlayerVm.SelectedSong.Author}" FontSize="11" Foreground="{StaticResource AuthorForeground}" HorizontalAlignment="Left" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            FontSize="12"
+                            Foreground="{StaticResource TitleForeground}"
+                            Text="{Binding PlayerVm.SelectedSong.Name}" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            FontSize="11"
+                            Foreground="{StaticResource AuthorForeground}"
+                            Text="{Binding PlayerVm.SelectedSong.Author}" />
                     </StackPanel>
                 </Grid>
 
-                <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 0">
-                    <CheckBox x:Name="checkBox1" IsChecked="{Binding PlayerVm.IsPlaying, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Visibility="Hidden"/>
-                    <Button DataContext="{Binding PlayerVm}" Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayCommand}" CommandParameter="{Binding SelectedSong}" Width="40" HorizontalAlignment="Center" >
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <CheckBox
+                        x:Name="checkBox1"
+                        IsChecked="{Binding PlayerVm.IsPlaying, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                        Visibility="Hidden" />
+                    <Button
+                        Width="40"
+                        Margin="5,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding PlayCommand}"
+                        CommandParameter="{Binding SelectedSong}"
+                        DataContext="{Binding PlayerVm}">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border x:Name="bord" BorderThickness="0">
                                     <Grid>
-                                        <fa:FontAwesome x:Name="PlayIcon" Icon="Solid_Play" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="10" Foreground="{StaticResource Gradient3}"/>
-                                        <fa:FontAwesome x:Name="PauseIcon" Icon="Solid_Pause" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="8" Visibility="Collapsed"  Foreground="{StaticResource Gradient3}"/>
+                                        <fa:FontAwesome
+                                            x:Name="PlayIcon"
+                                            Margin="10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{StaticResource Gradient3}"
+                                            Icon="Solid_Play" />
+                                        <fa:FontAwesome
+                                            x:Name="PauseIcon"
+                                            Margin="8"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{StaticResource Gradient3}"
+                                            Icon="Solid_Pause"
+                                            Visibility="Collapsed" />
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="PlayIcon" Property="Foreground" Value="#fff"/>
-                                        <Setter TargetName="PauseIcon" Property="Foreground" Value="#fff"/>
+                                        <Setter TargetName="PlayIcon" Property="Foreground" Value="#fff" />
+                                        <Setter TargetName="PauseIcon" Property="Foreground" Value="#fff" />
                                     </Trigger>
                                     <DataTrigger Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="True">
-                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Collapsed"/>
-                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Collapsed" />
+                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger  Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="False">
-                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Visible"/>
-                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Collapsed"/>
+                                    <DataTrigger Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="False">
+                                        <Setter TargetName="PlayIcon" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="PauseIcon" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <Button Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayerVm.PreviousSongCommand}" CommandParameter="{Binding PlayerVm.SelectedSong}" HorizontalAlignment="Center" >
+                    <Button
+                        Margin="5,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding PlayerVm.PreviousSongCommand}"
+                        CommandParameter="{Binding PlayerVm.SelectedSong}">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border x:Name="bord" BorderThickness="0">
-                                    <fa:FontAwesome x:Name="PrevIcon" Foreground="{StaticResource Gradient1}" FontSize="20" Icon="Solid_ArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <fa:FontAwesome
+                                        x:Name="PrevIcon"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="20"
+                                        Foreground="{StaticResource Gradient1}"
+                                        Icon="Solid_ArrowLeft" />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="PrevIcon" Property="Foreground" Value="White"/>
+                                        <Setter TargetName="PrevIcon" Property="Foreground" Value="White" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Margin="5, 0" VerticalAlignment="Center" Command="{Binding PlayerVm.NextSongCommand}" CommandParameter="{Binding PlayerVm.SelectedSong}" HorizontalAlignment="Center" >
+                    <Button
+                        Margin="5,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding PlayerVm.NextSongCommand}"
+                        CommandParameter="{Binding PlayerVm.SelectedSong}">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border x:Name="bord" BorderThickness="0">
-                                    <fa:FontAwesome x:Name="NextIcon" Foreground="{StaticResource Gradient1}" FontSize="20" Icon="Solid_ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <fa:FontAwesome
+                                        x:Name="NextIcon"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="20"
+                                        Foreground="{StaticResource Gradient1}"
+                                        Icon="Solid_ArrowRight" />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger SourceName="bord" Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="NextIcon" Property="Foreground" Value="White"/>
+                                        <Setter TargetName="NextIcon" Property="Foreground" Value="White" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

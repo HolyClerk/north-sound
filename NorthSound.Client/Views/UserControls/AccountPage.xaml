@@ -39,9 +39,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
-        
-        
+
         <Grid
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -193,8 +191,6 @@
                         Text="{Binding AuthenticateVm.Login}" />
                 </Grid>
             </Border>
-
-            <CheckBox IsChecked="{Binding AuthenticateVm.IsLoggedIn, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Visibility="Hidden" />
         </Grid>
 
         <Border
