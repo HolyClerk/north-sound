@@ -1,8 +1,8 @@
 ﻿using NorthSound.BLL.Commands.Base;
 using NorthSound.BLL.Web.Base;
 using NorthSound.Client.ViewModels.Base;
-using NorthSound.Domain;
-using NorthSound.Domain.Models;
+using NorthSound.Domain.Chat;
+using NorthSound.Domain.POCO;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -47,7 +47,12 @@ internal sealed class ChatViewModel : ViewModelBase
             Username = ReceiverUsername,
         };
 
-        await _chatService.SendMessageAsync(message);
+        var result = await _chatService.SendMessageAsync(message);
+
+        if (result.Status is not ResponseStatus.Success)
+        {
+            MessageBox.Show(result.Details);
+        }
     }
 
     private void OnMessageReceived(Message obj)

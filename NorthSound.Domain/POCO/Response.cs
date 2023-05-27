@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NorthSound.Domain.POCO;
+﻿namespace NorthSound.Domain.POCO;
 
 public class Response<T>
 {
@@ -29,10 +23,4 @@ public class Response<T>
             Details = deatils,
         };
     }
-}
-
-public enum ResponseStatus
-{
-    Success,
-    Failed
 }

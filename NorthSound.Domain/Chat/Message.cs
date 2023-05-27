@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace NorthSound.Domain;
+namespace NorthSound.Domain.Chat;
 
 public class Message
 {

@@ -1,4 +1,4 @@
-﻿namespace NorthSound.Domain.Models;
+﻿namespace NorthSound.Domain.Chat;
 
 public class User
 {

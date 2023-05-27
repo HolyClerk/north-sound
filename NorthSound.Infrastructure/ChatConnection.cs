@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using NorthSound.BLL.Other;
-using NorthSound.Domain;
+using NorthSound.Domain.Chat;
 
 namespace NorthSound.Infrastructure;
 
-public class Chat : IChat
+public class ChatConnection : IChatConnection
 {
     private HubConnection? _hubConnection;
 
     public event Action<Message>? MessageReceived;
     public bool IsConfigured => _hubConnection is not null;
 
-    public IChat ConfigureConnection(string url, string token)
+    public IChatConnection ConfigureConnection(string url, string token)
     {
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(url, options =>
@@ -34,24 +34,26 @@ public class Chat : IChat
         return this;
     }
 
-    public async Task StartAsync()
+    public async Task<ChatResult> StartAsync()
     {
         if (_hubConnection is null)
         {
-            return;
+            return ChatResult.Failed("Hub connection - null");
         }
 
         await _hubConnection.StartAsync();
+        return ChatResult.Ok();
     }
 
-    public async Task SendMessageAsync(Message viewModel)
+    public async Task<ChatResult> SendMessageAsync(Message viewModel)
     {
         if (_hubConnection is null)
         {
-            return;
+            return ChatResult.Failed("Hub connection - null");
         }
 
         await _hubConnection.InvokeAsync("SendMessage", viewModel);
+        return ChatResult.Ok();
     }
 
     public async ValueTask DisposeAsync()

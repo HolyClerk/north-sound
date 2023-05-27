@@ -1,7 +1,7 @@
 ﻿using NorthSound.BLL.Other;
 using NorthSound.BLL.Tokens;
 using NorthSound.BLL.Web.Base;
-using NorthSound.Domain;
+using NorthSound.Domain.Chat;
 using System;
 using System.Threading.Tasks;
 
@@ -9,11 +9,11 @@ namespace NorthSound.BLL.Web;
 
 public class ChatService : IChatService
 {
-    private readonly IChat _chat;
+    private readonly IChatConnection _chat;
     private readonly IServerInfo _serverInfo;
     private readonly ITokenStorage _tokeStorage;
 
-    public ChatService(IChat chat, 
+    public ChatService(IChatConnection chat, 
         IServerInfo serverInfo,
         ITokenStorage tokenStorage)
     {
@@ -29,15 +29,22 @@ public class ChatService : IChatService
 
     public event Action<Message>? MessageReceived;
 
-    public async Task SendMessageAsync(Message message)
+    public async Task<ChatResult> SendMessageAsync(Message message)
     {
-        if (_chat.IsConfigured is false)
+        if (_chat.IsConfigured)
         {
-            Configure();
-            await _chat.StartAsync();
+            return await _chat.SendMessageAsync(message);
         }
 
-        await _chat.SendMessageAsync(message);
+        try
+        {
+            Configure();
+            return await _chat.StartAsync();
+        }
+        catch (Exception e)
+        {
+            return ChatResult.Failed(e.Message);
+        }
     }
 
     private void Configure()
