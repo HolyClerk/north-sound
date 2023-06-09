@@ -2,23 +2,23 @@
 
 namespace NorthSound.Domain.Chat;
 
-public class ChatResult
+public class Result
 {
     public ResponseStatus Status { get; set; }
     public string Details { get; set; }
 
-    public static ChatResult Ok()
+    public static Result Ok()
     {
-        return new ChatResult
+        return new Result
         {
             Status = ResponseStatus.Success,
             Details = string.Empty
         };
     }
 
-    public static ChatResult Failed(string details)
+    public static Result Failed(string details)
     {
-        return new ChatResult
+        return new Result
         {
             Status = ResponseStatus.Failed,
             Details = details
