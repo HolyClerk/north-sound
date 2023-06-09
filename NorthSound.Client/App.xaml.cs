@@ -56,8 +56,8 @@ public partial class App : Application
                     .AddSingleton<ITokenStorage, TokenStorage>()
                     .AddScoped<ISongsWebService, SongsWebService>();
 
-                services.AddScoped<IChatConnection, ChatConnection>()
-                    .AddScoped<IChatService, ChatService>();
+                services.AddSingleton<IHubService, HubService>();
+                services.AddSingleton<Reconnector>();
             })
             .Build();
     }
