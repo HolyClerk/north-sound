@@ -10,5 +10,4 @@ public interface ISongsWebService
 {
     Task<IEnumerable<VirtualSong>> GetOnlineCollectionAsync();
     Task<SongFile?> DownloadAsync(VirtualSong virtualSong);
-    Task<ServerStatus> GetServerStatusAsync();
 }

@@ -9,6 +9,10 @@ public class ChatConnection : IChatConnection
     private HubConnection? _hubConnection;
 
     public event Action<Message>? MessageReceived;
+    public event Action<User>? ClientConnected;
+    public event Action<User>? ClientDisconnected;
+    public event Action<IReadOnlyCollection<User>>? ClientsReceived;
+
     public bool IsConfigured => _hubConnection is not null;
 
     public IChatConnection ConfigureConnection(string url, string token)
@@ -20,7 +24,50 @@ public class ChatConnection : IChatConnection
             })
             .Build();
 
-        _hubConnection.On<string, string>("ReceiveMessage", (sender, receivedMessage) =>
+        ConfigureMessageReceive(_hubConnection);
+        ConfigureConnectectionNotification(_hubConnection);
+        ConfigureDisconnectNotification(_hubConnection);
+        ConfigureClientsReceive(_hubConnection);
+
+        return this;
+    }
+
+    public async Task<Result> StartAsync()
+    {
+        if (_hubConnection is null)
+        {
+            return Result.Failed("Hub connection - null");
+        }
+
+        await _hubConnection.StartAsync();
+        return Result.Ok();
+    }
+
+    public async Task<Result> SendMessageAsync(Message viewModel)
+    {
+        if (_hubConnection is null)
+        {
+            return Result.Failed("Hub connection - null");
+        }
+
+        await _hubConnection.InvokeAsync("SendMessage", viewModel);
+        return Result.Ok();
+    }
+
+    public async Task<Result> SendGetClientsRequest()
+    {
+        if (_hubConnection is null)
+        {
+            return Result.Failed("Hub connection - null");
+        }
+
+        await _hubConnection.InvokeAsync("GetAllClients");
+        return Result.Ok();
+    }
+
+    private void ConfigureMessageReceive(HubConnection hubConnection)
+    {
+        hubConnection.On<string, string>("ReceiveMessage", (sender, receivedMessage) =>
         {
             var message = new Message()
             {
@@ -30,30 +77,24 @@ public class ChatConnection : IChatConnection
 
             MessageReceived?.Invoke(message);
         });
-
-        return this;
     }
 
-    public async Task<ChatResult> StartAsync()
+    private void ConfigureConnectectionNotification(HubConnection hubConnection)
     {
-        if (_hubConnection is null)
-        {
-            return ChatResult.Failed("Hub connection - null");
-        }
-
-        await _hubConnection.StartAsync();
-        return ChatResult.Ok();
+        hubConnection.On<User>("ReceiveConnectectionNotification", (connectedUser) 
+            => ClientConnected?.Invoke(connectedUser));
     }
 
-    public async Task<ChatResult> SendMessageAsync(Message viewModel)
+    private void ConfigureDisconnectNotification(HubConnection hubConnection)
     {
-        if (_hubConnection is null)
-        {
-            return ChatResult.Failed("Hub connection - null");
-        }
+        hubConnection.On<User>("ReceiveDisconnectedNotification", (disconnectedUser)
+            => ClientDisconnected?.Invoke(disconnectedUser));
+    }
 
-        await _hubConnection.InvokeAsync("SendMessage", viewModel);
-        return ChatResult.Ok();
+    private void ConfigureClientsReceive(HubConnection hubConnection)
+    {
+        hubConnection.On<IEnumerable<User>>("ReceiveClients", (users) 
+            => ClientsReceived?.Invoke(users.ToList()));
     }
 
     public async ValueTask DisposeAsync()
