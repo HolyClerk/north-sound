@@ -2,21 +2,21 @@
 
 public class Dialogue
 {
-    public Dialogue(User interlocutor)
+    public Dialogue(User receiver)
     {
         Messages = new();
-        Interlocutor = interlocutor;
+        Receiver = receiver;
     }
 
-    public User Interlocutor { get; init; }
+    public User Receiver { get; init; }
 
     public List<MessagePOCO> Messages { get; private set; }
 
-    public void AddMessage(User sender, string message)
+    public void AddMessage(User owner, string message)
     {
         var poco = new MessagePOCO
         {
-            Username = sender.Name,
+            Username = owner.Name,
             Text = message,
         };
 
