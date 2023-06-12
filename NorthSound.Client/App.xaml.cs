@@ -41,6 +41,8 @@ public partial class App : Application
                     .AddScoped<OnlineLibraryViewModel>()
                     .AddScoped<ChatViewModel>();
 
+                services.AddSingleton<Reconnector>();
+
                 services.AddSingleton<IPlayer, AudioPlayer>()
                     .AddScoped<IImportService, ImportService>()
                     .AddTransient<IFileImporter, FileImporter>();
@@ -57,7 +59,6 @@ public partial class App : Application
                     .AddScoped<ISongsWebService, SongsWebService>();
 
                 services.AddSingleton<IHubService, HubService>();
-                services.AddSingleton<Reconnector>();
             })
             .Build();
     }

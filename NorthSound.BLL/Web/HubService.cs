@@ -24,7 +24,6 @@ public class HubService : IHubService
                 await _chat.DisposeAsync();
             }
 
-
             _chat = mediator;
             ConnectActions();
         }

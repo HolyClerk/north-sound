@@ -20,6 +20,8 @@ public class ChatMediator : IChatMediator
             .WithAutomaticReconnect()
             .Build();
 
+        _hubConnection.StartAsync().Wait(); 
+
         _messageExchanger = new(_hubConnection);
         _sessionsNotifier = new(_hubConnection);
 
