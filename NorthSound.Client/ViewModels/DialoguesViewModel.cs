@@ -79,7 +79,10 @@ internal class DialoguesViewModel : ViewModelBase
         if (dialogue is not null)
         {
             SelectedDialogueCollectionView = CollectionViewSource.GetDefaultView(dialogue.Messages);
+            return;
         }
+
+        SelectedDialogueCollectionView = CollectionViewSource.GetDefaultView(null);
     }
 
     private void OnDialogueChanged(Dialogue dialogue)
@@ -87,7 +90,7 @@ internal class DialoguesViewModel : ViewModelBase
         if (SelectedUser is null)
             return;
 
-        if (dialogue.Interlocutor.Name == SelectedUser.Name)
+        if (dialogue.Receiver.Name == SelectedUser.Name)
         {
             SelectedDialogueCollectionView = CollectionViewSource.GetDefaultView(dialogue.Messages);
         }

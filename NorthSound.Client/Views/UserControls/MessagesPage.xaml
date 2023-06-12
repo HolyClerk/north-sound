@@ -30,7 +30,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*" />
                 <RowDefinition />
-                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
 
             <ListBox
@@ -77,17 +77,30 @@
                 Margin="5"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Width="25"
-                Height="25"
+                Width="30"
+                Height="30"
                 Command="{Binding ChatVm.ReceiveSessionsCommand}"
                 FontSize="15"
-                Foreground="{StaticResource TitleForeground}"/>
+                Foreground="{StaticResource TitleForeground}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Name="D" Background="{StaticResource Gradient2}" CornerRadius="15" Height="25" Width="25">
+                            <fa:FontAwesome Foreground="{StaticResource TitleForeground}" FontSize="10" Icon="Regular_User" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="D" Property="Background" Value="#202D3B" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
             <Border Grid.Row="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="55"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBox Text="{Binding DialoguesVm.MessageText}" Foreground="#FFA5A5A5" Margin="5" TextWrapping="Wrap" Grid.Column="0" VerticalContentAlignment="Center" />
