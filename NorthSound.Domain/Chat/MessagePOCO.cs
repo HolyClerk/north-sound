@@ -2,7 +2,7 @@
 
 namespace NorthSound.Domain.Chat;
 
-public class Message
+public class MessagePOCO
 {
     [JsonPropertyName("ReceiverUsername")]
     public string Username { get; set; }

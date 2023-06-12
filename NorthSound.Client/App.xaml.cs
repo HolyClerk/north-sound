@@ -39,7 +39,8 @@ public partial class App : Application
                     .AddScoped<LibraryCollectionViewModel>()
                     .AddScoped<AuthenticateViewModel>()
                     .AddScoped<OnlineLibraryViewModel>()
-                    .AddScoped<ChatViewModel>();
+                    .AddScoped<HubViewModel>()
+                    .AddScoped<DialoguesViewModel>();
 
                 services.AddSingleton<Reconnector>();
 
@@ -55,10 +56,11 @@ public partial class App : Application
                     .AddScoped<IMediaReader, MediaReader>()
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()
-                    .AddSingleton<ITokenStorage, TokenStorage>()
-                    .AddScoped<ISongsWebService, SongsWebService>();
+                    .AddScoped<ISongsWebService, SongsWebService>()
+                    .AddSingleton<ITokenStorage, TokenStorage>();
 
-                services.AddSingleton<IHubService, HubService>();
+                services.AddSingleton<IHubService, HubService>()
+                    .AddSingleton<IDialoguesService, DialoguesService>();
             })
             .Build();
     }

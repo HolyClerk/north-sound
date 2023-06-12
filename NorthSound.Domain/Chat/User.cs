@@ -1,6 +1,9 @@
-﻿namespace NorthSound.Domain.Chat;
+﻿using System.Text.Json.Serialization;
+
+namespace NorthSound.Domain.Chat;
 
 public class User
 {
-    public string Username { get; set; }
+    [JsonPropertyName("UserName")]
+    public string Name { get; set; }
 }

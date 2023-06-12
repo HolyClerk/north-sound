@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using NorthSound.Domain.Chat;
+using System.Windows;
 
 namespace NorthSound.Infrastructure;
 
@@ -13,7 +14,7 @@ internal class SessionsNotifier
         ConfigureActions();
     }
 
-    public event Action<IReadOnlyCollection<User>>? SessionsReceived;
+    public event Action<IReadOnlyList<User>>? SessionsReceived;
 
     public event Action<User>? NewSessionConnected;
     public event Action<User>? SessionDisconnected;

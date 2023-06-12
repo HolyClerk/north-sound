@@ -7,12 +7,12 @@ namespace NorthSound.BLL.Web.Base;
 
 public interface IHubService : IAsyncDisposable
 {
-    event Action<Message>? MessageReceived;
+    event Action<MessagePOCO>? MessageReceived;
     event Action<User>? NewSessionConnected;
     event Action<User>? SessionDisconnected;
     event Action<IReadOnlyCollection<User>>? SessionReceived;
 
-    Task<Result> SendMessageAsync(Message message);
+    Task<Result> SendMessageAsync(MessagePOCO message);
     Task<Result> SendGetClientsRequestAsync();
     Task<Result> SetChatConnectionAsync(IChatMediator mediator);
 }

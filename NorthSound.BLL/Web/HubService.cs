@@ -13,7 +13,7 @@ public class HubService : IHubService
     public event Action<User>? NewSessionConnected;
     public event Action<User>? SessionDisconnected;
     public event Action<IReadOnlyCollection<User>>? SessionReceived;
-    public event Action<Message>? MessageReceived;
+    public event Action<MessagePOCO>? MessageReceived;
 
     public async Task<Result> SetChatConnectionAsync(IChatMediator mediator)
     {
@@ -35,7 +35,7 @@ public class HubService : IHubService
         return Result.Ok();
     }
 
-    public async Task<Result> SendMessageAsync(Message message)
+    public async Task<Result> SendMessageAsync(MessagePOCO message)
     {
         if (_chat is null)
         {

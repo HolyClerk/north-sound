@@ -27,12 +27,21 @@ public class ChatMediator : IChatMediator
 
         _messageExchanger.MessageReceived += (message) 
             => MessageReceived?.Invoke(message);
+
+        _sessionsNotifier.SessionsReceived += (users)
+            => SessionsReceived?.Invoke(users);
+
+        _sessionsNotifier.NewSessionConnected += (user)
+            => NewSessionConnected?.Invoke(user);
+
+        _sessionsNotifier.SessionDisconnected += (user)
+            => SessionDisconnected?.Invoke(user);
     }
 
     /// <summary>
     /// Событие получения сообщения.
     /// </summary>
-    public event Action<Message>? MessageReceived;
+    public event Action<MessagePOCO>? MessageReceived;
 
     /// <summary>
     /// Событие подключения нового клиента.
@@ -47,12 +56,12 @@ public class ChatMediator : IChatMediator
     /// <summary>
     /// Событие получения информации о всех текущих сессиях (по запросу).
     /// </summary>
-    public event Action<IReadOnlyCollection<User>>? SessionsReceived;
+    public event Action<IReadOnlyList<User>>? SessionsReceived;
 
     /// <summary>
     /// Отправка сообщения.
     /// </summary>
-    public Task<Result> SendMessageAsync(Message message)
+    public Task<Result> SendMessageAsync(MessagePOCO message)
     {
         return _messageExchanger.SendMessageAsync(message);
     }

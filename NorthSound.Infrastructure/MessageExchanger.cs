@@ -13,7 +13,7 @@ internal class MessageExchanger
 
         _hubConnection.On<string, string>("ReceiveMessage", (sender, receivedMessage) =>
         {
-            var message = new Message()
+            var message = new MessagePOCO()
             {
                 Text = receivedMessage,
                 Username = sender,
@@ -23,9 +23,9 @@ internal class MessageExchanger
         });
     }
 
-    public event Action<Message>? MessageReceived;
+    public event Action<MessagePOCO>? MessageReceived;
 
-    public async Task<Result> SendMessageAsync(Message message)
+    public async Task<Result> SendMessageAsync(MessagePOCO message)
     {
         try
         {

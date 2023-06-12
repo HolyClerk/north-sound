@@ -7,11 +7,11 @@ namespace NorthSound.BLL.Web.Base;
 
 public interface IChatMediator : IAsyncDisposable
 {
-    event Action<Message>? MessageReceived;
+    event Action<MessagePOCO>? MessageReceived;
     event Action<User>? NewSessionConnected;
     event Action<User>? SessionDisconnected;
-    event Action<IReadOnlyCollection<User>>? SessionsReceived;
+    event Action<IReadOnlyList<User>>? SessionsReceived;
 
-    Task<Result> SendMessageAsync(Message message);
+    Task<Result> SendMessageAsync(MessagePOCO message);
     Task<Result> RequestSessionsAsync();
 }

@@ -10,7 +10,8 @@ internal sealed class ApplicationViewModel : ViewModelBase
         LibraryCollectionViewModel libraryVm,
         OnlineLibraryViewModel onlineLibraryVm,
         AuthenticateViewModel authenticate,
-        ChatViewModel chatVm)
+        DialoguesViewModel dialoguesVm,
+        HubViewModel chatVm)
     {
         Current = this;
 
@@ -19,6 +20,7 @@ internal sealed class ApplicationViewModel : ViewModelBase
         OnlineLibraryVm = onlineLibraryVm;
         AuthenticateVm = authenticate;
         ChatVm = chatVm;
+        DialoguesVm = dialoguesVm;
     }
 
     public ApplicationViewModel Current { get; }
@@ -27,5 +29,6 @@ internal sealed class ApplicationViewModel : ViewModelBase
     public LibraryCollectionViewModel LibraryVm { get; }
     public OnlineLibraryViewModel OnlineLibraryVm { get; }
     public AuthenticateViewModel AuthenticateVm { get; }
-    public ChatViewModel ChatVm { get; }
+    public HubViewModel ChatVm { get; }
+    public DialoguesViewModel DialoguesVm { get; }
 }

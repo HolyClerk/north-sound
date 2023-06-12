@@ -18,36 +18,59 @@
             <Setter Property="BorderBrush" Value="{StaticResource Search}" />
         </Style>
         
-        <Style TargetType="ListBoxItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="MusicBorder"
-                                Background="{TemplateBinding Background}"
-                                BorderThickness="0"
-                                CornerRadius="0"
-                                Margin="4">
-                            <Grid>
-                                <TextBox Text="{Binding Path=Username}"/>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="0.3*" />
         </Grid.ColumnDefinitions>
-
+        
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*" />
                 <RowDefinition />
                 <RowDefinition Height="0.1*" />
             </Grid.RowDefinitions>
+
+            <ListBox
+                BorderThickness="0"
+                Background="{StaticResource AllApp}"
+                ItemsSource="{Binding DialoguesVm.SelectedDialogueCollectionView}"
+                VirtualizingPanel.CacheLength="20"
+                VirtualizingPanel.IsContainerVirtualizable="True"
+                VirtualizingPanel.IsVirtualizing="True"
+                VirtualizingPanel.VirtualizationMode="Recycling"
+                Grid.Row="1">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsPanelTemplate.Resources>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Name="MainBorder"
+                                                    Background="{StaticResource Footer}"
+                                                    BorderThickness="0"
+                                                    CornerRadius="0"
+                                                    Margin="5"
+                                                    Padding="8">
+                                                <Grid>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Foreground="{StaticResource AuthorForeground}" Text="{Binding Path=Username}" Margin="2"/>
+                                                        <TextBlock Foreground="{StaticResource TitleForeground}" Text="{Binding Path=Text}" Margin="2"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsPanelTemplate.Resources>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
 
             <Button
                 Grid.Row="0"
@@ -56,7 +79,7 @@
                 VerticalAlignment="Center"
                 Width="25"
                 Height="25"
-                Command="{Binding ChatVm.ConnectCommand}"
+                Command="{Binding ChatVm.ReceiveSessionsCommand}"
                 FontSize="15"
                 Foreground="{StaticResource TitleForeground}"/>
 
@@ -67,23 +90,25 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Foreground="#FFA5A5A5" Margin="5" TextWrapping="Wrap" Grid.Column="0" VerticalContentAlignment="Center" />
+                    <TextBox Text="{Binding DialoguesVm.MessageText}" Foreground="#FFA5A5A5" Margin="5" TextWrapping="Wrap" Grid.Column="0" VerticalContentAlignment="Center" />
                     <Button
                         Background="{StaticResource Footer}"
                         Grid.Column="1"
                         Width="35"
                         Margin="5, 5, 12, 5"
                         HorizontalAlignment="Right"
-                        Command="{Binding ChatVm.SendMessageCommand}">
+                        Command="{Binding DialoguesVm.SendMessageCommand}">
                         <fa:ImageAwesome Icon="Regular_ArrowAltCircleRight" Foreground="Wheat" Width="15"/>
                     </Button>
                 </Grid>
             </Border>
         </Grid>
-        <GridSplitter ShowsPreview="False" Width="3" VerticalAlignment="Stretch" />
+        <GridSplitter ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="{StaticResource HeaderDark}" />
         <Grid Grid.Column="1">
             <ListBox
-                SelectedItem="{Binding ChatVm.SelectedUser}"
+                BorderThickness="0"
+                Background="{StaticResource AllApp}"
+                SelectedItem="{Binding DialoguesVm.SelectedUser}"
                 ItemsSource="{Binding ChatVm.OnlineUsersCollectionView}"
                 VirtualizingPanel.CacheLength="20"
                 VirtualizingPanel.IsContainerVirtualizable="True"
@@ -92,7 +117,37 @@
                 Grid.Row="1">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
+                        <ItemsPanelTemplate.Resources>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Name="MainBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                CornerRadius="0"
+                                Margin="0"
+                                Padding="5">
+                                                <Grid>
+                                                    <TextBlock Foreground="{StaticResource TitleForeground}" Text="{Binding Path=Name}"/>
+                                                </Grid>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource SelectedTrack}" />
+
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource MouseOver}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsPanelTemplate.Resources>
+                        <VirtualizingStackPanel/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
