@@ -1,6 +1,7 @@
 ﻿using NorthSound.BLL.Facades.Base;
 using NorthSound.BLL.Other;
 using NorthSound.BLL.Tokens;
+using NorthSound.Domain;
 using NorthSound.Domain.POCO;
 using System;
 using System.Threading.Tasks;
@@ -11,13 +12,16 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
 {
     private readonly ITokenStorage _tokenStorage;
     private readonly IRemoteAccountRepository _remoteRepository;
+    private readonly IAccountInformationStorage _accountInfo;
 
     public AuthenticateWeb(
         ITokenStorage tokenHandler,
-        IRemoteAccountRepository remoteRepository)
+        IRemoteAccountRepository remoteRepository,
+        IAccountInformationStorage accountInfo)
     {
         _tokenStorage = tokenHandler;
         _remoteRepository = remoteRepository;
+        _accountInfo = accountInfo;
     }
 
     public async Task<bool> HaveAccesssRights()
@@ -46,6 +50,13 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
         {
             return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
         }
+
+        if (response.Status is not ResponseStatus.Success)
+        {
+            return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
+        }
+
+        UpdateAccountInformation(username);
 
         return SaveToken(response.Data);
     }
@@ -79,6 +90,12 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
         _tokenStorage.UpdateToken(jwtToken);
 
         return Response<JwtToken>.Success(jwtToken);
+    }
+
+    private void UpdateAccountInformation(string username)
+    {
+        var accountInfo = new AccountInformation(username);
+        _accountInfo.Update(accountInfo);
     }
 
     public void Dispose()

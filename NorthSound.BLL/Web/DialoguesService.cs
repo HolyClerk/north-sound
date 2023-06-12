@@ -1,24 +1,31 @@
-﻿using NorthSound.BLL.Web.Base;
+﻿using NorthSound.BLL.Tokens;
+using NorthSound.BLL.Web.Base;
+using NorthSound.Domain;
 using NorthSound.Domain.Chat;
 using NorthSound.Domain.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace NorthSound.BLL.Web;
 
 public class DialoguesService : IDialoguesService
 {
-    private readonly List<Dialogue> _dialogues;
     private readonly IHubService _hub;
+    private readonly IAccountInformationStorage _account;
 
-    public DialoguesService(IHubService hub)
+    private readonly List<Dialogue> _dialogues;
+
+    public DialoguesService(IHubService hub, IAccountInformationStorage account)
     {
-        _hub = hub;
         _dialogues = new List<Dialogue>();
+        _account = account;
+        _hub = hub;
 
-        _hub.MessageReceived += OnMessageReceived;
+        _hub.MessageReceived += (message) 
+            => CreateMessage(message.Username, message.Username, message.Text); 
     }
 
     public event Action<Dialogue>? DialogueChanged;
@@ -39,36 +46,36 @@ public class DialoguesService : IDialoguesService
         if (result.Status is not ResponseStatus.Success)
             return Result.Failed(result.Details);
 
-        CreateMessage(interlocutor, text);
+        if (_account.Account is not AccountInformation info)
+            return Result.Failed("Невозможно получить информацию из вашего аккаунта");
+
+        CreateMessage(info.Username, interlocutor.Name, text);
         return Result.Ok();
     }
 
     public Dialogue? GetDialogueWith(User interlocutor)
     {
-        return _dialogues.FirstOrDefault(dialogue => dialogue.Interlocutor.Name == interlocutor.Name);
+        return _dialogues.FirstOrDefault(dialogue => dialogue.Receiver.Name == interlocutor.Name);
     }
 
-    private void CreateMessage(User interlocutor, string message)
+    private void CreateMessage(User sender, User interlocutor, string message)
     {
-        Dialogue? dialogue = _dialogues.FirstOrDefault(dialogue => dialogue.Interlocutor.Name == interlocutor.Name);
+        Dialogue? dialogue = _dialogues.FirstOrDefault(dialogue => dialogue.Receiver.Name == interlocutor.Name);
 
         if (dialogue is null)
         {
-            dialogue = new(interlocutor);
+            dialogue = new(sender);
             _dialogues.Add(dialogue);
         }
 
-        dialogue.AddMessage(interlocutor, message);
+        dialogue.AddMessage(sender, message);
         DialogueChanged?.Invoke(dialogue);
     }
 
-    private void OnMessageReceived(MessagePOCO message)
+    private void CreateMessage(string senderUsername, string interlocutor, string message)
     {
-        var user = new User
-        {
-            Name = message.Username
-        };
-
-        CreateMessage(user, message.Text);
+        var sender = new User { Name = senderUsername };
+        var user = new User { Name = interlocutor };
+        CreateMessage(sender, user, message);
     }
 }
