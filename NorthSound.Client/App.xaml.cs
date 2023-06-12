@@ -57,7 +57,8 @@ public partial class App : Application
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()
                     .AddScoped<ISongsWebService, SongsWebService>()
-                    .AddSingleton<ITokenStorage, TokenStorage>();
+                    .AddSingleton<ITokenStorage, TokenStorage>()
+                    .AddSingleton<IAccountInformationStorage, AccountInformationStorage>();
 
                 services.AddSingleton<IHubService, HubService>()
                     .AddSingleton<IDialoguesService, DialoguesService>();
