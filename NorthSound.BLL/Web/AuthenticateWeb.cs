@@ -36,10 +36,16 @@ public class AuthenticateWeb : IAuthenticateWeb, IDisposable
             Password = password,
         };
 
-        var response = await _remoteRepository.GetJwtTokenAsync(loginModel);
+        var response = new Response<string>();
 
-        if (response.Status is not ResponseStatus.Success)
+        try
+        {
+            response = await _remoteRepository.GetJwtTokenAsync(loginModel);
+        }
+        catch (Exception)
+        {
             return Response<JwtToken>.Failed($"Ошибка! {response.Details}");
+        }
 
         return SaveToken(response.Data);
     }
