@@ -17,6 +17,8 @@ using NorthSound.BLL.Common.Import;
 using NorthSound.BLL.Common.Import.Base;
 using NorthSound.Infrastructure;
 using NorthSound.Client.ViewModels.Auth;
+using NorthSound.BLL.Web;
+using NorthSound.BLL.Web.Base;
 
 namespace NorthSound.Client;
 
@@ -31,31 +33,35 @@ public partial class App : Application
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
-                services
-                    .AddScoped<MainWindow>()
+                services.AddScoped<MainWindow>()
                     .AddScoped<ApplicationViewModel>()
                     .AddScoped<PlayerViewModel>()
                     .AddScoped<LibraryCollectionViewModel>()
                     .AddScoped<AuthenticateViewModel>()
-                    .AddScoped<OnlineLibraryViewModel>();
+                    .AddScoped<OnlineLibraryViewModel>()
+                    .AddScoped<HubViewModel>()
+                    .AddScoped<DialoguesViewModel>();
 
-                services
-                    .AddSingleton<IPlayer, AudioPlayer>()
+                services.AddSingleton<Reconnector>();
+
+                services.AddSingleton<IPlayer, AudioPlayer>()
                     .AddScoped<IImportService, ImportService>()
                     .AddTransient<IFileImporter, FileImporter>();
 
-                services
-                    .AddSingleton<ICollectionObserver<SongModel>>(storageService)
+                services.AddSingleton<ICollectionObserver<SongModel>>(storageService)
                     .AddSingleton<IObservableStorage<SongModel>>(storageService);
 
-                services
-                    .AddScoped<IRemoteSongRepository, RemoteSongRepository>()
+                services.AddScoped<IRemoteSongRepository, RemoteSongRepository>()
                     .AddScoped<IRemoteAccountRepository, RemoteAccountRepository>()
                     .AddScoped<IMediaReader, MediaReader>()
                     .AddScoped<IAuthenticateWeb, AuthenticateWeb>()
                     .AddScoped<IServerInfo, ServerInfo>()
-                    .AddScoped<ITokenStorage, TokenStorage>()
-                    .AddScoped<ISongsWebService, SongsWebService>();
+                    .AddScoped<ISongsWebService, SongsWebService>()
+                    .AddSingleton<ITokenStorage, TokenStorage>()
+                    .AddSingleton<IAccountInformationStorage, AccountInformationStorage>();
+
+                services.AddSingleton<IHubService, HubService>()
+                    .AddSingleton<IDialoguesService, DialoguesService>();
             })
             .Build();
     }

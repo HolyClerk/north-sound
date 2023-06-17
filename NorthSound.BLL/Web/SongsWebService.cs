@@ -12,16 +12,10 @@ namespace NorthSound.BLL.Common.Import;
 public class SongsWebService : ISongsWebService
 {
     private readonly IRemoteSongRepository _remoteRepository;
-    private readonly IServerInfo _serverInfo;
-    private readonly HttpClient _httpClient;
 
-    public SongsWebService(
-        IRemoteSongRepository webRepository, 
-        IServerInfo serverInfo)
+    public SongsWebService(IRemoteSongRepository webRepository)
     {
         _remoteRepository = webRepository;
-        _serverInfo = serverInfo;
-        _httpClient = new HttpClient();
     }
 
     public async Task<IEnumerable<VirtualSong>> GetOnlineCollectionAsync()
@@ -37,18 +31,5 @@ public class SongsWebService : ISongsWebService
 
         var songFile = await _remoteRepository.GetSongFileByEntity(virtualSong);
         return songFile;
-    }
-
-    public async Task<ServerStatus> GetServerStatusAsync()
-    {
-        try
-        {
-            await _httpClient.GetAsync(_serverInfo.GetBaseUrl());
-            return ServerStatus.Online;
-        }
-        catch (Exception)
-        {
-            return ServerStatus.Offline;
-        }
     }
 }

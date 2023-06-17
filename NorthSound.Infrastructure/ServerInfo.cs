@@ -33,4 +33,9 @@ public class ServerInfo : IServerInfo
     {
         return "http://localhost:5000/";
     }
+
+    public string GetChatUrl()
+    {
+        return "http://localhost:5000/chat";
+    }
 }

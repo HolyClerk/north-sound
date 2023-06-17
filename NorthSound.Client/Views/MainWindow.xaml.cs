@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NorthSound.Client;
@@ -22,7 +23,7 @@ public partial class MainWindow : Window
 
     private void Close(object sender, RoutedEventArgs e)
     {
-        Application.Current.Shutdown();
+        Environment.Exit(0);
     }
 
     private void Maximize(object sender, RoutedEventArgs e)
